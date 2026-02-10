@@ -3,7 +3,7 @@ import { getParam, loadEntriesNdjson, loadJson, shuffle, stripHebrewNiqqud } fro
 function byId(id){ return document.getElementById(id); }
 
 const LESSON_INDEX_PATH = "data/lessons/index.json";
-const MATCH_ROUND_SIZE = 10;
+const MATCH_ROUND_SIZE = 5;
 const ARABIC_VISIBILITY_KEY = "a1:show-arabic";
 const SENTENCE_COMPLETION_PATH = "data/test/sentence-completion.json";
 const SENTENCE_TRANSLATION_PATH = "data/test/sentence-translation.json";
