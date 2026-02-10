@@ -10,7 +10,7 @@ function renderLessonCards(){
     const a = document.createElement("a");
     a.className = "card";
     a.href = `lesson.html?l=${l}`;
-    a.innerHTML = `<h3>Lesson ${i}</h3><p>Vocabulary + games</p>`;
+    a.innerHTML = `<h3>שיעור ${i}</h3><p>אוצר מילים + משחקים</p>`;
     grid.appendChild(a);
   }
 }
@@ -44,7 +44,7 @@ function entryArabic(entry){
 async function initLessonPage(){
   const l = getParam("l");
   if(!l) return;
-  byId("lesson-title").textContent = `Lesson ${parseInt(l,10)}`;
+  byId("lesson-title").textContent = `שיעור ${parseInt(l,10)}`;
 
   const { items } = await loadLessonSet(l);
 
@@ -80,9 +80,10 @@ async function initGamePage(){
   if(!l) return;
 
   const { items } = await loadLessonSet(l);
-  byId("game-title").textContent = `Lesson ${parseInt(l,10)} • ${mode}`;
+  const modeLabel = mode === "flashcards" ? "כרטיסיות" : "חידון";
+  byId("game-title").textContent = `שיעור ${parseInt(l,10)} • ${modeLabel}`;
   if(items.length === 0){
-    byId("game-wrap").innerHTML = `<div class="notice">This lesson has no words yet. Add IDs to <span class="kbd">data/lessons/${l}.json</span>.</div>`;
+    byId("game-wrap").innerHTML = `<div class="notice">אין עדיין מילים בשיעור הזה. הוסיפו מזהים לקובץ <span class="kbd">data/lessons/${l}.json</span>.</div>`;
     return;
   }
 
@@ -106,17 +107,17 @@ function runFlashcards(l, items){
   const controls = document.createElement("div");
   controls.className = "row";
   controls.innerHTML = `
-    <button class="btn" id="prev">← Prev</button>
-    <button class="btn" id="flip">Flip</button>
-    <button class="btn" id="next">Next →</button>
+    <button class="btn" id="prev" type="button">הקודם</button>
+    <button class="btn" id="flip" type="button">הפוך</button>
+    <button class="btn" id="next" type="button">הבא</button>
     <span class="pill" id="progress"></span>
   `;
 
   const markRow = document.createElement("div");
   markRow.className = "row";
   markRow.innerHTML = `
-    <button class="btn good" id="mark-known">Mark Known</button>
-    <button class="btn bad" id="unmark-known">Unmark</button>
+    <button class="btn good" id="mark-known" type="button">סמן כידוע</button>
+    <button class="btn bad" id="unmark-known" type="button">בטל סימון</button>
     <span class="pill" id="known-count"></span>
   `;
 
@@ -146,7 +147,7 @@ function runFlashcards(l, items){
       : `<div class="front rtl">${front}</div>`;
 
     byId("progress").textContent = `${state.idx+1} / ${items.length}`;
-    byId("known-count").textContent = `Known: ${knownSet.size}`;
+    byId("known-count").textContent = `ידוע: ${knownSet.size}`;
 
     if(knownSet.has(e.id)) card.style.borderColor = "rgba(65,209,155,.6)";
     else card.style.borderColor = "";
@@ -181,15 +182,15 @@ function runQuiz(l, items){
   top.className = "row";
   top.innerHTML = `
     <span class="pill" id="score"></span>
-    <button class="btn" id="nextq" type="button">Next question</button>
-    <a class="btn" href="lesson.html?l=${l}">Back to lesson</a>
+    <button class="btn" id="nextq" type="button">שאלה הבאה</button>
+    <a class="btn" href="lesson.html?l=${l}">חזרה לשיעור</a>
   `;
 
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = `
     <div id="prompt" class="rtl ar" style="text-align:center;font-size:34px;margin:8px 0 4px"></div>
-    <div class="muted" style="text-align:center">Pick the correct meaning</div>
+    <div class="muted" style="text-align:center">בחרו את הפירוש הנכון</div>
     <div id="choices" class="choicegrid"></div>
     <div id="feedback" class="muted" style="margin-top:10px;text-align:center"></div>
   `;
@@ -204,7 +205,7 @@ function runQuiz(l, items){
   }
 
   function updateScore(){
-    byId("score").textContent = `Score: ${state.score} • Streak: ${state.streak} • Q: ${state.total}`;
+    byId("score").textContent = `ניקוד: ${state.score} • רצף: ${state.streak} • שאלה: ${state.total}`;
   }
 
   function makeQuestion(){
@@ -241,7 +242,7 @@ function runQuiz(l, items){
       el.classList.add("correct");
       state.score += 1;
       state.streak += 1;
-      byId("feedback").textContent = "✅ Correct";
+      byId("feedback").textContent = "✅ נכון!";
     }else{
       el.classList.add("wrong");
       state.streak = 0;
@@ -251,7 +252,7 @@ function runQuiz(l, items){
           c.classList.add("correct");
         }
       }
-      byId("feedback").textContent = `❌ Correct answer: ${fmtHe(answer.he)}`;
+      byId("feedback").textContent = `❌ התשובה הנכונה: ${fmtHe(answer.he)}`;
 
       const missKey = storageKey("missed", l);
       const prev = new Set(JSON.parse(localStorage.getItem(missKey) || "[]"));
@@ -277,7 +278,7 @@ async function initTestPage(){
     label.style.alignItems = "center";
     label.style.gap = "8px";
     label.style.margin = "6px 12px 6px 0";
-    label.innerHTML = `<input type="checkbox" name="lesson" value="${l}" checked /> Lesson ${i}`;
+    label.innerHTML = `<input type="checkbox" name="lesson" value="${l}" checked /> שיעור ${i}`;
     box.appendChild(label);
   }
 
@@ -286,7 +287,7 @@ async function initTestPage(){
     const mode = form.querySelector('input[name="mode"]:checked').value;
     const chosen = [...form.querySelectorAll('input[name="lesson"]:checked')].map(x => x.value);
     if(chosen.length === 0){
-      alert("Pick at least one lesson.");
+      alert("בחרו לפחות שיעור אחד.");
       return;
     }
 
@@ -303,7 +304,7 @@ async function initTestPage(){
     }
 
     if(allItems.length === 0){
-      alert("Those lessons are empty right now. Add IDs in the lesson JSON files.");
+      alert("השיעורים שבחרתם עדיין ריקים. הוסיפו מזהים לקבצי השיעורים.");
       return;
     }
 
@@ -320,13 +321,13 @@ async function initTestRunPage(){
 
   const payload = sessionStorage.getItem(packId);
   if(!payload){
-    byId("run-wrap").innerHTML = `<div class="notice">Pack not found (maybe you refreshed). Go back to Test Center and start again.</div>`;
+    byId("run-wrap").innerHTML = `<div class="notice">החבילה לא נמצאה (אולי ריעננתם). חזרו למרכז המבחנים והתחילו מחדש.</div>`;
     return;
   }
   const { items } = JSON.parse(payload);
-  byId("run-title").textContent = `Test Center • ${mode} • ${items.length} items`;
+  const modeLabel = mode === "flashcards" ? "כרטיסיות" : "חידון";
+  byId("run-title").textContent = `מרכז מבחנים • ${modeLabel} • ${items.length} פריטים`;
 
-  // Reuse the same game renderers by mounting into the existing page
   const gameWrap = document.createElement("div");
   gameWrap.id = "game-wrap";
   byId("run-wrap").appendChild(gameWrap);

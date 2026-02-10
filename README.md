@@ -1,43 +1,43 @@
-# Arabic 1 (Technion) – Study Hub (Starter)
+# ערבית 1 (טכניון) – מרכז לימוד (Starter)
 
-This starter gives you:
-- 13 lessons (each lesson references entry IDs)
-- Flashcards + Quiz (MCQ)
-- A "Test Center" that mixes selected lessons
-- Data stored cleanly as NDJSON + lesson mapping (good long-term)
+מבנה התחלתי שמאפשר:
+- 13 שיעורים (כל שיעור מפנה למזהי מילים)
+- כרטיסיות + חידון (אמריקאי)
+- "מרכז מבחנים" שמערבב שיעורים לפי בחירה
+- אחסון נתונים מסודר לטווח ארוך (NDJSON + שיוך לשיעורים)
 
-## Data structure (recommended)
+## מבנה נתונים מומלץ
 
-- `data/entries.ndjson` – one JSON object per line (stable, easy diffs)
-- `data/lessons/01.json` … `13.json` – list of entry IDs for each lesson
+- `data/entries.ndjson` – כל שורה היא אובייקט JSON (קל להרחיב, diffs נקיים)
+- `data/lessons/01.json` … `13.json` – רשימת מזהים לכל שיעור
 
-### Entry format (example)
+### דוגמה לפריט מילון
 
 ```json
 {"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitābun","he":"כִּתַאבּוּן"},"tags":["lesson:01"]}
 ```
 
-Tips:
-- Put Arabic with tashkīl in `ar.vocalized` and a plain version in `ar.plain`.
-- Hebrew can be a string or an array of alternatives.
-- Transliteration can be Latin and/or Hebrew.
+טיפים:
+- בערבית: הציגו עם ניקוד ב־`ar.vocalized` ושמרו גרסה בלי ניקוד ב־`ar.plain`.
+- עברית יכולה להיות מחרוזת או מערך של חלופות.
+- תעתיק יכול להיות לטיני ו/או עברי.
 
-## How to add lesson words
+## איך מוסיפים מילים לשיעור
 
-1) Add word objects to `data/entries.ndjson` (give each a unique `id`).
-2) Add those IDs to the lesson file, e.g. `data/lessons/01.json`:
+1) מוסיפים מילים ל־`data/entries.ndjson` (מזהה ייחודי לכל מילה).
+2) מוסיפים את המזהים לקובץ השיעור, למשל `data/lessons/01.json`:
 ```json
-{ "lesson": 1, "title": "Lesson 1", "items": ["a1-0001","a1-0002"] }
+{ "lesson": 1, "title": "שיעור 1", "items": ["a1-0001","a1-0002"] }
 ```
 
-## Games
+## משחקים
 
-- Flashcards: `game.html?l=01&mode=flashcards`
-- Quiz: `game.html?l=01&mode=quiz`
+- כרטיסיות: `game.html?l=01&mode=flashcards`
+- חידון: `game.html?l=01&mode=quiz`
 
-Test Center builds a temporary pack in `sessionStorage` so it works without a backend.
+מרכז המבחנים יוצר חבילת תרגול זמנית ב־`sessionStorage` כדי לעבוד בלי שרת.
 
-## Next upgrades (easy)
-- Typing mode (Arabic/Hebrew) with diacritics-insensitive matching
-- Matching game (pairs)
-- Sentence cloze using `data/sentences.json`
+## שדרוגים הבאים (קל להוסיף)
+- מצב כתיבה (ערבית/עברית) עם השוואה בלי ניקוד
+- משחק התאמות (Pairs)
+- השלמת משפטים דרך `data/sentences.json`
