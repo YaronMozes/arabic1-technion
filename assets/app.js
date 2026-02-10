@@ -32,7 +32,7 @@ const hebrewCollator = new Intl.Collator("he", {
   numeric: true
 });
 const ARABIC_ALPHABET = [
-  { letter: "ا", nameHe: "אלף", translit: "א / אַא" },
+  { letter: "ا", nameHe: "אלף", translit: "א" },
   { letter: "ب", nameHe: "באא", translit: "בּ" },
   { letter: "ت", nameHe: "תאא", translit: "ת" },
   { letter: "ث", nameHe: "ת׳אא", translit: "ת׳" },
