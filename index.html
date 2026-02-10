@@ -2,24 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Arabic 1 (Technion) – Vocab</title>
-  <style>
-    body { font-family: system-ui, Arial; max-width: 900px; margin: 40px auto; padding: 0 16px; }
-    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 12px 0; }
-    a { text-decoration: none; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arabic 1 (Technion) • Study Hub</title>
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <h1>Arabic 1 (Technion) – Vocab</h1>
-  <p><em>Unofficial study companion</em></p>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <h1>Arabic 1 (Technion) • Study Hub</h1>
+        <p>Lessons, vocabulary, and games — built on GitHub Pages.</p>
+      </div>
+      <div class="row">
+        <a class="btn primary" href="test.html">Test Center</a>
+      </div>
+    </div>
 
-  <div class="card"><a href="lesson-01.html">Lesson 1 Vocabulary</a></div>
-  <div class="card"><a href="lesson-02.html">Lesson 2 Vocabulary</a></div>
-  <div class="card"><a href="lesson-03.html">Lesson 3 Vocabulary</a></div>
-  <div class="card"><a href="test-pack.html">Test Pack (All lessons + extras)</a></div>
+    <div class="notice">
+      <strong>How it’s organized:</strong> add words once in <span class="kbd">data/entries.ndjson</span>, then attach them to lessons in
+      <span class="kbd">data/lessons/01.json</span> … <span class="kbd">13.json</span>.
+    </div>
 
-  <hr />
-  <p>Built by YaronMozes on GitHub Pages.</p>
+    <hr />
+
+    <div class="grid" id="lessons-grid"></div>
+
+    <div class="footer">
+      Updated: 2026-02-10. Unofficial study companion.
+    </div>
+  </div>
+
+  <script type="module" src="assets/app.js"></script>
 </body>
 </html>

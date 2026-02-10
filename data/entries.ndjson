@@ -1,0 +1,5 @@
+{"id": "a1-0001", "pos": "noun", "ar": {"vocalized": "كِتابٌ", "plain": "كتاب"}, "he": ["ספר"], "translit": {"latin": "kitābun", "he": "כִּתַאבּוּן"}, "tags": ["lesson:01", "topic:school"]}
+{"id": "a1-0002", "pos": "noun", "ar": {"vocalized": "جامِعَةٌ", "plain": "جامعة"}, "he": ["אוניברסיטה"], "translit": {"latin": "jāmiʿa", "he": "ג׳אמעה"}, "tags": ["lesson:01", "topic:school"]}
+{"id": "a1-0003", "pos": "verb", "ar": {"vocalized": "دَرَسَ", "plain": "درس"}, "he": ["למד"], "translit": {"latin": "darasa", "he": "דראס"}, "tags": ["lesson:01", "topic:study"]}
+{"id": "a1-0004", "pos": "prep", "ar": {"vocalized": "فِي", "plain": "في"}, "he": ["ב־", "בתוך"], "translit": {"latin": "fī", "he": "פי"}, "tags": ["lesson:01", "topic:grammar"]}
+{"id": "a1-0005", "pos": "noun", "ar": {"vocalized": "طَالِبٌ", "plain": "طالب"}, "he": ["סטודנט"], "translit": {"latin": "ṭālib", "he": "טאלבּ"}, "tags": ["lesson:01", "topic:people"]}

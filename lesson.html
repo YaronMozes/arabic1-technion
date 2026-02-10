@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson • Arabic 1 (Technion)</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <h1 id="lesson-title">Lesson</h1>
+        <p class="muted">Vocabulary list + games</p>
+      </div>
+      <div class="row">
+        <a class="btn" href="index.html">Home</a>
+        <a class="btn primary" id="btn-flashcards" href="#">Flashcards</a>
+        <a class="btn primary" id="btn-quiz" href="#">Quiz</a>
+      </div>
+    </div>
+
+    <div id="lesson-empty" class="notice" style="display:none">
+      This lesson is empty right now. Add entry IDs to <span class="kbd">data/lessons/XX.json</span>.
+    </div>
+
+    <div id="lesson-table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Arabic</th>
+            <th>Hebrew</th>
+            <th>Transliteration</th>
+          </tr>
+        </thead>
+        <tbody id="lesson-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <span class="muted">Games accept Arabic with or without tashkīl (diacritics).</span>
+    </div>
+  </div>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
