@@ -15,12 +15,12 @@ https://yaronmozes.github.io/arabic1-technion/
 ## Features (current)
 - 13 lesson pages (Lesson 1–13)
 - Lesson vocabulary table
-- Per-lesson games:
-  - Flashcards
+- Per-lesson practice:
   - Multiple-choice quiz (MCQ)
+  - Matching game (Arabic ↔ Hebrew)
 - Test Center:
   - Mix selected lessons
-  - Run Flashcards or Quiz on the combined set
+  - Run Quiz on the combined set
 
 ---
 
@@ -37,6 +37,8 @@ https://yaronmozes.github.io/arabic1-technion/
     styles.css
     app.js
     data.js
+  /docs
+    data-schema.md
   /data
     entries.ndjson
     /lessons
@@ -44,6 +46,8 @@ https://yaronmozes.github.io/arabic1-technion/
       02.json
       ...
       13.json
+  /scripts
+    validate-data.mjs
 ```
 
 ### Why this data model?
@@ -69,10 +73,13 @@ Recommended fields:
 - `pos` (string): noun / verb / prep / phrase / etc. (optional but useful)
 - `ar.vocalized`: Arabic **with** tashkīl (for display)
 - `ar.plain`: Arabic **without** tashkīl (for matching/typing)
-- `he`: Hebrew meaning (string or array of alternatives)
+- `he`: Hebrew meanings (array of alternatives)
 - `translit.latin`: transliteration in Latin (recommended)
 - `translit.he`: transliteration written in Hebrew letters (optional)
 - `tags`: anything helpful (lesson, topic, difficulty, etc.)
+
+Schema reference:
+- `docs/data-schema.md`
 
 ### `data/lessons/01.json` … `13.json` (lesson mapping)
 Example:
@@ -96,6 +103,23 @@ Example:
    - ...
    - `data/lessons/13.json` for Lesson 13
 3) Commit + push — GitHub Pages updates automatically.
+
+---
+
+## Validate data
+
+Run the validator before pushing vocabulary updates:
+
+```bash
+node scripts/validate-data.mjs
+```
+
+The validator checks:
+- NDJSON syntax and required entry fields
+- Arabic plain/vocalized consistency rules
+- Unique entry IDs
+- Lesson file coverage (`01.json` ... `13.json`)
+- Missing IDs and duplicated lesson assignments
 
 ---
 
@@ -128,7 +152,6 @@ Install “Live Server”, then right-click `index.html` → “Open with Live S
 
 ## Roadmap (planned)
 - Typing mode (Arabic / Hebrew), including diacritics-insensitive checking
-- Matching game (pairs)
 - Sentence completion (cloze) using `data/sentences.json`
 - Dictionary search page (browse + filters)
 

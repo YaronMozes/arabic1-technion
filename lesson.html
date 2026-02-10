@@ -8,38 +8,37 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
+    <div class="header game-header">
       <div class="brand">
         <h1 id="lesson-title">שיעור</h1>
-        <p class="muted">רשימת אוצר מילים + משחקים</p>
       </div>
-      <div class="row">
-        <a class="btn" href="index.html">בית</a>
-        <a class="btn primary" id="btn-flashcards" href="#">כרטיסיות</a>
-        <a class="btn primary" id="btn-quiz" href="#">חידון</a>
+      <div class="row game-nav">
+        <a class="btn" id="btn-lesson-vocab" href="#">אוצר מילים</a>
+        <a class="btn" id="btn-quiz" href="#">חידון</a>
+        <a class="btn" id="btn-match" href="#">התאמת מילים</a>
       </div>
     </div>
+
+    <aside class="game-side-toolbar" aria-label="ניווט מהיר">
+      <a class="btn" id="btn-side-home" href="index.html">בית</a>
+      <select id="game-lesson-select" class="game-side-select" aria-label="מעבר לשיעור"></select>
+    </aside>
 
     <div id="lesson-empty" class="notice" style="display:none">
-      השיעור הזה ריק כרגע. הוסיפו מזהים לקובץ <span class="kbd">data/lessons/XX.json</span>.
+      השיעור הזה עדיין לא זמין לתרגול.
     </div>
 
-    <div id="lesson-table-wrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ערבית</th>
-            <th>עברית</th>
-            <th class="ltr">תעתיק</th>
-          </tr>
-        </thead>
-        <tbody id="lesson-tbody"></tbody>
-      </table>
+    <div id="lesson-table-wrap" class="lesson-words-wrap">
+      <div id="lesson-words" class="lesson-word-grid"></div>
     </div>
 
-    <div class="footer">
-      <span class="muted">המשחקים יכולים לקבל מילה בערבית עם/בלי ניקוד (tashkīl).</span>
+    <div class="footer site-credit">
+      Designed by Yaron Mozes
+      · <a href="https://github.com/YaronMozes" target="_blank" rel="noopener noreferrer">GitHub</a>
+      · <a href="https://www.linkedin.com/in/yaron-mozes-544a99288" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      · Last updated: February 10, 2026
     </div>
+
   </div>
 
   <script type="module" src="assets/app.js"></script>
