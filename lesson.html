@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>שיעור • ערבית 1 (טכניון)</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header game-header">
+      <div class="brand">
+        <h1 id="lesson-title">שיעור</h1>
+      </div>
+      <div class="row game-nav">
+        <a class="btn" id="btn-lesson-vocab" href="#">אוצר מילים</a>
+        <a class="btn" id="btn-quiz" href="#">חידון</a>
+        <a class="btn" id="btn-match" href="#">התאמת מילים</a>
+      </div>
+    </div>
+
+    <aside class="game-side-toolbar" aria-label="ניווט מהיר">
+      <a class="btn" id="btn-side-home" href="index.html">בית</a>
+      <select id="game-lesson-select" class="game-side-select" aria-label="מעבר לשיעור"></select>
+    </aside>
+
+    <div id="lesson-empty" class="notice" style="display:none">
+      השיעור הזה עדיין לא זמין לתרגול.
+    </div>
+
+    <div id="lesson-table-wrap" class="lesson-words-wrap">
+      <div id="lesson-words" class="lesson-word-grid"></div>
+    </div>
+
+    <div class="footer site-credit">
+      Designed by Yaron Mozes
+      · <a href="https://github.com/YaronMozes" target="_blank" rel="noopener noreferrer">GitHub</a>
+      · <a href="https://www.linkedin.com/in/yaron-mozes-544a99288" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      · Last updated: February 10, 2026
+    </div>
+
+  </div>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
