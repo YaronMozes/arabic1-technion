@@ -1,5 +1,20 @@
-{"id": "a1-0001", "pos": "noun", "ar": {"vocalized": "كِتابٌ", "plain": "كتاب"}, "he": ["ספר"], "translit": {"he": "כִּתַאבּוּן"}, "tags": ["lesson:01", "topic:school"]}
-{"id": "a1-0002", "pos": "noun", "ar": {"vocalized": "جامِعَةٌ", "plain": "جامعة"}, "he": ["אוניברסיטה"], "translit": {"he": "ג׳אמעה"}, "tags": ["lesson:01", "topic:school"]}
-{"id": "a1-0003", "pos": "verb", "ar": {"vocalized": "دَرَسَ", "plain": "درس"}, "he": ["למד"], "translit": {"he": "דראס"}, "tags": ["lesson:01", "topic:study"]}
-{"id": "a1-0004", "pos": "prep", "ar": {"vocalized": "فِي", "plain": "في"}, "he": ["ב־", "בתוך"], "translit": {"he": "פי"}, "tags": ["lesson:01", "topic:grammar"]}
-{"id": "a1-0005", "pos": "noun", "ar": {"vocalized": "طَالِبٌ", "plain": "طالب"}, "he": ["סטודנט"], "translit": {"he": "טאלבּ"}, "tags": ["lesson:01", "topic:people"]}
+{"id":"a1-0101","pos":"particle","ar":{"vocalized":"لَا / لَأ","plain":"لا / لأ"},"he":["לא"],"translit":{"he":"לַא"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0102","pos":"demonstrative","ar":{"vocalized":"هٰذَا","plain":"هذا"},"he":["זה"],"translit":{"he":"הַאדַ׳א"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0103","pos":"demonstrative","ar":{"vocalized":"هَاذِي","plain":"هاذي"},"he":["זאת"],"translit":{"he":"הַאדִ׳י"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0104","pos":"question","ar":{"vocalized":"وِين","plain":"وين"},"he":["איפה?"],"translit":{"he":"וֵין"},"tags":["lesson:01","topic:questions"]}
+{"id":"a1-0105","pos":"adverb","ar":{"vocalized":"هُون","plain":"هون"},"he":["כאן"],"translit":{"he":"הוֹן"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0106","pos":"pronoun","ar":{"vocalized":"أَنَا","plain":"أنا"},"he":["אני"],"translit":{"he":"אַנַא"},"tags":["lesson:01","topic:pronouns"]}
+{"id":"a1-0107","pos":"pronoun","ar":{"vocalized":"إِنْتَ","plain":"إنت"},"he":["אתה"],"translit":{"he":"אִנְתֵ"},"tags":["lesson:01","topic:pronouns"]}
+{"id":"a1-0108","pos":"pronoun","ar":{"vocalized":"إِنْتِي","plain":"إنتي"},"he":["את"],"translit":{"he":"אִנְתִי"},"tags":["lesson:01","topic:pronouns"]}
+{"id":"a1-0109","pos":"article","ar":{"vocalized":"اَلْ","plain":"ال"},"he":["ה־ (ה\"א הידיעה)"],"translit":{"he":"אִל־"},"tags":["lesson:01","topic:grammar"]}
+{"id":"a1-0110","pos":"question","ar":{"vocalized":"مِن وِين","plain":"من وين"},"he":["מניין?","מאיפה?"],"translit":{"he":"מִן וֵין"},"tags":["lesson:01","topic:questions"]}
+{"id":"a1-0111","pos":"preposition","ar":{"vocalized":"فِي","plain":"في"},"he":["ב־","בתוך"],"translit":{"he":"פִי"},"tags":["lesson:01","topic:grammar"]}
+{"id":"a1-0112","pos":"particle","ar":{"vocalized":"نَعَمْ","plain":"نعم"},"he":["כן"],"translit":{"he":"נַעַם"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0113","pos":"determiner","ar":{"vocalized":"هَال","plain":"هال"},"he":["הזה / הזאת / האלה (לפני שם עצם)"],"translit":{"he":"הַל־"},"tags":["lesson:01","topic:grammar"]}
+{"id":"a1-0114","pos":"question","ar":{"vocalized":"مِين","plain":"مين"},"he":["מי?"],"translit":{"he":"מִין"},"tags":["lesson:01","topic:questions"]}
+{"id":"a1-0115","pos":"question","ar":{"vocalized":"شُو","plain":"شو"},"he":["מה?"],"translit":{"he":"שוּ"},"tags":["lesson:01","topic:questions"]}
+{"id":"a1-0116","pos":"particle","ar":{"vocalized":"مِش / مُو","plain":"مش / مو"},"he":["לא (לפני שם עצם / תואר)"],"translit":{"he":"מִש / מוּ"},"tags":["lesson:01","topic:grammar"]}
+{"id":"a1-0117","pos":"adjective","ar":{"vocalized":"سَاكِن","plain":"ساكن"},"he":["גר"],"translit":{"he":"סַאכֵּן"},"tags":["lesson:01","topic:people"]}
+{"id":"a1-0118","pos":"adjective","ar":{"vocalized":"سَاكِنَة","plain":"ساكنة"},"he":["גרה"],"translit":{"he":"סַאכְּנֵה"},"tags":["lesson:01","topic:people"]}
+{"id":"a1-0119","pos":"particle","ar":{"vocalized":"كَمَان","plain":"كمان"},"he":["גם","גם כן"],"translit":{"he":"כַּמַאן"},"tags":["lesson:01","topic:basics"]}
+{"id":"a1-0120","pos":"particle","ar":{"vocalized":"يَا","plain":"يا"},"he":["מילת פנייה לפני שם"],"translit":{"he":"יַא"},"tags":["lesson:01","topic:basics"]}

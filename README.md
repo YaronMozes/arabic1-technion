@@ -13,7 +13,7 @@ https://yaronmozes.github.io/arabic1-technion/
 ---
 
 ## Features (current)
-- 13 lesson pages (Lesson 1–13)
+- 15 lesson pages (Lesson 1–13 + Greetings + Enrichment)
 - Lesson vocabulary table
 - Per-lesson practice:
   - Multiple-choice quiz (MCQ)
@@ -42,10 +42,11 @@ https://yaronmozes.github.io/arabic1-technion/
   /data
     entries.ndjson
     /lessons
+      index.json
       01.json
       02.json
       ...
-      13.json
+      15.json
   /scripts
     validate-data.mjs
 ```
@@ -54,6 +55,7 @@ https://yaronmozes.github.io/arabic1-technion/
 This repo is designed for long-term growth (many words + multiple game modes):
 
 - `data/entries.ndjson` is the **canonical dictionary** (one JSON object per line).
+- `data/lessons/index.json` is the **lesson manifest** (order, labels, navigation).
 - Each lesson file `data/lessons/XX.json` contains only a list of **entry IDs**.
   - This avoids duplication and makes “Test packs” easy.
 
@@ -81,7 +83,20 @@ Recommended fields:
 Schema reference:
 - `docs/data-schema.md`
 
-### `data/lessons/01.json` … `13.json` (lesson mapping)
+### `data/lessons/index.json` (lesson manifest)
+Defines lesson order and labels used in UI selectors/cards:
+
+```json
+{
+  "lessons": [
+    { "code": "01", "lesson": 1, "title": "שיעור 1" },
+    { "code": "14", "lesson": 14, "title": "ברכות" },
+    { "code": "15", "lesson": 15, "title": "העשרה" }
+  ]
+}
+```
+
+### `data/lessons/01.json` … `15.json` (lesson mapping)
 Example:
 
 ```json
@@ -102,7 +117,10 @@ Example:
    - `data/lessons/01.json` for Lesson 1
    - ...
    - `data/lessons/13.json` for Lesson 13
-3) Commit + push — GitHub Pages updates automatically.
+   - `data/lessons/14.json` for Greetings
+   - `data/lessons/15.json` for Enrichment
+3) If lesson order/titles change, update `data/lessons/index.json`.
+4) Commit + push — GitHub Pages updates automatically.
 
 ---
 
@@ -118,7 +136,8 @@ The validator checks:
 - NDJSON syntax and required entry fields
 - Arabic plain/vocalized consistency rules
 - Unique entry IDs
-- Lesson file coverage (`01.json` ... `13.json`)
+- Lesson manifest schema (`data/lessons/index.json`)
+- Lesson file coverage (`01.json` ... `15.json`)
 - Missing IDs and duplicated lesson assignments
 
 ---

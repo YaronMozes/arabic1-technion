@@ -11,27 +11,37 @@
     <div class="header">
       <div class="brand">
         <h1>למידה למבחן</h1>
-        <p class="muted">מערבבים שיעורים ומתרגלים</p>
-      </div>
-      <div class="row">
-        <a class="btn" href="index.html">בית</a>
       </div>
     </div>
 
+    <aside class="game-side-toolbar" aria-label="ניווט מהיר">
+      <a class="btn" id="btn-side-home" href="index.html">בית</a>
+    </aside>
+
     <form id="test-form" class="card">
-      <h3 style="margin-top:0">בחרו שיעורים</h3>
-      <div id="lesson-checks"></div>
-
-      <hr />
-
-      <h3>מצב תרגול</h3>
-      <div class="notice">
-        חידון (אמריקאי) בלבד כרגע.
+      <h3 class="test-mode-heading">בחרו חלק לתרגול</h3>
+      <div class="test-mode-grid" id="test-mode-grid">
+        <label class="test-mode-option">
+          <span class="test-mode-index" aria-hidden="true">1</span>
+          <input type="radio" name="test-mode" value="sentence_completion" />
+          <span class="test-mode-title">השלמת משפטים (לפחות 4 מילים)</span>
+        </label>
+        <label class="test-mode-option">
+          <span class="test-mode-index" aria-hidden="true">2</span>
+          <input type="radio" name="test-mode" value="he_to_tr_niqqud" />
+          <span class="test-mode-title">תרגום משפטים מעברית לתעתיק (עם ניקוד)</span>
+        </label>
+        <label class="test-mode-option">
+          <span class="test-mode-index" aria-hidden="true">3</span>
+          <input type="radio" name="test-mode" value="tr_to_he" />
+          <span class="test-mode-title">תרגום משפטים מתעתיק לעברית</span>
+        </label>
+        <label class="test-mode-option">
+          <span class="test-mode-index" aria-hidden="true">4</span>
+          <input type="radio" name="test-mode" value="greetings_he_to_tr_plain" />
+          <span class="test-mode-title">ברכות מעברית לתעתיק (בלי ניקוד)</span>
+        </label>
       </div>
-
-      <hr />
-
-      <button class="btn primary" type="submit">התחל</button>
     </form>
 
     <div class="footer site-credit">

@@ -3,6 +3,7 @@
 This project uses a dictionary-first model:
 
 - `data/entries.ndjson` is the canonical source of vocabulary entries.
+- `data/lessons/index.json` is the lesson manifest (order, labels, lesson codes).
 - `data/lessons/XX.json` maps lesson numbers to entry IDs.
 
 This keeps content deduplicated and supports lesson games, mixed tests, and future features.
@@ -35,6 +36,27 @@ Example:
 {"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["lesson:01","topic:school"],"difficulty":1}
 ```
 
+## Lesson Manifest Schema (`data/lessons/index.json`)
+
+Required fields:
+
+- `lessons` (array): ordered list used by UI navigation.
+- `lessons[].code` (string): file code, for example `01`, `14`, `15`.
+- `lessons[].lesson` (integer): lesson number matching the code.
+- `lessons[].title` (string): Hebrew lesson title shown in UI.
+
+Example:
+
+```json
+{
+  "lessons": [
+    { "code": "01", "lesson": 1, "title": "שיעור 1" },
+    { "code": "14", "lesson": 14, "title": "ברכות" },
+    { "code": "15", "lesson": 15, "title": "העשרה" }
+  ]
+}
+```
+
 ## Lesson Schema (`data/lessons/XX.json`)
 
 Required fields:
@@ -61,6 +83,8 @@ Example:
 ## Rules Enforced by Validator
 
 - Every entry ID is unique.
+- Lesson manifest rows are validated for code/number/title consistency.
+- Every lesson listed in `data/lessons/index.json` must have a matching `data/lessons/XX.json` file.
 - Every lesson ID reference exists in `entries.ndjson`.
 - Lesson references are unique across lessons (no duplication).
 - `ar.plain` must not contain Arabic diacritics.
