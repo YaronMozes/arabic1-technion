@@ -664,9 +664,11 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 }
 .quiz-auto-toggle{
   display:grid;
-  grid-template-columns:18px 1fr 18px;
+  grid-template-columns:18px minmax(0,1fr) 18px;
+  grid-auto-rows:1fr;
   align-items:center;
   column-gap:10px;
+  direction:ltr;
   color:#e9f2ff;
   font-size:14px;
   padding:8px 12px;
@@ -678,13 +680,17 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 }
 .quiz-auto-toggle::before{
   content:"";
+  grid-column:1;
+  grid-row:1;
   width:18px;
   height:18px;
 }
 .quiz-auto-toggle span{
   grid-column:2;
+  grid-row:1;
   justify-self:center;
   min-width:0;
+  direction:rtl;
   text-align:center;
   white-space:nowrap;
   overflow:hidden;
@@ -694,6 +700,7 @@ hr{border:0;border-top:1px solid var(--border);margin:18px 0}
 }
 .quiz-auto-toggle input{
   grid-column:3;
+  grid-row:1;
   -webkit-appearance:none;
   appearance:none;
   width:18px;
