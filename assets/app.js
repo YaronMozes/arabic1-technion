@@ -98,6 +98,96 @@ function setArabicVisibility(show){
   applyArabicVisibility(show);
 }
 
+function initSideToolbarDrawer(){
+  if(!document.body){
+    return;
+  }
+
+  const toolbar = document.querySelector(".game-side-toolbar");
+  if(!toolbar || toolbar.dataset.drawerReady === "1"){
+    return;
+  }
+  toolbar.dataset.drawerReady = "1";
+
+  const toolbarId = toolbar.id || "side-toolbar-drawer";
+  toolbar.id = toolbarId;
+
+  const drawerHead = document.createElement("div");
+  drawerHead.className = "side-drawer-head";
+  drawerHead.innerHTML = `<span class="side-drawer-title">ניווט מהיר</span>`;
+
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "btn side-drawer-close";
+  closeBtn.setAttribute("aria-label", "סגירת חלון ניווט");
+  closeBtn.textContent = "×";
+  drawerHead.appendChild(closeBtn);
+  toolbar.prepend(drawerHead);
+
+  const overlay = document.createElement("button");
+  overlay.type = "button";
+  overlay.className = "side-drawer-overlay";
+  overlay.setAttribute("aria-label", "סגירת חלון ניווט");
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "btn side-drawer-toggle";
+  toggle.setAttribute("aria-controls", toolbarId);
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.innerHTML = `
+    <span class="side-drawer-toggle-icon" aria-hidden="true">☰</span>
+    <span>ניווט</span>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(toggle);
+
+  const isOpen = () => document.body.classList.contains("drawer-open");
+
+  function openDrawer(){
+    document.body.classList.add("drawer-open");
+    toggle.setAttribute("aria-expanded", "true");
+    toolbar.setAttribute("aria-hidden", "false");
+  }
+
+  function closeDrawer(){
+    document.body.classList.remove("drawer-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toolbar.setAttribute("aria-hidden", "true");
+  }
+
+  closeDrawer();
+
+  toggle.addEventListener("click", () => {
+    if(isOpen()){
+      closeDrawer();
+      return;
+    }
+    openDrawer();
+  });
+
+  closeBtn.addEventListener("click", closeDrawer);
+  overlay.addEventListener("click", closeDrawer);
+
+  document.addEventListener("keydown", (event) => {
+    if(event.key === "Escape" && isOpen()){
+      closeDrawer();
+    }
+  });
+
+  toolbar.addEventListener("click", (event) => {
+    if(event.target.closest("a, button")){
+      closeDrawer();
+    }
+  });
+
+  toolbar.addEventListener("change", (event) => {
+    if(event.target.closest("select")){
+      closeDrawer();
+    }
+  });
+}
+
 function attachArabicToggleToSideToolbar(select){
   const toolbar = select?.closest(".game-side-toolbar");
   if(!toolbar) return;
@@ -1478,7 +1568,11 @@ async function initTestRunPage(){
     return;
   }
 
-  byId("run-title").textContent = `למידה למבחן • ${modeLabel}`;
+  const runOverline = byId("run-overline");
+  if(runOverline){
+    runOverline.textContent = "למידה למבחן";
+  }
+  byId("run-title").textContent = modeLabel;
 
   const gameWrap = document.createElement("div");
   gameWrap.id = "game-wrap";
@@ -1492,6 +1586,7 @@ async function initTestRunPage(){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initSideToolbarDrawer();
   applyArabicVisibility(readArabicVisibility());
   renderLessonCards().catch(console.error);
   initLessonPage().catch(console.error);

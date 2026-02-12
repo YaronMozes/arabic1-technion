@@ -167,6 +167,9 @@ http://localhost:8000/
 **Option B — VS Code extension:**
 Install “Live Server”, then right-click `index.html` → “Open with Live Server”.
 
+## Navigation drawer
+- In lesson/game/test screens, use the floating `ניווט` button to open the right-side navigation drawer.
+
 ---
 
 ## Roadmap (planned)

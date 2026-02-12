@@ -6,20 +6,23 @@
   <title>למידה למבחן • ערבית 1 (טכניון)</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body>
+<body class="page-test">
+  <div class="page-glow" aria-hidden="true"></div>
   <div class="container">
-    <div class="header">
+    <header class="header">
       <div class="brand">
         <h1>למידה למבחן</h1>
+        <p>התרגול בנוי בדיוק כמו המבחן: 4 חלקים.</p>
       </div>
-    </div>
+    </header>
 
     <aside class="game-side-toolbar" aria-label="ניווט מהיר">
       <a class="btn" id="btn-side-home" href="index.html">בית</a>
     </aside>
 
-    <form id="test-form" class="card">
-      <h3 class="test-mode-heading">בחרו חלק לתרגול</h3>
+    <form id="test-form" class="card test-card">
+      <h3 class="test-mode-heading">בחרו אחד מארבעת חלקי המבחן</h3>
+      <p class="test-mode-subtitle">כל חלק נפתח מיד לתרגול ממוקד.</p>
       <div class="test-mode-grid" id="test-mode-grid">
         <label class="test-mode-option">
           <span class="test-mode-index" aria-hidden="true">1</span>
