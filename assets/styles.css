@@ -1018,11 +1018,17 @@ body.drawer-open .side-drawer-toggle{
 
 .quiz-auto-toggle::before{
   content:"";
+  grid-column:1;
+  grid-row:1;
   width:18px;
   height:18px;
 }
 
 .quiz-auto-toggle span{
+  grid-column:2;
+  grid-row:1;
+  justify-self:center;
+  width:100%;
   min-width:0;
   direction:rtl;
   text-align:center;
@@ -1034,6 +1040,9 @@ body.drawer-open .side-drawer-toggle{
 }
 
 .quiz-auto-toggle input{
+  grid-column:3;
+  grid-row:1;
+  justify-self:end;
   -webkit-appearance:none;
   appearance:none;
   width:18px;
