@@ -30,13 +30,6 @@ function normalizeSpaces(value) {
   return value.trim().replace(/\s+/g, " ");
 }
 
-function normalizeLessonCode(lessonNumber) {
-  if (!Number.isInteger(lessonNumber) || lessonNumber < 1) {
-    return "";
-  }
-  return String(lessonNumber).padStart(2, "0");
-}
-
 function stripArabicDiacritics(value) {
   return value
     .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
@@ -241,12 +234,9 @@ async function loadLessonIndex() {
       return;
     }
 
-    const expectedCode = normalizeLessonCode(lessonNumber);
-    const code = isNonEmptyString(row.code) ? row.code.trim() : expectedCode;
+    const code = isNonEmptyString(row.code) ? row.code.trim() : "";
     if (!isNonEmptyString(row.code)) {
       error(`${itemContext}: "code" must be a non-empty string.`);
-    } else if (code !== expectedCode) {
-      error(`${itemContext}: "code" must be "${expectedCode}" for lesson ${lessonNumber}.`);
     }
 
     if (!isNonEmptyString(row.title)) {
@@ -357,12 +347,17 @@ async function validateLessons(entryIdSet, lessonDefs) {
       error(`${context}: "title_he" must be a non-empty string when provided.`);
     }
 
+    if ("allow_empty_items" in lesson && typeof lesson.allow_empty_items !== "boolean") {
+      error(`${context}: "allow_empty_items" must be boolean when provided.`);
+    }
+
     if (!Array.isArray(lesson.items)) {
       error(`${context}: "items" must be an array.`);
       continue;
     }
 
-    if (lesson.items.length === 0) {
+    const allowEmptyItems = lesson.allow_empty_items === true;
+    if (lesson.items.length === 0 && !allowEmptyItems) {
       warn(`${context}: "items" is empty.`);
     }
 
@@ -394,7 +389,7 @@ async function validateLessons(entryIdSet, lessonDefs) {
     if (lessonCodes.length > 1) {
       error(
         `Entry "${entryId}" is assigned to multiple lessons: ${lessonCodes
-          .map((code) => Number(code))
+          .map((code) => String(code))
           .join(", ")}.`
       );
     }

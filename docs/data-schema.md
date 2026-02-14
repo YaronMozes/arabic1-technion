@@ -4,7 +4,7 @@ This project uses a dictionary-first model:
 
 - `data/entries.ndjson` is the canonical source of vocabulary entries.
 - `data/lessons/index.json` is the lesson manifest (order, labels, lesson codes).
-- `data/lessons/XX.json` maps lesson numbers to entry IDs.
+- `data/lessons/<code>.json` maps each study space to entry IDs.
 
 This keeps content deduplicated and supports lesson games, mixed tests, and future features.
 
@@ -24,7 +24,7 @@ Optional fields:
 - `pos` (string): part of speech, for example `noun`, `verb`, `prep`, `phrase`.
 - `translit.latin` (string): Latin transliteration.
 - `translit.he` (string): Hebrew transliteration.
-- `tags` (array of strings): free tags, for example `lesson:01`, `topic:school`.
+- `tags` (array of strings): free tags, for example `lesson:vocab`, `topic:school`.
 - `difficulty` (integer 1-5): estimated learner difficulty.
 - `notes_he` (string): concise Hebrew study note.
 - `examples` (array of strings): sentence/example IDs.
@@ -33,7 +33,7 @@ Optional fields:
 Example:
 
 ```json
-{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["lesson:01","topic:school"],"difficulty":1}
+{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["lesson:vocab","topic:school"],"difficulty":1}
 ```
 
 ## Lesson Manifest Schema (`data/lessons/index.json`)
@@ -41,8 +41,8 @@ Example:
 Required fields:
 
 - `lessons` (array): ordered list used by UI navigation.
-- `lessons[].code` (string): file code, for example `01`, `14`, `15`.
-- `lessons[].lesson` (integer): lesson number matching the code.
+- `lessons[].code` (string): file code, for example `vocab`, `greetings`, `enrichment`.
+- `lessons[].lesson` (integer): stable display order number.
 - `lessons[].title` (string): Hebrew lesson title shown in UI.
 
 Example:
@@ -50,18 +50,18 @@ Example:
 ```json
 {
   "lessons": [
-    { "code": "01", "lesson": 1, "title": "שיעור 1" },
-    { "code": "14", "lesson": 14, "title": "ברכות" },
-    { "code": "15", "lesson": 15, "title": "העשרה" }
+    { "code": "vocab", "lesson": 1, "title": "אוצר מילים" },
+    { "code": "greetings", "lesson": 2, "title": "ברכות" },
+    { "code": "enrichment", "lesson": 3, "title": "העשרה" }
   ]
 }
 ```
 
-## Lesson Schema (`data/lessons/XX.json`)
+## Lesson Schema (`data/lessons/<code>.json`)
 
 Required fields:
 
-- `lesson` (integer): lesson number, must match file name (`01.json` => `1`).
+- `lesson` (integer): lesson display order from the manifest.
 - `items` (array of strings): list of entry IDs from `entries.ndjson`.
 
 Optional fields:
@@ -69,13 +69,14 @@ Optional fields:
 - `title` or `title_he` (string): lesson title in Hebrew.
 - `tags` (array of strings): lesson-level tags.
 - `notes_he` (string): lesson-level notes.
+- `allow_empty_items` (boolean): set `true` when an empty list is intentional.
 
 Example:
 
 ```json
 {
   "lesson": 1,
-  "title": "שיעור 1",
+  "title": "אוצר מילים",
   "items": ["a1-0001", "a1-0002"]
 }
 ```
@@ -84,7 +85,7 @@ Example:
 
 - Every entry ID is unique.
 - Lesson manifest rows are validated for code/number/title consistency.
-- Every lesson listed in `data/lessons/index.json` must have a matching `data/lessons/XX.json` file.
+- Every lesson listed in `data/lessons/index.json` must have a matching `data/lessons/<code>.json` file.
 - Every lesson ID reference exists in `entries.ndjson`.
 - Lesson references are unique across lessons (no duplication).
 - `ar.plain` must not contain Arabic diacritics.

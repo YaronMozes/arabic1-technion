@@ -9,6 +9,7 @@ const SENTENCE_COMPLETION_PATH = "data/test/sentence-completion.json";
 const SENTENCE_TRANSLATION_PATH = "data/test/sentence-translation.json";
 const GREETINGS_PACK_PATH = "data/test/greetings.json";
 const TEST_MODE_HE_TO_TR_NIQQUD = "he_to_tr_niqqud";
+const TEST_MODE_HE_TO_TR_PLAIN_TYPING = "he_to_tr_plain_typing";
 const TEST_MODE_TR_TO_HE = "tr_to_he";
 const TEST_MODE_SENTENCE_COMPLETION = "sentence_completion";
 const TEST_MODE_GREETINGS_PLAIN = "greetings_he_to_tr_plain";
@@ -16,14 +17,33 @@ const TEST_MODES_USING_LESSONS = new Set();
 const SENTENCE_DIR_BOTH = "both";
 const SENTENCE_DIR_Q_TO_A = "question_to_answer";
 const SENTENCE_DIR_A_TO_Q = "answer_to_question";
-const DEFAULT_STUDY_LESSON_CODE = "16";
+const LESSON_CODE_VOCAB = "vocab";
+const LESSON_CODE_GREETINGS = "greetings";
+const LESSON_CODE_ENRICHMENT = "enrichment";
+const DEFAULT_STUDY_LESSON_CODE = LESSON_CODE_VOCAB;
 const DEFAULT_STUDY_TITLE = "אוצר מילים";
-const PRIMARY_LESSON_CODES = [DEFAULT_STUDY_LESSON_CODE, "14", "15"];
+const PRIMARY_LESSON_CODES = [LESSON_CODE_VOCAB, LESSON_CODE_GREETINGS, LESSON_CODE_ENRICHMENT];
+const TEST_TOOLBAR_VALUE = "__test_page__";
+const TEST_TOOLBAR_LABEL = "למידה למבחן";
+const LESSON_FILTER_ALL = "all";
+const LESSON_FILTER_PRONOUNS = "pronouns";
+const LESSON_FILTER_LABELS = {
+  [LESSON_FILTER_ALL]: "כל המילים",
+  [LESSON_FILTER_PRONOUNS]: "כינויי גוף"
+};
 const TEST_MODE_LABELS = {
   [TEST_MODE_SENTENCE_COMPLETION]: "השלמת משפטים",
   [TEST_MODE_HE_TO_TR_NIQQUD]: "תרגום משפטים מעברית לתעתיק (עם ניקוד)",
+  [TEST_MODE_HE_TO_TR_PLAIN_TYPING]: "תרגום משפטים מעברית לתעתיק (הקלדה - בלי ניקוד ופיסוק)",
   [TEST_MODE_TR_TO_HE]: "תרגום משפטים מתעתיק לעברית",
   [TEST_MODE_GREETINGS_PLAIN]: "ברכות מעברית לתעתיק (בלי ניקוד)"
+};
+const LEGACY_LESSON_CODE_MAP = {
+  "1": LESSON_CODE_VOCAB,
+  "01": LESSON_CODE_VOCAB,
+  "14": LESSON_CODE_GREETINGS,
+  "15": LESSON_CODE_ENRICHMENT,
+  "16": LESSON_CODE_VOCAB
 };
 
 let lessonMetaCache = null;
@@ -192,8 +212,8 @@ function initSideToolbarDrawer(){
   });
 }
 
-function attachArabicToggleToSideToolbar(select){
-  const toolbar = select?.closest(".game-side-toolbar");
+function attachArabicToggleToSideToolbar(anchorEl){
+  const toolbar = anchorEl?.closest(".game-side-toolbar") || document.querySelector(".game-side-toolbar");
   if(!toolbar) return;
 
   let toggle = toolbar.querySelector("[data-arabic-toggle]");
@@ -207,23 +227,22 @@ function attachArabicToggleToSideToolbar(select){
     });
   }
 
-  const testBtn = toolbar.querySelector("#btn-side-test");
-  const anchor = testBtn || select;
-  if(anchor?.nextElementSibling !== toggle){
-    anchor.insertAdjacentElement("afterend", toggle);
+  if(anchorEl && anchorEl.parentElement === toolbar){
+    if(anchorEl.nextElementSibling !== toggle){
+      anchorEl.insertAdjacentElement("afterend", toggle);
+    }
+  }else if(toggle.parentElement !== toolbar){
+    toolbar.appendChild(toggle);
   }
   updateArabicToggleButtons();
 }
 
 function buildFallbackLessons(){
-  const lessons = [];
-  for(let n = 1; n <= 13; n += 1){
-    lessons.push({ code: String(n).padStart(2, "0"), lesson: n, title: `שיעור ${n}` });
-  }
-  lessons.push({ code: "16", lesson: 16, title: "כל השיעורים" });
-  lessons.push({ code: "14", lesson: 14, title: "ברכות" });
-  lessons.push({ code: "15", lesson: 15, title: "העשרה" });
-  return lessons;
+  return [
+    { code: LESSON_CODE_VOCAB, lesson: 1, title: "אוצר מילים" },
+    { code: LESSON_CODE_GREETINGS, lesson: 2, title: "ברכות" },
+    { code: LESSON_CODE_ENRICHMENT, lesson: 3, title: "העשרה" }
+  ];
 }
 
 async function loadLessonMeta(){
@@ -269,12 +288,19 @@ function canonicalLessonCode(raw, lessons){
   }
 
   const value = String(raw ?? "").trim();
+  const legacyMappedCode = LEGACY_LESSON_CODE_MAP[value];
+  if(legacyMappedCode && lessons.some((row) => row.code === legacyMappedCode)){
+    return legacyMappedCode;
+  }
   if(lessons.some((row) => row.code === value)){
     return value;
   }
 
   const n = Number.parseInt(value, 10);
   if(!Number.isNaN(n)){
+    if(n >= 1 && n <= 13 && lessons.some((row) => row.code === LESSON_CODE_VOCAB)){
+      return LESSON_CODE_VOCAB;
+    }
     const padded = String(n).padStart(2, "0");
     if(lessons.some((row) => row.code === padded)){
       return padded;
@@ -394,7 +420,7 @@ function mapGreetingsRowsToEntries(rows){
         translit: {
           he: ""
         },
-        tags: ["lesson:14", "topic:greetings"]
+        tags: ["lesson:greetings", "topic:greetings"]
       };
     })
     .filter(Boolean);
@@ -438,7 +464,7 @@ async function loadLessonSet(rawLessonCode){
   const lessonCode = canonicalLessonCode(rawLessonCode, lessons);
   const lessonMeta = lessons.find((row) => row.code === lessonCode) || lessons[0];
   const lesson = await loadJson(`data/lessons/${lessonCode}.json`);
-  if(lessonCode === "14"){
+  if(lessonCode === LESSON_CODE_GREETINGS){
     const greetingsRows = await loadGreetingsRows();
     const items = mapGreetingsRowsToEntries(greetingsRows);
     return { lesson, lessonMeta, lessonCode, lessons, items, greetingsRows };
@@ -508,6 +534,25 @@ function plainHebrewTranslit(text){
   return stripHebrewNiqqud(String(text ?? "")).replace(/\s+/g, " ").trim();
 }
 
+function removePunctuationForTyping(text){
+  try{
+    return String(text ?? "").replace(/[^\p{L}\p{N}\s]/gu, " ");
+  }catch(err){
+    return String(text ?? "").replace(/[^0-9A-Za-z\u0590-\u05FF\u0600-\u06FF\s]/g, " ");
+  }
+}
+
+function normalizePlainTypedTranslit(text){
+  const plain = plainHebrewTranslit(text)
+    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "")
+    .replace(/[\u200e\u200f]/g, " ")
+    .replace(/\(א\)|\(אל\)/g, " ")
+    .replace(/\(a\)|\(al\)/gi, " ");
+  return removePunctuationForTyping(plain)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function normalizeSearchText(value){
   return stripHebrewNiqqud(String(value ?? ""))
     .toLowerCase()
@@ -522,6 +567,11 @@ function escapeHtml(value){
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function escapeHtmlWithRaisedShadda(value){
+  const escaped = escapeHtml(value);
+  return escaped.replace(/\u0651/g, '<span class="raised-shadda" aria-hidden="true">\u0651</span>');
 }
 
 function parseSentenceDirection(raw){
@@ -556,6 +606,27 @@ function buildEntrySearchParts(entry){
   };
 }
 
+function entryIsPronoun(entry){
+  const pos = String(entry?.pos ?? "").trim();
+  if(pos === "pronoun"){
+    return true;
+  }
+  const tags = Array.isArray(entry?.tags) ? entry.tags : [];
+  return tags.includes("topic:pronouns");
+}
+
+function normalizeLessonFilter(raw){
+  const value = String(raw ?? "").trim();
+  return LESSON_FILTER_LABELS[value] ? value : LESSON_FILTER_ALL;
+}
+
+function cardMatchesLessonFilter(card, filter){
+  if(filter === LESSON_FILTER_PRONOUNS){
+    return card?.dataset?.filterPronouns === "1";
+  }
+  return true;
+}
+
 function ensureLessonSearchUi(){
   const tableWrap = byId("lesson-table-wrap");
   if(!tableWrap) return null;
@@ -567,7 +638,14 @@ function ensureLessonSearchUi(){
     wrap.className = "lesson-search-wrap";
     wrap.innerHTML = `
       <label class="lesson-search-label" for="lesson-search-input">חיפוש באוצר המילים</label>
-      <input id="lesson-search-input" class="lesson-search-input" type="search" inputmode="search" autocomplete="off" placeholder="חיפוש מילה בעברית / בערבית / בתעתיק" />
+      <div class="lesson-search-controls">
+        <input id="lesson-search-input" class="lesson-search-input" type="search" inputmode="search" autocomplete="off" placeholder="חיפוש מילה בעברית / בערבית / בתעתיק" />
+        <label class="lesson-search-filter-label" for="lesson-filter-select">סינון</label>
+        <select id="lesson-filter-select" class="lesson-search-filter" aria-label="סינון אוצר מילים">
+          <option value="${LESSON_FILTER_ALL}">${LESSON_FILTER_LABELS[LESSON_FILTER_ALL]}</option>
+          <option value="${LESSON_FILTER_PRONOUNS}">${LESSON_FILTER_LABELS[LESSON_FILTER_PRONOUNS]}</option>
+        </select>
+      </div>
       <div id="lesson-search-meta" class="lesson-search-meta muted"></div>
     `;
     const supplement = byId("lesson-supplement");
@@ -581,6 +659,7 @@ function ensureLessonSearchUi(){
   return {
     wrap,
     input: byId("lesson-search-input"),
+    filter: byId("lesson-filter-select"),
     meta: byId("lesson-search-meta")
   };
 }
@@ -590,39 +669,76 @@ function storageKey(prefix, scope){ return `a1:${prefix}:${scope}`; }
 function setupSideToolbar(currentLesson, lessons, context = "game", mode = "quiz"){
   const homeBtn = byId("btn-side-home");
   if(homeBtn) homeBtn.href = "index.html";
-  const testBtn = byId("btn-side-test");
-  if(testBtn) testBtn.href = "test.html";
 
-  const select = byId("game-lesson-select");
-  if(!select || !Array.isArray(lessons) || lessons.length === 0) return;
+  const actions = byId("game-lesson-actions");
+  if(!actions || !Array.isArray(lessons) || lessons.length === 0) return;
 
+  const isTestContext = context === "test";
+  const isTestRunContext = context === "test_run";
+  const isTestLikeContext = isTestContext || isTestRunContext;
   const primaryRows = getPrimaryLessonRows(lessons);
-  const rows = context === "lesson" || context === "game"
-    ? primaryRows
+  const rows = context === "lesson" || context === "game" || isTestLikeContext
+    ? [...primaryRows, { value: TEST_TOOLBAR_VALUE, label: TEST_TOOLBAR_LABEL }]
     : lessons.map((lessonMeta) => ({
       value: lessonMeta.code,
       label: lessonMeta.title
     }));
 
-  select.innerHTML = rows.map((row) => `<option value="${row.value}">${row.label}</option>`).join("");
-  select.disabled = rows.length <= 1;
-  select.style.display = rows.length <= 1 ? "none" : "";
-  const normalizedCurrent = canonicalLessonCode(currentLesson, lessons);
-  select.value = rows.some((row) => row.value === normalizedCurrent) ? normalizedCurrent : rows[0].value;
+  actions.innerHTML = "";
+  actions.style.display = rows.length <= 1 ? "none" : "";
+  if(rows.length <= 1){
+    if(!isTestLikeContext){
+      attachArabicToggleToSideToolbar(actions);
+    }
+    return;
+  }
+
+  let activeValue = null;
+  if(isTestLikeContext){
+    activeValue = TEST_TOOLBAR_VALUE;
+  }else{
+    const hasCurrentLesson = currentLesson !== null && currentLesson !== undefined && String(currentLesson).trim() !== "";
+    if(hasCurrentLesson){
+      const normalizedCurrent = canonicalLessonCode(currentLesson, lessons);
+      if(rows.some((row) => row.value === normalizedCurrent)){
+        activeValue = normalizedCurrent;
+      }
+    }
+  }
 
   const safeMode = mode === "match" ? "match" : "quiz";
-  if(rows.length > 1){
-    select.addEventListener("change", () => {
-      const chosen = select.value;
-      if(context === "lesson"){
+  rows.forEach((row) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn game-side-nav-btn";
+    btn.textContent = row.label;
+    if(activeValue === row.value){
+      btn.classList.add("primary");
+      btn.setAttribute("aria-current", "page");
+    }
+
+    btn.addEventListener("click", () => {
+      const chosen = row.value;
+      if(chosen === TEST_TOOLBAR_VALUE){
+        window.location.href = "test.html";
+        return;
+      }
+      if(context === "game"){
+        window.location.href = `game.html?l=${encodeURIComponent(chosen)}&mode=${encodeURIComponent(safeMode)}`;
+        return;
+      }
+      if(context === "lesson" || isTestLikeContext){
         window.location.href = `lesson.html?l=${encodeURIComponent(chosen)}`;
         return;
       }
-      window.location.href = `game.html?l=${encodeURIComponent(chosen)}&mode=${encodeURIComponent(safeMode)}`;
+      window.location.href = `lesson.html?l=${encodeURIComponent(chosen)}`;
     });
-  }
+    actions.appendChild(btn);
+  });
 
-  attachArabicToggleToSideToolbar(select);
+  if(!isTestLikeContext){
+    attachArabicToggleToSideToolbar(actions);
+  }
 }
 
 function renderLessonSupplement(lessonCode){
@@ -630,7 +746,7 @@ function renderLessonSupplement(lessonCode){
   if(!container) return false;
 
   container.innerHTML = "";
-  if(lessonCode !== "15") return false;
+  if(lessonCode !== LESSON_CODE_ENRICHMENT) return false;
 
   const chunkSize = 7;
   const rows = [];
@@ -666,7 +782,7 @@ async function initLessonPage(){
   const l = getParam("l") || DEFAULT_STUDY_LESSON_CODE;
   const { lesson, lessonMeta, lessonCode, lessons, items } = await loadLessonSet(l);
   const lessonTitle = displayLessonTitle(lessonCode, lesson?.title || lessonMeta?.title || "שיעור");
-  const isEnrichmentLesson = lessonCode === "15";
+  const isEnrichmentLesson = lessonCode === LESSON_CODE_ENRICHMENT;
   lessonTitleEl.textContent = lessonTitle;
 
   const lessonOverlineEl = document.querySelector(".page-lesson .game-header .brand p");
@@ -717,6 +833,7 @@ async function initLessonPage(){
     card.dataset.searchTr = searchParts.tr;
     card.dataset.searchAr = searchParts.ar;
     card.dataset.searchAll = searchParts.all;
+    card.dataset.filterPronouns = entryIsPronoun(e) ? "1" : "0";
     card.innerHTML = `
       <div class="lesson-word-he rtl">${fmtHe(e.he)}</div>
       ${arText ? `<div class="lesson-word-ar rtl ar">${arText}</div>` : ""}
@@ -729,27 +846,43 @@ async function initLessonPage(){
   if(searchUi){
     const cards = [...words.querySelectorAll(".lesson-word-card")];
     const total = cards.length;
-    const { wrap, input, meta } = searchUi;
+    const { wrap, input, filter, meta } = searchUi;
     if(isEnrichmentLesson || total === 0){
       wrap.style.display = "none";
       if(input){
         input.value = "";
+      }
+      if(filter){
+        filter.value = LESSON_FILTER_ALL;
       }
     }else{
       wrap.style.display = "";
 
       const applySearch = () => {
         const q = normalizeSearchText(input?.value || "");
+        const activeFilter = normalizeLessonFilter(filter?.value);
+        const filteredCards = cards.filter((card) => cardMatchesLessonFilter(card, activeFilter));
+        const filteredTotal = filteredCards.length;
         words.innerHTML = "";
 
         if(!q){
           words.classList.remove("lesson-word-grid-grouped");
-          cards.forEach((card) => {
+          filteredCards.forEach((card) => {
             card.style.display = "";
             words.appendChild(card);
           });
+          if(filteredTotal === 0){
+            const empty = document.createElement("div");
+            empty.className = "lesson-search-empty muted";
+            empty.textContent = "אין מילים תואמות לסינון שנבחר";
+            words.appendChild(empty);
+          }
           if(meta){
-            meta.textContent = `סה״כ ${total} מילים`;
+            if(activeFilter === LESSON_FILTER_ALL){
+              meta.textContent = `סה״כ ${total} מילים`;
+            }else{
+              meta.textContent = `${LESSON_FILTER_LABELS[activeFilter]}: ${filteredTotal} מתוך ${total} מילים`;
+            }
           }
           return;
         }
@@ -762,7 +895,7 @@ async function initLessonPage(){
         ];
 
         let visible = 0;
-        cards.forEach((card) => {
+        filteredCards.forEach((card) => {
           const heHit = String(card.dataset.searchHe || "").includes(q);
           const trHit = String(card.dataset.searchTr || "").includes(q);
           const arHit = String(card.dataset.searchAr || "").includes(q);
@@ -808,13 +941,21 @@ async function initLessonPage(){
         }
 
         if(meta){
-          meta.textContent = q ? `נמצאו ${visible} מתוך ${total} מילים` : `סה״כ ${total} מילים`;
+          if(activeFilter === LESSON_FILTER_ALL){
+            meta.textContent = `נמצאו ${visible} מתוך ${total} מילים`;
+          }else{
+            meta.textContent = `נמצאו ${visible} מתוך ${filteredTotal} מילים (${LESSON_FILTER_LABELS[activeFilter]})`;
+          }
         }
       };
 
       if(input){
         input.value = "";
         input.oninput = applySearch;
+      }
+      if(filter){
+        filter.value = LESSON_FILTER_ALL;
+        filter.onchange = applySearch;
       }
       applySearch();
     }
@@ -841,7 +982,7 @@ async function initGamePage(){
 
   const { lessonCode, lessons, items, greetingsRows } = await loadLessonSet(l);
   const modeTitle = mode === "match" ? "התאמת מילים" : "חידון";
-  const isEnrichmentLesson = lessonCode === "15";
+  const isEnrichmentLesson = lessonCode === LESSON_CODE_ENRICHMENT;
   gameTitleEl.textContent = modeTitle;
   const gameOverlineEl = document.querySelector(".page-game .game-header .brand p");
   if(gameOverlineEl){
@@ -872,7 +1013,7 @@ async function initGamePage(){
     return;
   }
 
-  if(lessonCode === "14"){
+  if(lessonCode === LESSON_CODE_GREETINGS){
     if(mode === "match"){
       runMatch({ items });
       return;
@@ -1258,6 +1399,11 @@ function buildQuestionPoolFromEntries(entries, mode){
       continue;
     }
 
+    if(normalizedMode === TEST_MODE_HE_TO_TR_PLAIN_TYPING){
+      pool.push({ id, prompt: he, correct: trWithNiqqud });
+      continue;
+    }
+
     if(normalizedMode === TEST_MODE_TR_TO_HE){
       pool.push({ id, prompt: trWithNiqqud, correct: he });
     }
@@ -1269,6 +1415,7 @@ function buildQuestionPoolFromEntries(entries, mode){
 function buildQuestionPoolFromSentenceTranslations(rows, mode){
   const normalizedMode = normalizeTestMode(mode);
   const pool = [];
+  const optionClass = "choice-text choice-text-sentence";
 
   for(const row of rows){
     const id = String(row?.id ?? "").trim();
@@ -1279,12 +1426,17 @@ function buildQuestionPoolFromSentenceTranslations(rows, mode){
     }
 
     if(normalizedMode === TEST_MODE_HE_TO_TR_NIQQUD){
+      pool.push({ id, prompt: he, correct: trWithNiqqud, optionClass });
+      continue;
+    }
+
+    if(normalizedMode === TEST_MODE_HE_TO_TR_PLAIN_TYPING){
       pool.push({ id, prompt: he, correct: trWithNiqqud });
       continue;
     }
 
     if(normalizedMode === TEST_MODE_TR_TO_HE){
-      pool.push({ id, prompt: trWithNiqqud, correct: he });
+      pool.push({ id, prompt: trWithNiqqud, correct: he, optionClass });
     }
   }
 
@@ -1482,10 +1634,10 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
     if(question.promptLayout === "qa_split"){
       promptEl.className = "quiz-prompt quiz-prompt-split";
       const questionBody = question.questionText
-        ? `<span class="quiz-split-text rtl">${escapeHtml(question.questionText)}</span>`
+        ? `<span class="quiz-split-text rtl">${escapeHtmlWithRaisedShadda(question.questionText)}</span>`
         : `<span class="quiz-split-missing rtl">בחרו שאלה נכונה</span>`;
       const answerBody = question.answerText
-        ? `<span class="quiz-split-text rtl">${escapeHtml(question.answerText)}</span>`
+        ? `<span class="quiz-split-text rtl">${escapeHtmlWithRaisedShadda(question.answerText)}</span>`
         : `<span class="quiz-split-missing rtl">בחרו תשובה נכונה</span>`;
       promptEl.innerHTML = `
         <div class="quiz-split">
@@ -1504,7 +1656,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
 
     promptEl.className = "quiz-prompt";
     const effectivePromptClass = question.promptClass || promptClass;
-    promptEl.innerHTML = `<span class="${effectivePromptClass}">${escapeHtml(question.prompt)}</span>`;
+    promptEl.innerHTML = `<span class="${effectivePromptClass}">${escapeHtmlWithRaisedShadda(question.prompt)}</span>`;
   }
 
   function makeQuestion(){
@@ -1528,7 +1680,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
       const optionClass = question.optionClass || "choice-text";
       b.innerHTML = `
         <span class="choice-index ltr">${index + 1}</span>
-        <span class="${optionClass}">${escapeHtml(option)}</span>
+        <span class="${optionClass}">${escapeHtmlWithRaisedShadda(option)}</span>
       `;
       b.addEventListener("click", () => onPick(b, option));
       choicesEl.appendChild(b);
@@ -1611,6 +1763,168 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
   }
 
   window.addEventListener("keydown", onKeyDown);
+  makeQuestion();
+}
+
+function runTypingQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rtl" }){
+  const wrap = byId("game-wrap");
+  const pool = [...new Map(questionPool.map((q) => [q.id, q])).values()];
+
+  if(pool.length === 0){
+    wrap.innerHTML = `<div class="notice">אין מספיק פריטים לתרגול בחלק הזה.</div>`;
+    return;
+  }
+
+  const state = {
+    streak: 0,
+    total: 0,
+    current: null,
+    locked: false,
+    deck: [],
+    lastPromptId: null
+  };
+
+  wrap.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.className = "card quiz-card";
+  card.innerHTML = `
+    <div class="quiz-top quiz-top-quiz">
+      <span class="quiz-edge-stat" id="quiz-total">שאלה: 0</span>
+      <span class="quiz-edge-stat" id="quiz-streak">רצף: 0</span>
+    </div>
+    <div class="quiz-card-head">
+      <div id="prompt" class="quiz-prompt"></div>
+    </div>
+    <div class="quiz-typing-wrap">
+      <div class="quiz-typing-row">
+        <input
+          id="typing-answer"
+          class="quiz-typing-input rtl"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="כתבו כאן את התעתיק"
+          aria-label="כתיבת תשובה בתעתיק"
+        />
+        <button class="btn" id="typing-check" type="button">בדיקה</button>
+      </div>
+      <div class="quiz-typing-hint muted">הבדיקה מתעלמת מניקוד וסימני פיסוק.</div>
+    </div>
+    <div id="feedback" class="quiz-feedback muted"></div>
+    <div class="quiz-next-row">
+      <button class="btn primary" id="nextq" type="button" disabled>שאלה הבאה</button>
+    </div>
+  `;
+  wrap.appendChild(card);
+
+  const streakEl = byId("quiz-streak");
+  const totalEl = byId("quiz-total");
+  const promptEl = byId("prompt");
+  const feedbackEl = byId("feedback");
+  const answerInput = byId("typing-answer");
+  const checkBtn = byId("typing-check");
+  const nextBtn = byId("nextq");
+
+  function refillDeck(){
+    state.deck = shuffle(pool);
+    if(state.lastPromptId && state.deck.length > 1 && state.deck[0].id === state.lastPromptId){
+      const swapIdx = 1 + Math.floor(Math.random() * (state.deck.length - 1));
+      [state.deck[0], state.deck[swapIdx]] = [state.deck[swapIdx], state.deck[0]];
+    }
+  }
+
+  function nextQuestion(){
+    if(state.deck.length === 0){
+      refillDeck();
+    }
+    const question = state.deck.pop();
+    state.lastPromptId = question ? question.id : null;
+    return question;
+  }
+
+  function updateScore(){
+    streakEl.textContent = `רצף: ${state.streak}`;
+    totalEl.textContent = `שאלה: ${state.total}`;
+  }
+
+  function setFeedback(message, type = "muted"){
+    feedbackEl.textContent = message;
+    feedbackEl.className = `quiz-feedback ${type}`;
+  }
+
+  function makeQuestion(){
+    state.locked = false;
+    state.total += 1;
+
+    const question = nextQuestion();
+    state.current = question;
+
+    promptEl.className = "quiz-prompt";
+    promptEl.innerHTML = `<span class="${promptClass}">${escapeHtmlWithRaisedShadda(question.prompt)}</span>`;
+
+    answerInput.value = "";
+    answerInput.disabled = false;
+    checkBtn.disabled = false;
+    nextBtn.disabled = true;
+    setFeedback("");
+    updateScore();
+    answerInput.focus();
+  }
+
+  function onCheck(){
+    if(state.locked) return;
+    const question = state.current;
+    if(!question) return;
+
+    const givenRaw = String(answerInput.value ?? "").trim();
+    if(!givenRaw){
+      setFeedback("כתבו תשובה לפני בדיקה.", "muted");
+      return;
+    }
+
+    const given = normalizePlainTypedTranslit(givenRaw);
+    const correct = normalizePlainTypedTranslit(question.correct);
+    const isCorrect = given === correct;
+
+    state.locked = true;
+    answerInput.disabled = true;
+    checkBtn.disabled = true;
+    nextBtn.disabled = false;
+
+    if(isCorrect){
+      state.streak += 1;
+      setFeedback(`נכון! התשובה המלאה: ${question.correct}`, "good");
+      updateScore();
+      return;
+    }
+
+    state.streak = 0;
+    setFeedback(`לא נכון. התשובה הנכונה: ${question.correct}`, "bad");
+    const missKey = storageKey("missed", scope);
+    const prev = new Set(JSON.parse(localStorage.getItem(missKey) || "[]"));
+    prev.add(question.id);
+    localStorage.setItem(missKey, JSON.stringify([...prev]));
+    updateScore();
+  }
+
+  function onKeyDown(event){
+    if(event.key !== "Enter"){
+      return;
+    }
+    event.preventDefault();
+    if(nextBtn.disabled){
+      onCheck();
+    }else{
+      nextBtn.click();
+    }
+  }
+
+  checkBtn.addEventListener("click", onCheck);
+  nextBtn.addEventListener("click", makeQuestion);
+  answerInput.addEventListener("keydown", onKeyDown);
+
   makeQuestion();
 }
 
@@ -1792,6 +2106,7 @@ async function initTestPage(){
   if(!form) return;
 
   const lessons = await loadLessonMeta();
+  setupSideToolbar(DEFAULT_STUDY_LESSON_CODE, lessons, "test");
   const sideHomeBtn = byId("btn-side-home");
   if(sideHomeBtn){
     sideHomeBtn.href = "index.html";
@@ -1895,12 +2210,18 @@ async function initTestPage(){
 }
 
 async function initTestRunPage(){
+  const runWrapEl = byId("run-wrap");
+  if(!runWrapEl) return;
+
+  const lessons = await loadLessonMeta();
+  setupSideToolbar(DEFAULT_STUDY_LESSON_CODE, lessons, "test_run");
+
   const packId = getParam("pack");
   if(!packId) return;
 
   const payload = sessionStorage.getItem(packId);
   if(!payload){
-    byId("run-wrap").innerHTML = `<div class="notice">החבילה לא נמצאה (אולי ריעננתם). חזרו ללמידה למבחן והתחילו מחדש.</div>`;
+    runWrapEl.innerHTML = `<div class="notice">החבילה לא נמצאה (אולי ריעננתם). חזרו ללמידה למבחן והתחילו מחדש.</div>`;
     return;
   }
 
@@ -1908,14 +2229,28 @@ async function initTestRunPage(){
   try{
     parsed = JSON.parse(payload);
   }catch(err){
-    byId("run-wrap").innerHTML = `<div class="notice">שגיאה בטעינת חבילת התרגול. חזרו לעמוד הקודם והתחילו מחדש.</div>`;
+    runWrapEl.innerHTML = `<div class="notice">שגיאה בטעינת חבילת התרגול. חזרו לעמוד הקודם והתחילו מחדש.</div>`;
     return;
   }
 
-  const mode = normalizeTestMode(parsed?.mode);
+  const baseMode = normalizeTestMode(parsed?.mode);
+  const variantParam = String(getParam("variant") || "").trim();
+  let mode = baseMode;
+  if(baseMode === TEST_MODE_HE_TO_TR_NIQQUD || baseMode === TEST_MODE_HE_TO_TR_PLAIN_TYPING){
+    if(variantParam === "typing"){
+      mode = TEST_MODE_HE_TO_TR_PLAIN_TYPING;
+    }else if(variantParam === "mcq"){
+      mode = TEST_MODE_HE_TO_TR_NIQQUD;
+    }
+  }
+
+  const isHeToTrVariantMode = mode === TEST_MODE_HE_TO_TR_NIQQUD || mode === TEST_MODE_HE_TO_TR_PLAIN_TYPING;
   const modeLabel = TEST_MODE_LABELS[mode] || "תרגול";
   let questionPool = [];
-  const isSentenceTranslationMode = mode === TEST_MODE_HE_TO_TR_NIQQUD || mode === TEST_MODE_TR_TO_HE;
+  const isSentenceTranslationMode = mode === TEST_MODE_HE_TO_TR_NIQQUD
+    || mode === TEST_MODE_TR_TO_HE
+    || mode === TEST_MODE_HE_TO_TR_PLAIN_TYPING;
+  const isTypedTranslitMode = mode === TEST_MODE_HE_TO_TR_PLAIN_TYPING;
 
   try{
     if(isSentenceTranslationMode){
@@ -1946,13 +2281,13 @@ async function initTestRunPage(){
     }
   }catch(err){
     console.error(err);
-    byId("run-wrap").innerHTML = `<div class="notice">שגיאה בטעינת נתוני התרגול. נסו שוב בעוד רגע.</div>`;
+    runWrapEl.innerHTML = `<div class="notice">שגיאה בטעינת נתוני התרגול. נסו שוב בעוד רגע.</div>`;
     return;
   }
 
   const itemCount = questionPool.length;
   if(itemCount === 0){
-    byId("run-wrap").innerHTML = `<div class="notice">אין כרגע מספיק פריטים לחלק שבחרתם. נסו חלק אחר.</div>`;
+    runWrapEl.innerHTML = `<div class="notice">אין כרגע מספיק פריטים לחלק שבחרתם. נסו חלק אחר.</div>`;
     return;
   }
 
@@ -1962,9 +2297,34 @@ async function initTestRunPage(){
   }
   byId("run-title").textContent = modeLabel;
 
+  const runWrap = runWrapEl;
+  runWrap.innerHTML = "";
+
+  if(isHeToTrVariantMode){
+    const switchNav = document.createElement("div");
+    switchNav.className = "test-run-mode-nav";
+    const baseHref = `test-run.html?pack=${encodeURIComponent(packId)}`;
+    const mcqHref = `${baseHref}&variant=mcq`;
+    const typingHref = `${baseHref}&variant=typing`;
+    switchNav.innerHTML = `
+      <a class="btn ${mode === TEST_MODE_HE_TO_TR_NIQQUD ? "primary" : ""}" href="${mcqHref}">בחירה</a>
+      <a class="btn ${mode === TEST_MODE_HE_TO_TR_PLAIN_TYPING ? "primary" : ""}" href="${typingHref}">הקלדה (בלי ניקוד)</a>
+    `;
+    runWrap.appendChild(switchNav);
+  }
+
   const gameWrap = document.createElement("div");
   gameWrap.id = "game-wrap";
-  byId("run-wrap").appendChild(gameWrap);
+  runWrap.appendChild(gameWrap);
+
+  if(isTypedTranslitMode){
+    runTypingQuiz({
+      questionPool,
+      scope: `test:${mode}`,
+      promptClass: "quiz-prompt-main quiz-prompt-main-sentence rtl"
+    });
+    return;
+  }
 
   runChoiceQuiz({
     questionPool,

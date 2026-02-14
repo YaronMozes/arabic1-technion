@@ -1,20 +1,19 @@
 {
   "lessons": [
-    { "code": "01", "lesson": 1, "title": "שיעור 1" },
-    { "code": "02", "lesson": 2, "title": "שיעור 2" },
-    { "code": "03", "lesson": 3, "title": "שיעור 3" },
-    { "code": "04", "lesson": 4, "title": "שיעור 4" },
-    { "code": "05", "lesson": 5, "title": "שיעור 5" },
-    { "code": "06", "lesson": 6, "title": "שיעור 6" },
-    { "code": "07", "lesson": 7, "title": "שיעור 7" },
-    { "code": "08", "lesson": 8, "title": "שיעור 8" },
-    { "code": "09", "lesson": 9, "title": "שיעור 9" },
-    { "code": "10", "lesson": 10, "title": "שיעור 10" },
-    { "code": "11", "lesson": 11, "title": "שיעור 11" },
-    { "code": "12", "lesson": 12, "title": "שיעור 12" },
-    { "code": "13", "lesson": 13, "title": "שיעור 13" },
-    { "code": "16", "lesson": 16, "title": "כל השיעורים" },
-    { "code": "14", "lesson": 14, "title": "ברכות" },
-    { "code": "15", "lesson": 15, "title": "העשרה" }
+    {
+      "code": "vocab",
+      "lesson": 1,
+      "title": "אוצר מילים"
+    },
+    {
+      "code": "greetings",
+      "lesson": 2,
+      "title": "ברכות"
+    },
+    {
+      "code": "enrichment",
+      "lesson": 3,
+      "title": "העשרה"
+    }
   ]
 }

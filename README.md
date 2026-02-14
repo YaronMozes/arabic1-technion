@@ -13,13 +13,16 @@ https://yaronmozes.github.io/arabic1-technion/
 ---
 
 ## Features (current)
-- 15 lesson pages (Lesson 1–13 + Greetings + Enrichment)
+- 3 core study spaces:
+  - אוצר מילים
+  - ברכות
+  - העשרה
 - Lesson vocabulary table
-- Per-lesson practice:
+- Per-space practice:
   - Multiple-choice quiz (MCQ)
   - Matching game (Arabic ↔ Hebrew)
 - Test Center:
-  - Mix selected lessons
+  - Mix selected spaces
   - Run Quiz on the combined set
 
 ---
@@ -43,10 +46,9 @@ https://yaronmozes.github.io/arabic1-technion/
     entries.ndjson
     /lessons
       index.json
-      01.json
-      02.json
-      ...
-      15.json
+      vocab.json
+      greetings.json
+      enrichment.json
   /scripts
     validate-data.mjs
 ```
@@ -56,7 +58,7 @@ This repo is designed for long-term growth (many words + multiple game modes):
 
 - `data/entries.ndjson` is the **canonical dictionary** (one JSON object per line).
 - `data/lessons/index.json` is the **lesson manifest** (order, labels, navigation).
-- Each lesson file `data/lessons/XX.json` contains only a list of **entry IDs**.
+- Each lesson file `data/lessons/<code>.json` contains only a list of **entry IDs**.
   - This avoids duplication and makes “Test packs” easy.
 
 ---
@@ -67,7 +69,7 @@ This repo is designed for long-term growth (many words + multiple game modes):
 One JSON object per line:
 
 ```json
-{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitābun","he":"כתאבון"},"tags":["lesson:01"]}
+{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitābun","he":"כתאבון"},"tags":["lesson:vocab"]}
 ```
 
 Recommended fields:
@@ -89,20 +91,20 @@ Defines lesson order and labels used in UI selectors/cards:
 ```json
 {
   "lessons": [
-    { "code": "01", "lesson": 1, "title": "שיעור 1" },
-    { "code": "14", "lesson": 14, "title": "ברכות" },
-    { "code": "15", "lesson": 15, "title": "העשרה" }
+    { "code": "vocab", "lesson": 1, "title": "אוצר מילים" },
+    { "code": "greetings", "lesson": 2, "title": "ברכות" },
+    { "code": "enrichment", "lesson": 3, "title": "העשרה" }
   ]
 }
 ```
 
-### `data/lessons/01.json` … `15.json` (lesson mapping)
+### `data/lessons/vocab.json` (lesson mapping)
 Example:
 
 ```json
 {
   "lesson": 1,
-  "title": "שיעור 1",
+  "title": "אוצר מילים",
   "items": ["a1-0001", "a1-0002"]
 }
 ```
@@ -113,14 +115,10 @@ Example:
 
 1) Add new entries to `data/entries.ndjson`
    - Give each entry a new unique `id`.
-2) Add the entry IDs to the lesson file:
-   - `data/lessons/01.json` for Lesson 1
-   - ...
-   - `data/lessons/13.json` for Lesson 13
-   - `data/lessons/14.json` for Greetings
-   - `data/lessons/15.json` for Enrichment
-3) If lesson order/titles change, update `data/lessons/index.json`.
-4) Commit + push — GitHub Pages updates automatically.
+2) Add the entry IDs to `data/lessons/vocab.json`.
+3) For greetings/enrichment-specific items, use `data/lessons/greetings.json` or `data/lessons/enrichment.json`.
+4) If lesson order/titles change, update `data/lessons/index.json`.
+5) Commit + push — GitHub Pages updates automatically.
 
 ---
 
@@ -137,7 +135,7 @@ The validator checks:
 - Arabic plain/vocalized consistency rules
 - Unique entry IDs
 - Lesson manifest schema (`data/lessons/index.json`)
-- Lesson file coverage (`01.json` ... `15.json`)
+- Lesson file coverage (`vocab.json`, `greetings.json`, `enrichment.json`)
 - Missing IDs and duplicated lesson assignments
 
 ---
