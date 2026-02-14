@@ -714,11 +714,71 @@ function runQuiz({ items, scope }){
     return tr === "—" ? "" : tr;
   }
 
+  function hasArabicDiacritics(text){
+    return /[\u064B-\u065F\u0670\u06D6-\u06ED]/.test(String(text ?? ""));
+  }
+
+  function normalizeOptionText(value){
+    return String(value ?? "").replace(/\s+/g, " ").trim();
+  }
+
+  function optionKey(entry, direction){
+    if(direction === "ar_to_he"){
+      return `he:${normalizeOptionText(fmtHe(entry.he))}`;
+    }
+    const ar = normalizeOptionText(entryArabic(entry));
+    const tr = normalizeOptionText(translitText(entry));
+    return `ar:${ar}|tr:${tr}`;
+  }
+
+  function pickDistractors(answer, direction, size = 3){
+    const candidates = shuffle(pool.filter((entry) => entry.id !== answer.id));
+    const chosen = [];
+    const chosenIds = new Set();
+    const seenKeys = new Set([optionKey(answer, direction)]);
+
+    for(const candidate of candidates){
+      const key = optionKey(candidate, direction);
+      if(seenKeys.has(key)){
+        continue;
+      }
+      chosen.push(candidate);
+      chosenIds.add(candidate.id);
+      seenKeys.add(key);
+      if(chosen.length >= size){
+        return chosen;
+      }
+    }
+
+    for(const candidate of candidates){
+      if(chosenIds.has(candidate.id)){
+        continue;
+      }
+      chosen.push(candidate);
+      if(chosen.length >= size){
+        break;
+      }
+    }
+    return chosen;
+  }
+
+  function isEquivalentPick(picked, answer, direction){
+    if(direction === "ar_to_he"){
+      return normalizeOptionText(fmtHe(picked.he)) === normalizeOptionText(fmtHe(answer.he));
+    }
+    return picked.id === answer.id;
+  }
+
   function renderPrompt(answer, direction){
     if(direction === "ar_to_he"){
+      const arText = entryArabic(answer);
       const tr = translitText(answer);
+      const arClasses = ["quiz-prompt-main", "quiz-prompt-main-ar", "rtl", "ar"];
+      if(hasArabicDiacritics(arText)){
+        arClasses.push("quiz-prompt-main-ar-diacritic");
+      }
       promptEl.innerHTML = `
-        <span class="quiz-prompt-main quiz-prompt-main-ar rtl ar">${entryArabic(answer)}</span>
+        <span class="${arClasses.join(" ")}">${arText}</span>
         ${tr ? `<span class="quiz-prompt-sub rtl">${tr}</span>` : ""}
       `;
       return;
@@ -727,11 +787,23 @@ function runQuiz({ items, scope }){
     promptEl.innerHTML = `<span class="quiz-prompt-main rtl">${fmtHe(answer.he)}</span>`;
   }
 
-  function renderOption(entry, direction, index){
+  function renderOption(entry, direction, index, showDisambiguator = false){
     if(direction === "ar_to_he"){
+      const he = fmtHe(entry.he);
+      const hint = translitText(entry) || entryArabic(entry);
+      if(showDisambiguator){
+        return `
+          <span class="choice-index ltr">${index + 1}</span>
+          <span class="choice-stack">
+            <span class="choice-text">${he}</span>
+            ${hint ? `<span class="choice-sub choice-sub-disambiguator rtl">${hint}</span>` : ""}
+          </span>
+        `;
+      }
+
       return `
         <span class="choice-index ltr">${index + 1}</span>
-        <span class="choice-text">${fmtHe(entry.he)}</span>
+        <span class="choice-text">${he}</span>
       `;
     }
 
@@ -763,10 +835,17 @@ function runQuiz({ items, scope }){
     state.total += 1;
 
     const answer = nextAnswer();
-    const distractors = shuffle(pool.filter(x => x.id !== answer.id)).slice(0,3);
-    const options = shuffle([answer, ...distractors]);
     const direction = Math.random() < 0.5 ? "ar_to_he" : "he_to_ar";
-    state.current = { answer, options, direction };
+    const distractors = pickDistractors(answer, direction, 3);
+    const options = shuffle([answer, ...distractors]);
+    const duplicateHeCounts = new Map();
+    if(direction === "ar_to_he"){
+      options.forEach((opt) => {
+        const key = normalizeOptionText(fmtHe(opt.he));
+        duplicateHeCounts.set(key, (duplicateHeCounts.get(key) || 0) + 1);
+      });
+    }
+    state.current = { answer, options, direction, duplicateHeCounts };
 
     renderPrompt(answer, direction);
     choicesEl.innerHTML = "";
@@ -775,7 +854,9 @@ function runQuiz({ items, scope }){
       b.type = "button";
       b.className = "choice quiz-choice rtl";
       b.dataset.id = opt.id;
-      b.innerHTML = renderOption(opt, direction, index);
+      const heKey = normalizeOptionText(fmtHe(opt.he));
+      const showDisambiguator = direction === "ar_to_he" && (duplicateHeCounts.get(heKey) || 0) > 1;
+      b.innerHTML = renderOption(opt, direction, index, showDisambiguator);
       b.addEventListener("click", () => onPick(b, opt));
       choicesEl.appendChild(b);
     });
@@ -789,9 +870,10 @@ function runQuiz({ items, scope }){
     if(state.locked) return;
     state.locked = true;
 
-    const { answer, direction } = state.current;
-    const correct = picked.id === answer.id;
+    const { answer, direction, options } = state.current;
+    const correct = isEquivalentPick(picked, answer, direction);
     const choiceButtons = [...choicesEl.querySelectorAll(".choice")];
+    const optionById = new Map(options.map((option) => [String(option.id), option]));
     choiceButtons.forEach(btn => { btn.disabled = true; });
 
     if(correct){
@@ -803,8 +885,16 @@ function runQuiz({ items, scope }){
       state.lastResult = "wrong";
       state.streak = 0;
       el.classList.add("wrong");
-      const answerButton = choiceButtons.find(btn => btn.dataset.id === answer.id);
-      if(answerButton) answerButton.classList.add("correct");
+      const correctButtons = choiceButtons.filter((btn) => {
+        const option = optionById.get(String(btn.dataset.id || ""));
+        return option ? isEquivalentPick(option, answer, direction) : false;
+      });
+      if(correctButtons.length > 0){
+        correctButtons.forEach((btn) => btn.classList.add("correct"));
+      }else{
+        const answerButton = choiceButtons.find((btn) => btn.dataset.id === String(answer.id));
+        if(answerButton) answerButton.classList.add("correct");
+      }
       setFeedback(`לא נכון. התשובה הנכונה: ${formatCorrectAnswer(answer, direction)}`, "bad");
 
       const missKey = storageKey("missed", scope);
