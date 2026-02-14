@@ -575,9 +575,27 @@ function escapeHtmlWithStableHyphens(value){
 }
 
 function escapeHtmlWithRaisedShadda(value){
-  const withStableHyphens = escapeHtmlWithStableHyphens(value);
   const raisedShadda = '<span class="raised-shadda" aria-hidden="true">\u0651</span>';
-  return withStableHyphens.replace(/\u0651/g, `&#8288;${raisedShadda}&#8288;`);
+  const raw = String(value ?? "");
+  let out = "";
+  for(let idx = 0; idx < raw.length; idx += 1){
+    const ch = raw[idx];
+    if(ch !== "\u0651"){
+      out += escapeHtml(ch);
+      continue;
+    }
+
+    // Keep shadda inline when Hebrew combining marks follow it (e.g. הֻוֵּّ),
+    // otherwise those marks can detach and render as orphan dots.
+    const next = raw[idx + 1] || "";
+    if(/[\u0591-\u05C7]/.test(next)){
+      out += escapeHtml(ch);
+      continue;
+    }
+
+    out += `&#8288;${raisedShadda}&#8288;`;
+  }
+  return out;
 }
 
 function shouldRaiseShadda(value){
