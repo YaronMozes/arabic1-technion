@@ -7,6 +7,7 @@ const MATCH_ROUND_SIZE = 5;
 const ARABIC_VISIBILITY_KEY = "a1:show-arabic";
 const SENTENCE_COMPLETION_PATH = "data/test/sentence-completion.json";
 const SENTENCE_TRANSLATION_PATH = "data/test/sentence-translation.json";
+const TRANSLIT_TO_HEBREW_PATH = "data/test/translit-to-hebrew.json";
 const GREETINGS_PACK_PATH = "data/test/greetings.json";
 const TEST_MODE_HE_TO_TR_NIQQUD = "he_to_tr_niqqud";
 const TEST_MODE_HE_TO_TR_PLAIN_TYPING = "he_to_tr_plain_typing";
@@ -569,9 +570,26 @@ function escapeHtml(value){
     .replace(/'/g, "&#39;");
 }
 
+function escapeHtmlWithStableHyphens(value){
+  return escapeHtml(value);
+}
+
 function escapeHtmlWithRaisedShadda(value){
-  const escaped = escapeHtml(value);
-  return escaped.replace(/\u0651/g, '<span class="raised-shadda" aria-hidden="true">\u0651</span>');
+  const withStableHyphens = escapeHtmlWithStableHyphens(value);
+  const raisedShadda = '<span class="raised-shadda" aria-hidden="true">\u0651</span>';
+  return withStableHyphens.replace(/\u0651/g, `&#8288;${raisedShadda}&#8288;`);
+}
+
+function shouldRaiseShadda(value){
+  const text = String(value ?? "");
+  return /\u0651/.test(text) && /[\u0590-\u05FF]/.test(text);
+}
+
+function escapeDisplayText(value){
+  if(shouldRaiseShadda(value)){
+    return escapeHtmlWithRaisedShadda(value);
+  }
+  return escapeHtmlWithStableHyphens(value);
 }
 
 function parseSentenceDirection(raw){
@@ -580,6 +598,16 @@ function parseSentenceDirection(raw){
     return value;
   }
   return SENTENCE_DIR_BOTH;
+}
+
+function countWords(value){
+  const normalized = removePunctuationForTyping(String(value ?? ""))
+    .replace(/\s+/g, " ")
+    .trim();
+  if(!normalized){
+    return 0;
+  }
+  return normalized.split(" ").filter(Boolean).length;
 }
 
 function fmtTr(entry){
@@ -591,6 +619,18 @@ function fmtTr(entry){
 function entryArabic(entry){
   const ar = entry.ar || {};
   return ar.vocalized || ar.v || ar.plain || ar.p || "";
+}
+
+function entryPrimaryForeign(entry){
+  const ar = entryArabic(entry).trim();
+  if(ar){
+    return { text: ar, hasArabic: true };
+  }
+  const tr = fmtTr(entry).trim();
+  if(tr && tr !== "—"){
+    return { text: tr, hasArabic: false };
+  }
+  return { text: "", hasArabic: false };
 }
 
 function buildEntrySearchParts(entry){
@@ -766,8 +806,8 @@ function renderLessonSupplement(lessonCode){
   const card = document.createElement("section");
   card.className = "card alphabet-card";
   card.innerHTML = `
-    <h2 class="alphabet-title">אותיות בערבית</h2>
-    <table class="alphabet-table" aria-label="טבלת אותיות בערבית">
+    <h2 class="alphabet-title">האותיות בערבית</h2>
+    <table class="alphabet-table" aria-label="טבלת האותיות בערבית">
       <tbody>${rows.join("")}</tbody>
     </table>
   `;
@@ -783,6 +823,7 @@ async function initLessonPage(){
   const { lesson, lessonMeta, lessonCode, lessons, items } = await loadLessonSet(l);
   const lessonTitle = displayLessonTitle(lessonCode, lesson?.title || lessonMeta?.title || "שיעור");
   const isEnrichmentLesson = lessonCode === LESSON_CODE_ENRICHMENT;
+  const isGreetingsLesson = lessonCode === LESSON_CODE_GREETINGS;
   lessonTitleEl.textContent = lessonTitle;
 
   const lessonOverlineEl = document.querySelector(".page-lesson .game-header .brand p");
@@ -823,21 +864,29 @@ async function initLessonPage(){
 
   const words = byId("lesson-words");
   words.innerHTML = "";
+  words.classList.toggle("lesson-word-grid-greetings", isGreetingsLesson);
   for(const e of sortEntriesByHebrew(items)){
     const searchParts = buildEntrySearchParts(e);
     const arText = entryArabic(e);
     const trText = fmtTr(e);
+    const heHtml = escapeDisplayText(fmtHe(e.he));
+    const arHtml = escapeDisplayText(arText);
+    const trHtml = escapeDisplayText(trText);
+    const hasDistinctTr = trText && trText !== "—"
+      && normalizeSearchText(trText) !== normalizeSearchText(arText);
     const card = document.createElement("article");
-    card.className = "card lesson-word-card";
+    card.className = isGreetingsLesson
+      ? "card lesson-word-card lesson-word-card-greetings"
+      : "card lesson-word-card";
     card.dataset.searchHe = searchParts.he;
     card.dataset.searchTr = searchParts.tr;
     card.dataset.searchAr = searchParts.ar;
     card.dataset.searchAll = searchParts.all;
     card.dataset.filterPronouns = entryIsPronoun(e) ? "1" : "0";
     card.innerHTML = `
-      <div class="lesson-word-he rtl">${fmtHe(e.he)}</div>
-      ${arText ? `<div class="lesson-word-ar rtl ar">${arText}</div>` : ""}
-      ${trText && trText !== "—" ? `<div class="lesson-word-tr rtl muted">${trText}</div>` : ""}
+      <div class="lesson-word-he rtl">${heHtml}</div>
+      ${arText ? `<div class="lesson-word-ar rtl ar">${arHtml}</div>` : ""}
+      ${hasDistinctTr ? `<div class="lesson-word-tr rtl muted">${trHtml}</div>` : ""}
     `;
     words.appendChild(card);
   }
@@ -849,18 +898,24 @@ async function initLessonPage(){
     const { wrap, input, filter, meta } = searchUi;
     if(isEnrichmentLesson || total === 0){
       wrap.style.display = "none";
+      wrap.classList.remove("lesson-search-no-filter");
       if(input){
         input.value = "";
       }
       if(filter){
         filter.value = LESSON_FILTER_ALL;
+        filter.disabled = false;
+        filter.onchange = null;
       }
     }else{
       wrap.style.display = "";
+      wrap.classList.toggle("lesson-search-no-filter", isGreetingsLesson);
 
       const applySearch = () => {
         const q = normalizeSearchText(input?.value || "");
-        const activeFilter = normalizeLessonFilter(filter?.value);
+        const activeFilter = isGreetingsLesson
+          ? LESSON_FILTER_ALL
+          : normalizeLessonFilter(filter?.value);
         const filteredCards = cards.filter((card) => cardMatchesLessonFilter(card, activeFilter));
         const filteredTotal = filteredCards.length;
         words.innerHTML = "";
@@ -925,6 +980,9 @@ async function initLessonPage(){
           section.innerHTML = `<h3 class="lesson-search-group-title">${group.title}</h3>`;
           const grid = document.createElement("div");
           grid.className = "lesson-word-grid lesson-search-group-grid";
+          if(isGreetingsLesson){
+            grid.classList.add("lesson-word-grid-greetings");
+          }
           group.cards.forEach((card) => {
             card.style.display = "";
             grid.appendChild(card);
@@ -955,7 +1013,8 @@ async function initLessonPage(){
       }
       if(filter){
         filter.value = LESSON_FILTER_ALL;
-        filter.onchange = applySearch;
+        filter.disabled = isGreetingsLesson;
+        filter.onchange = isGreetingsLesson ? null : applySearch;
       }
       applySearch();
     }
@@ -1122,7 +1181,7 @@ function runQuiz({ items, scope }){
   }
 
   function setFeedback(message, type = "muted"){
-    feedbackEl.textContent = message;
+    feedbackEl.innerHTML = escapeDisplayText(message);
     feedbackEl.className = `quiz-feedback ${type}`;
   }
 
@@ -1160,7 +1219,7 @@ function runQuiz({ items, scope }){
     if(direction === "ar_to_he"){
       return `he:${normalizeOptionText(fmtHe(entry.he))}`;
     }
-    const ar = normalizeOptionText(entryArabic(entry));
+    const ar = normalizeOptionText(entryPrimaryForeign(entry).text);
     const tr = normalizeOptionText(translitText(entry));
     return `ar:${ar}|tr:${tr}`;
   }
@@ -1205,48 +1264,66 @@ function runQuiz({ items, scope }){
 
   function renderPrompt(answer, direction){
     if(direction === "ar_to_he"){
-      const arText = entryArabic(answer);
-      const tr = translitText(answer);
-      const arClasses = ["quiz-prompt-main", "quiz-prompt-main-ar", "rtl", "ar"];
-      if(hasArabicDiacritics(arText)){
+      const primary = entryPrimaryForeign(answer);
+      const arText = primary.text;
+      const trRaw = translitText(answer);
+      const tr = primary.hasArabic && trRaw && normalizeOptionText(trRaw) !== normalizeOptionText(arText)
+        ? trRaw
+        : "";
+      const arHtml = escapeDisplayText(arText);
+      const trHtml = escapeDisplayText(tr);
+      const arClasses = ["quiz-prompt-main", "quiz-prompt-main-ar", "rtl"];
+      if(primary.hasArabic){
+        arClasses.push("ar");
+      }
+      if(primary.hasArabic && hasArabicDiacritics(arText)){
         arClasses.push("quiz-prompt-main-ar-diacritic");
       }
       promptEl.innerHTML = `
-        <span class="${arClasses.join(" ")}">${arText}</span>
-        ${tr ? `<span class="quiz-prompt-sub rtl">${tr}</span>` : ""}
+        <span class="${arClasses.join(" ")}">${arHtml}</span>
+        ${tr ? `<span class="quiz-prompt-sub rtl">${trHtml}</span>` : ""}
       `;
       return;
     }
 
-    promptEl.innerHTML = `<span class="quiz-prompt-main rtl">${fmtHe(answer.he)}</span>`;
+    promptEl.innerHTML = `<span class="quiz-prompt-main rtl">${escapeDisplayText(fmtHe(answer.he))}</span>`;
   }
 
   function renderOption(entry, direction, index, showDisambiguator = false){
     if(direction === "ar_to_he"){
       const he = fmtHe(entry.he);
       const hint = translitText(entry) || entryArabic(entry);
+      const heHtml = escapeDisplayText(he);
+      const hintHtml = escapeDisplayText(hint);
       if(showDisambiguator){
         return `
           <span class="choice-index ltr">${index + 1}</span>
           <span class="choice-stack">
-            <span class="choice-text">${he}</span>
-            ${hint ? `<span class="choice-sub choice-sub-disambiguator rtl">${hint}</span>` : ""}
+            <span class="choice-text">${heHtml}</span>
+            ${hint ? `<span class="choice-sub choice-sub-disambiguator rtl">${hintHtml}</span>` : ""}
           </span>
         `;
       }
 
       return `
         <span class="choice-index ltr">${index + 1}</span>
-        <span class="choice-text">${he}</span>
+        <span class="choice-text">${heHtml}</span>
       `;
     }
 
+    const primary = entryPrimaryForeign(entry);
+    const primaryText = primary.text;
     const tr = translitText(entry);
+    const trLine = tr && normalizeOptionText(tr) !== normalizeOptionText(primaryText) ? tr : "";
+    const primaryClasses = ["choice-text", "choice-ar", "rtl"];
+    if(primary.hasArabic){
+      primaryClasses.push("ar");
+    }
     return `
       <span class="choice-index ltr">${index + 1}</span>
       <span class="choice-stack">
-        <span class="choice-text choice-ar rtl ar">${entryArabic(entry)}</span>
-        ${tr ? `<span class="choice-sub rtl">${tr}</span>` : ""}
+        <span class="${primaryClasses.join(" ")}">${escapeDisplayText(primaryText)}</span>
+        ${trLine ? `<span class="choice-sub rtl">${escapeDisplayText(trLine)}</span>` : ""}
       </span>
     `;
   }
@@ -1255,11 +1332,18 @@ function runQuiz({ items, scope }){
     if(direction === "ar_to_he"){
       return fmtHe(answer.he);
     }
+    const primary = entryPrimaryForeign(answer);
     const tr = translitText(answer);
     if(!arabicVisible){
-      return tr || entryArabic(answer);
+      return tr || primary.text;
     }
-    return tr ? `${entryArabic(answer)} (${tr})` : entryArabic(answer);
+    if(!primary.text){
+      return tr;
+    }
+    if(tr && normalizeOptionText(tr) !== normalizeOptionText(primary.text)){
+      return `${primary.text} (${tr})`;
+    }
+    return primary.text;
   }
 
   function makeQuestion(){
@@ -1462,18 +1546,45 @@ function buildQuestionPoolFromGreetings(rows, plain = false){
 function buildQuestionPoolFromSentences(rows){
   const pool = [];
   for(const row of rows){
+    const requestedMinWords = Number.parseInt(String(row?.min_words ?? ""), 10);
+    const minWords = Number.isInteger(requestedMinWords) ? Math.max(4, requestedMinWords) : 4;
+    const promptClass = "quiz-prompt-main quiz-prompt-main-sentence rtl";
+    const optionClass = "choice-text choice-text-sentence";
     const id = String(row?.id ?? "").trim();
+    if(!id){
+      continue;
+    }
+
+    const provided = String(row?.provided_sentence ?? "").trim();
+    const completion = String(row?.good_completion ?? "").trim();
+    const role = String(row?.role_of_provided ?? "").trim().toLowerCase();
+    if(provided && completion && (role === "question" || role === "answer")){
+      if(countWords(completion) >= minWords){
+        const promptIsQuestion = role === "question";
+        pool.push({
+          id: `${id}:provided_${role}`,
+          prompt: provided,
+          correct: completion,
+          promptLayout: "qa_split",
+          questionText: promptIsQuestion ? provided : "",
+          answerText: promptIsQuestion ? "" : provided,
+          promptClass,
+          optionClass,
+          choiceGroup: promptIsQuestion ? "answer" : "question",
+          options: Array.isArray(row?.options) ? row.options : []
+        });
+      }
+      continue;
+    }
+
     const question = String(row?.question ?? "").trim();
     const answer = String(row?.answer ?? "").trim();
-    if(!id || !question || !answer){
+    if(!question || !answer){
       continue;
     }
 
     const direction = parseSentenceDirection(row?.direction);
-    const promptClass = "quiz-prompt-main quiz-prompt-main-sentence rtl";
-    const optionClass = "choice-text choice-text-sentence";
-
-    if(direction === SENTENCE_DIR_Q_TO_A || direction === SENTENCE_DIR_BOTH){
+    if((direction === SENTENCE_DIR_Q_TO_A || direction === SENTENCE_DIR_BOTH) && countWords(answer) >= minWords){
       pool.push({
         id: `${id}:q_to_a`,
         prompt: question,
@@ -1482,11 +1593,13 @@ function buildQuestionPoolFromSentences(rows){
         questionText: question,
         answerText: "",
         promptClass,
-        optionClass
+        optionClass,
+        choiceGroup: "answer",
+        options: Array.isArray(row?.options) ? row.options : []
       });
     }
 
-    if(direction === SENTENCE_DIR_A_TO_Q || direction === SENTENCE_DIR_BOTH){
+    if((direction === SENTENCE_DIR_A_TO_Q || direction === SENTENCE_DIR_BOTH) && countWords(question) >= minWords){
       pool.push({
         id: `${id}:a_to_q`,
         prompt: answer,
@@ -1495,7 +1608,9 @@ function buildQuestionPoolFromSentences(rows){
         questionText: "",
         answerText: answer,
         promptClass,
-        optionClass
+        optionClass,
+        choiceGroup: "question",
+        options: Array.isArray(row?.options) ? row.options : []
       });
     }
   }
@@ -1595,7 +1710,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
   }
 
   function setFeedback(message, type = "muted"){
-    feedbackEl.textContent = message;
+    feedbackEl.innerHTML = escapeDisplayText(message);
     feedbackEl.className = `quiz-feedback ${type}`;
   }
 
@@ -1619,9 +1734,17 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
   function buildOptions(question){
     const givenOptions = Array.isArray(question.options) ? question.options : [];
     const uniqueWrong = [...new Set(givenOptions.filter((option) => option !== question.correct))];
+    const candidatePool = pool.filter((row) => {
+      if(row.id === question.id){
+        return false;
+      }
+      if(!question.choiceGroup || !row.choiceGroup){
+        return true;
+      }
+      return row.choiceGroup === question.choiceGroup;
+    });
     const extraWrong = shuffle(
-      pool
-        .filter((row) => row.id !== question.id)
+      candidatePool
         .map((row) => row.correct)
         .filter((option) => option && option !== question.correct && !uniqueWrong.includes(option))
     );
@@ -1634,10 +1757,10 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
     if(question.promptLayout === "qa_split"){
       promptEl.className = "quiz-prompt quiz-prompt-split";
       const questionBody = question.questionText
-        ? `<span class="quiz-split-text rtl">${escapeHtmlWithRaisedShadda(question.questionText)}</span>`
+        ? `<span class="quiz-split-text rtl">${escapeDisplayText(question.questionText)}</span>`
         : `<span class="quiz-split-missing rtl">בחרו שאלה נכונה</span>`;
       const answerBody = question.answerText
-        ? `<span class="quiz-split-text rtl">${escapeHtmlWithRaisedShadda(question.answerText)}</span>`
+        ? `<span class="quiz-split-text rtl">${escapeDisplayText(question.answerText)}</span>`
         : `<span class="quiz-split-missing rtl">בחרו תשובה נכונה</span>`;
       promptEl.innerHTML = `
         <div class="quiz-split">
@@ -1656,7 +1779,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
 
     promptEl.className = "quiz-prompt";
     const effectivePromptClass = question.promptClass || promptClass;
-    promptEl.innerHTML = `<span class="${effectivePromptClass}">${escapeHtmlWithRaisedShadda(question.prompt)}</span>`;
+    promptEl.innerHTML = `<span class="${effectivePromptClass}">${escapeDisplayText(question.prompt)}</span>`;
   }
 
   function makeQuestion(){
@@ -1680,7 +1803,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
       const optionClass = question.optionClass || "choice-text";
       b.innerHTML = `
         <span class="choice-index ltr">${index + 1}</span>
-        <span class="${optionClass}">${escapeHtmlWithRaisedShadda(option)}</span>
+        <span class="${optionClass}">${escapeDisplayText(option)}</span>
       `;
       b.addEventListener("click", () => onPick(b, option));
       choicesEl.appendChild(b);
@@ -1850,7 +1973,7 @@ function runTypingQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
   }
 
   function setFeedback(message, type = "muted"){
-    feedbackEl.textContent = message;
+    feedbackEl.innerHTML = escapeDisplayText(message);
     feedbackEl.className = `quiz-feedback ${type}`;
   }
 
@@ -1862,7 +1985,7 @@ function runTypingQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
     state.current = question;
 
     promptEl.className = "quiz-prompt";
-    promptEl.innerHTML = `<span class="${promptClass}">${escapeHtmlWithRaisedShadda(question.prompt)}</span>`;
+    promptEl.innerHTML = `<span class="${promptClass}">${escapeDisplayText(question.prompt)}</span>`;
 
     answerInput.value = "";
     answerInput.disabled = false;
@@ -1972,7 +2095,7 @@ function runMatch({ items }){
   const feedbackEl = byId("match-feedback");
 
   function setFeedback(message, type = "muted"){
-    feedbackEl.textContent = message;
+    feedbackEl.innerHTML = escapeDisplayText(message);
     feedbackEl.className = `quiz-feedback ${type}`;
   }
 
@@ -2061,11 +2184,13 @@ function runMatch({ items }){
       b.className = side === "left" ? "match-item match-item-ar" : "match-item match-item-he rtl";
       b.dataset.id = row.id;
       if(side === "left"){
-        const trLine = row.tr && row.tr !== "—"
-          ? `<span class="match-item-ar-tr rtl">${row.tr}</span>`
+        const arHtml = escapeDisplayText(row.ar);
+        const trLine = row.tr && row.tr !== "—" && row.tr.trim() !== row.ar.trim()
+          ? `<span class="match-item-ar-tr rtl">${escapeDisplayText(row.tr)}</span>`
           : "";
+        const arClass = row.hasArabic ? "match-item-ar-main rtl ar" : "match-item-ar-main rtl";
         b.innerHTML = `
-          <span class="match-item-ar-main rtl ar">${row.ar}</span>
+          <span class="${arClass}">${arHtml}</span>
           ${trLine}
         `;
       }else{
@@ -2078,12 +2203,16 @@ function runMatch({ items }){
 
   function startRound(){
     const chosen = shuffle(items).slice(0, Math.min(MATCH_ROUND_SIZE, items.length));
-    state.pairs = chosen.map((e) => ({
-      id: e.id,
-      ar: entryArabic(e),
-      he: fmtHe(e.he),
-      tr: fmtTr(e)
-    }));
+    state.pairs = chosen.map((e) => {
+      const primary = entryPrimaryForeign(e);
+      return {
+        id: e.id,
+        ar: primary.text,
+        hasArabic: primary.hasArabic,
+        he: fmtHe(e.he),
+        tr: fmtTr(e)
+      };
+    });
     state.matched = 0;
     state.attempts = 0;
     state.leftSelected = null;
@@ -2254,7 +2383,10 @@ async function initTestRunPage(){
 
   try{
     if(isSentenceTranslationMode){
-      const payloadRows = await loadJson(SENTENCE_TRANSLATION_PATH);
+      const sentencePath = mode === TEST_MODE_TR_TO_HE
+        ? TRANSLIT_TO_HEBREW_PATH
+        : SENTENCE_TRANSLATION_PATH;
+      const payloadRows = await loadJson(sentencePath);
       questionPool = buildQuestionPoolFromSentenceTranslations(payloadRows?.items || [], mode);
     }else if(testModeUsesLessons(mode)){
       const lessons = await loadLessonMeta();
@@ -2276,8 +2408,8 @@ async function initTestRunPage(){
       const payloadRows = await loadJson(SENTENCE_COMPLETION_PATH);
       questionPool = buildQuestionPoolFromSentences(payloadRows?.items || []);
     }else if(mode === TEST_MODE_GREETINGS_PLAIN){
-      const payloadRows = await loadJson(GREETINGS_PACK_PATH);
-      questionPool = buildQuestionPoolFromGreetings(payloadRows?.items || [], true);
+      const greetingsRows = await loadGreetingsRows();
+      questionPool = buildQuestionPoolFromGreetings(greetingsRows, true);
     }
   }catch(err){
     console.error(err);

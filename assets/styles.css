@@ -617,6 +617,20 @@ body.drawer-open .side-drawer-toggle{
   gap:12px;
 }
 
+.lesson-word-grid.lesson-word-grid-greetings{
+  grid-template-columns:1fr;
+  gap:10px;
+  width:100%;
+  max-width:980px;
+  margin-inline:auto;
+}
+
+@media (min-width:1280px){
+  .lesson-word-grid.lesson-word-grid-greetings{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
 .lesson-search-wrap{
   display:grid;
   gap:8px;
@@ -630,6 +644,15 @@ body.drawer-open .side-drawer-toggle{
   grid-template-columns:minmax(0,1fr) minmax(120px,auto);
   gap:8px;
   align-items:center;
+}
+
+.lesson-search-no-filter .lesson-search-controls{
+  grid-template-columns:minmax(0,1fr);
+}
+
+.lesson-search-no-filter .lesson-search-filter,
+.lesson-search-no-filter .lesson-search-filter-label{
+  display:none;
 }
 
 .lesson-search-label{
@@ -733,6 +756,45 @@ body.drawer-open .side-drawer-toggle{
   align-items:center;
   text-align:center;
   gap:10px;
+}
+
+.lesson-word-card-greetings{
+  min-height:0;
+  justify-content:flex-start;
+  align-items:stretch;
+  padding:14px 16px;
+  gap:10px;
+  border-radius:18px;
+}
+
+.lesson-word-card-greetings .lesson-word-he,
+.lesson-word-card-greetings .lesson-word-ar,
+.lesson-word-card-greetings .lesson-word-tr{
+  width:100%;
+  margin:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  line-break:loose;
+  text-wrap:balance;
+  max-inline-size:100%;
+}
+
+.lesson-word-card-greetings .lesson-word-he{
+  font-size:clamp(21px,1.9vw,30px);
+  line-height:1.34;
+}
+
+.lesson-word-card-greetings .lesson-word-ar{
+  font-size:clamp(26px,2.6vw,36px);
+  line-height:1.28;
+}
+
+.lesson-word-card-greetings .lesson-word-tr{
+  font-size:clamp(20px,1.8vw,27px);
+  line-height:1.42;
+  padding-top:8px;
+  border-top:1px dashed rgba(16,149,143,.28);
 }
 
 .lesson-word-he{
@@ -911,7 +973,7 @@ body.drawer-open .side-drawer-toggle{
 }
 
 .quiz-prompt-main-sentence{
-  font-size:clamp(30px,4.5vw,45px);
+  font-size:clamp(21px,2.9vw,29px);
   line-height:1.24;
 }
 
@@ -961,8 +1023,8 @@ body.drawer-open .side-drawer-toggle{
 .quiz-split-text{
   display:block;
   width:100%;
-  font-size:clamp(22px,3.6vw,34px);
-  line-height:1.25;
+  font-size:clamp(20px,3.2vw,30px);
+  line-height:1.2;
   font-weight:600;
   color:#1e3552;
 }
@@ -1031,6 +1093,10 @@ body.drawer-open .side-drawer-toggle{
   padding-inline:58px;
 }
 
+.quiz-choicegrid-single .quiz-choice{
+  padding-inline:44px;
+}
+
 .quiz-choice:disabled{cursor:not-allowed;opacity:.96}
 
 .choice-index{
@@ -1063,8 +1129,12 @@ body.drawer-open .side-drawer-toggle{
 }
 
 .choice-text-sentence{
-  font-size:clamp(23px,3.1vw,34px);
-  line-height:1.42;
+  font-size:clamp(19px,2.5vw,27px);
+  line-height:1.28;
+}
+
+.quiz-choicegrid-single .choice-text-sentence{
+  text-wrap:balance;
 }
 
 .choice-text-sentence .raised-shadda{
@@ -1099,7 +1169,7 @@ body.drawer-open .side-drawer-toggle{
   font-family:var(--font-ar);
   font-size:.95em;
   line-height:1;
-  transform:translateY(-0.1em);
+  transform:translateY(-0.05em);
   margin-inline:-0.02em 0;
   vertical-align:baseline;
 }
@@ -1643,6 +1713,16 @@ body.drawer-open .side-drawer-toggle{
   .quiz-split{grid-template-columns:1fr}
 
   .lesson-word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lesson-word-grid.lesson-word-grid-greetings{grid-template-columns:1fr}
+  .lesson-word-card-greetings{
+    padding:14px 12px;
+  }
+  .lesson-word-card-greetings .lesson-word-he{
+    font-size:clamp(22px,6vw,30px);
+  }
+  .lesson-word-card-greetings .lesson-word-tr{
+    font-size:clamp(20px,5.4vw,28px);
+  }
   .lesson-search-input{
     min-height:40px;
     font-size:15px;
@@ -1678,7 +1758,10 @@ body.drawer-open .side-drawer-toggle{
   .match-list{grid-auto-rows:74px}
 
   .choice-text{font-size:27px}
-  .choice-text-sentence{line-height:1.56}
+  .choice-text-sentence{
+    font-size:clamp(20px,3.8vw,24px);
+    line-height:1.3;
+  }
   .choice-sub{font-size:21px}
   .choice-ar{font-size:32px}
 }
@@ -1856,6 +1939,10 @@ body.drawer-open .side-drawer-toggle{
   .match-list{grid-auto-rows:70px}
 
   .quiz-prompt-main{font-size:clamp(30px,9vw,40px)}
+  .quiz-prompt-main-sentence{
+    font-size:clamp(19px,5.9vw,25px);
+    line-height:1.24;
+  }
   .quiz-prompt-main-ar{
     font-size:clamp(36px,11vw,48px);
     line-height:1.12;
@@ -1873,7 +1960,10 @@ body.drawer-open .side-drawer-toggle{
   }
 
   .choice-text{font-size:24px}
-  .choice-text-sentence{line-height:1.6}
+  .choice-text-sentence{
+    font-size:clamp(17px,4.4vw,22px);
+    line-height:1.28;
+  }
   .choice-sub{font-size:18px}
   .choice-ar{font-size:30px}
 

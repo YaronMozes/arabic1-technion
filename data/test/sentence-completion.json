@@ -2,87 +2,148 @@
   "items": [
     {
       "id": "sent-001",
-      "question": "שו אחבארכ יא זלמה היום",
-      "answer": "אלחמדללה כל שי תמאם",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "וין סאכנין ולאדכ",
+      "role_of_provided": "question",
+      "good_completion": "הם סאכנין פי (א)ל-בית (א)ל-ג׳דיד",
+      "min_words": 4
     },
     {
       "id": "sent-002",
-      "question": "וין סאכן אנתא הליום",
-      "answer": "אנא סאכן פי חיפה הליום",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "מש פי האדא (א)ל-בית",
+      "role_of_provided": "answer",
+      "good_completion": "וין סאכנין ולאד (א)ל-ג׳יראן הלא",
+      "min_words": 4
     },
     {
       "id": "sent-003",
-      "question": "מין הון פי אלסאפה",
-      "answer": "אנא הון פי אלסאפה",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "מבסוטין כתיר",
+      "role_of_provided": "answer",
+      "good_completion": "(א)ל-ג׳יראן מבסוטין מן (א)ל-ראדיו האדא",
+      "min_words": 4
     },
     {
       "id": "sent-004",
-      "question": "שו אסם אלדוקטור אליום",
-      "answer": "אסם אלדוקטור סמיר אליום",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "אנתו בדכם שע׳ל ולא מצארי",
+      "role_of_provided": "question",
+      "good_completion": "נחנא מא בדנא מצארי נחנא בדנא שע׳ל",
+      "min_words": 4
     },
     {
       "id": "sent-005",
-      "question": "אתא מן וין הליום",
-      "answer": "אנא מן חיפה הליום",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "אנא הון מן זמאן",
+      "role_of_provided": "answer",
+      "good_completion": "אימתא ג׳ית יא זלמה להון",
+      "min_words": 4
     },
     {
       "id": "sent-006",
-      "question": "וין אלכתאב פי אלסף",
-      "answer": "אלכתאב פי אלטאולה הון",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "אימתא ג׳ית",
+      "role_of_provided": "question",
+      "good_completion": "אנא ג׳ית הלא מע (א)ל-ג׳יראן",
+      "min_words": 4
     },
     {
       "id": "sent-007",
-      "question": "שו תעמל בעד אלדרס",
-      "answer": "אנא ארוח על אלבית בעד אלדרס",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "ליש מא אג׳ו מעכם",
+      "role_of_provided": "question",
+      "good_completion": "מנשאן הם תעבאנין מן (א)ל-שע׳ל",
+      "min_words": 4
     },
     {
       "id": "sent-008",
-      "question": "כיף אלג'ו פי חיפה הליום",
-      "answer": "אלג'ו בארד שווי הליום",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "ליש הם ברא",
+      "role_of_provided": "question",
+      "good_completion": "מנשאן פיה שמס עלא (א)ל-כראסי",
+      "min_words": 4
     },
     {
       "id": "sent-009",
-      "question": "מתא אלמחאצרה אלג'איה",
-      "answer": "אלמחאצרה בקיר בהד אלסאעה",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "מתאסף פיש ענדי וקת",
+      "role_of_provided": "answer",
+      "good_completion": "בדַכ תרוח מענא ע-חיפא בכרא",
+      "min_words": 4
     },
     {
       "id": "sent-010",
-      "question": "הל פיה משכלה פי אלדרס",
-      "answer": "לא מא פי משכלה פי אלדרס",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "אנא מש מבסוט מנַכ",
+      "role_of_provided": "answer",
+      "good_completion": "ליש אנת תעבאן ומש מבסוט הלא",
+      "min_words": 4
     },
     {
       "id": "sent-011",
-      "question": "לאיש מא ג'ית אמס",
-      "answer": "מא ג'ית לאן כנת מריד אמס",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "מנשאן איש היה בדהא מצארי",
+      "role_of_provided": "question",
+      "good_completion": "מנשאן בדהא סיארה ג׳דידה הלא",
+      "min_words": 4
     },
     {
       "id": "sent-012",
-      "question": "תעאל הון נשרב שהוה סווא",
-      "answer": "טייב תעאל הון ונשרב שהוה",
-      "min_words": 4,
-      "direction": "both"
+      "provided_sentence": "נחנא מא בדנא מצארי נחנא בדנא שע׳ל",
+      "role_of_provided": "answer",
+      "good_completion": "אנתו בדכם שע׳ל ולא מצארי",
+      "min_words": 4
+    },
+    {
+      "id": "sent-013",
+      "provided_sentence": "הלא מא ענדי וקת",
+      "role_of_provided": "answer",
+      "good_completion": "בדַכ תרוח מענא ע-(א)ל-מדרסה הלא",
+      "min_words": 4
+    },
+    {
+      "id": "sent-014",
+      "provided_sentence": "בדכ תרוחי ע-(א)ל-נאצרה",
+      "role_of_provided": "question",
+      "good_completion": "לא אנא תעבאנה בדי ארוח ע-(א)ל-בית",
+      "min_words": 4
+    },
+    {
+      "id": "sent-015",
+      "provided_sentence": "מש לאזם ישוף האדא עלא (א)ל-טאולה",
+      "role_of_provided": "answer",
+      "good_completion": "אד׳א יפות הלא שו בישוף הון",
+      "min_words": 4
+    },
+    {
+      "id": "sent-016",
+      "provided_sentence": "ג׳יראנכם מבסוטין מן שע׳לי",
+      "role_of_provided": "question",
+      "good_completion": "נעם (א)ל-ג׳יראן מבסוטין כתיר מן שע׳לכ",
+      "min_words": 4
+    },
+    {
+      "id": "sent-017",
+      "provided_sentence": "אנא תעבאן תעבאן מן איש",
+      "role_of_provided": "question",
+      "good_completion": "אנא תעבאן מן האדא (א)ל-דרס",
+      "min_words": 4
+    },
+    {
+      "id": "sent-018",
+      "provided_sentence": "ענדַכ מצארי אכתר מני",
+      "role_of_provided": "answer",
+      "good_completion": "מין ענדו מצארי אכתר מני הון",
+      "min_words": 4
+    },
+    {
+      "id": "sent-019",
+      "provided_sentence": "אנא מא בדי ארוח ע-(א)ל-מדרסה בדי ארוח ע-חיפא",
+      "role_of_provided": "answer",
+      "good_completion": "בדכ תרוח מענא ע-(א)ל-מדרסה הלא",
+      "options": [
+        "אימתא ג׳ית יא זלמה להון",
+        "ליש אנת תעבאן ומש מבסוט הלא",
+        "מין ענדו מצארי אכתר מני הון"
+      ],
+      "min_words": 4
+    },
+    {
+      "id": "sent-020",
+      "provided_sentence": "ליש מנשאן אנא משע׳ולה",
+      "role_of_provided": "answer",
+      "good_completion": "יא מרים מא בדכ תרוחי ע-(א)ל-מדרסה הלא",
+      "min_words": 4
     }
   ]
 }
