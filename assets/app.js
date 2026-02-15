@@ -1761,10 +1761,22 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
       }
       return row.choiceGroup === question.choiceGroup;
     });
+
+    // Use a Set to track seen normalized strings to avoid near-duplicates (like with/without niqqud)
+    const seenNormalized = new Set();
+    seenNormalized.add(stripHebrewNiqqud(question.correct).trim());
+    uniqueWrong.forEach(opt => seenNormalized.add(stripHebrewNiqqud(opt).trim()));
+
     const extraWrong = shuffle(
       candidatePool
         .map((row) => row.correct)
-        .filter((option) => option && option !== question.correct && !uniqueWrong.includes(option))
+        .filter((option) => {
+          if (!option) return false;
+          const norm = stripHebrewNiqqud(option).trim();
+          if (seenNormalized.has(norm)) return false;
+          seenNormalized.add(norm);
+          return true;
+        })
     );
 
     const wrongOptions = [...uniqueWrong, ...extraWrong].slice(0, 3);

@@ -60,7 +60,7 @@
       "id": "sent-009",
       "provided_sentence": "מתאסף פיש ענדי וקת",
       "role_of_provided": "answer",
-      "good_completion": "בדַכ תרוח מענא ע-חיפא בכרא",
+      "good_completion": "בדכ תרוח מענא ע-חיפא בכרא",
       "min_words": 4
     },
     {
@@ -88,7 +88,7 @@
       "id": "sent-013",
       "provided_sentence": "הלא מא ענדי וקת",
       "role_of_provided": "answer",
-      "good_completion": "בדַכ תרוח מענא ע-(א)ל-מדרסה הלא",
+      "good_completion": "בדכ תרוח מענא ע-(א)ל-מדרסה הלא",
       "min_words": 4
     },
     {
@@ -114,7 +114,7 @@
     },
     {
       "id": "sent-017",
-      "provided_sentence": "אנא תעבאן תעבאן מן איש",
+      "provided_sentence": "תעבאן מן איש?",
       "role_of_provided": "question",
       "good_completion": "אנא תעבאן מן האדא (א)ל-דרס",
       "min_words": 4
