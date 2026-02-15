@@ -46,7 +46,7 @@
 {"id":"sx-0019","pos":"word","ar":{"vocalized":"לֵישׁ","plain":"לֵישׁ"},"he":["למה"],"translit":{"he":"לֵישׁ"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0020","pos":"word","ar":{"vocalized":"בַּרַّא","plain":"בַּרַא"},"he":["בחוץ"],"translit":{"he":"בַּרַّא"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0021","pos":"word","ar":{"vocalized":"תַעָאל","plain":"תַעָאל"},"he":["בוא"],"translit":{"he":"תַעָאל"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0022","pos":"word","ar":{"vocalized":"לְהוֹן","plain":"לְהוֹן"},"he":["הנה"],"translit":{"he":"לְהוֹן"},"tags":["lesson:vocab","topic:sentence-derived"]}
+{"id":"sx-0022","pos":"word","ar":{"vocalized":"לַהוֹן","plain":"לַהוֹן"},"he":["הנה"],"translit":{"he":"לַהוֹן"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0023","pos":"word","ar":{"vocalized":"וַּלַד","plain":"וַּלַד"},"he":["ילד"],"translit":{"he":"וַּלַד"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0024","pos":"word","ar":{"vocalized":"תַעָאלִי","plain":"תַעָאלִי"},"he":["בואי"],"translit":{"he":"תַעָאלִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0025","pos":"word","ar":{"vocalized":"בִּנְת","plain":"בִּנְת"},"he":["ילדה"],"translit":{"he":"בִּנְת"},"tags":["lesson:vocab","topic:sentence-derived"]}
@@ -64,7 +64,7 @@
 {"id":"sx-0037","pos":"word","ar":{"vocalized":"מִן אֵישׁ","plain":"מִן אֵישׁ"},"he":["ממה"],"translit":{"he":"מִן אֵישׁ"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0038","pos":"word","ar":{"vocalized":"יוּסֵף","plain":"יוּסֵף"},"he":["יוסף"],"translit":{"he":"יוּסֵף"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0039","pos":"word","ar":{"vocalized":"רוּח","plain":"רוּח"},"he":["לך"],"translit":{"he":"רוּח"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0040","pos":"word","ar":{"vocalized":"לְאִמַّכּ","plain":"לְאִמַכּ"},"he":["לאמך"],"translit":{"he":"לְאִמַّכּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
+{"id":"sx-0040","pos":"word","ar":{"vocalized":"לַאִמַّכּ","plain":"לְאִמַכּ"},"he":["לאמך"],"translit":{"he":"לַאִמַّכּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0041","pos":"word","ar":{"vocalized":"מָאמָא","plain":"מָאמָא"},"he":["אמא"],"translit":{"he":"מָאמָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0042","pos":"word","ar":{"vocalized":"פוּתִי","plain":"פוּתִי"},"he":["היכנסי"],"translit":{"he":"פוּתִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
 {"id":"sx-0043","pos":"word","ar":{"vocalized":"עַ-(א)לְ-בֵּית","plain":"עַ-(א)לְ-בֵּית"},"he":["הביתה"],"translit":{"he":"עַ-(א)לְ-בֵּית"},"tags":["lesson:vocab","topic:sentence-derived"]}
