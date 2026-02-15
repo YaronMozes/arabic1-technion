@@ -1469,6 +1469,60 @@ body.drawer-open .side-drawer-toggle{
 
 .match-item:disabled{cursor:not-allowed}
 
+.test-tips-toggle{
+  margin:0 auto 12px;
+  display:block;
+  font-size:15px;
+  color:var(--accent-strong);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-family:var(--font-he);
+  font-weight:600;
+}
+
+.test-tips-box{
+  display:none;
+  margin-bottom:16px;
+}
+
+.test-tips-box.open{
+  display:block;
+  animation:fadeUp 0.3s ease both;
+}
+
+.test-tips-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+  gap:10px;
+  margin-top:8px;
+}
+
+.test-tip-item{
+  background:rgba(255,255,255,0.7);
+  padding:8px 12px;
+  border-radius:12px;
+  border:1px solid rgba(16,149,143,0.18);
+  text-align:center;
+}
+
+.test-tip-he{
+  display:block;
+  font-weight:700;
+  font-size:18px;
+  color:var(--text);
+}
+
+.test-tip-tr{
+  display:block;
+  font-family:var(--font-translit);
+  font-size:15px;
+  color:var(--translit);
+  margin-top:2px;
+}
+
 .test-card{padding:18px}
 
 .test-mode-heading{

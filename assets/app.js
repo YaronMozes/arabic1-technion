@@ -2463,6 +2463,37 @@ async function initTestRunPage(){
     runWrap.appendChild(switchNav);
   }
 
+  if(mode === TEST_MODE_SENTENCE_COMPLETION){
+    const tips = ["יא זלמה", "מש עארף", "ואללה", "יעני"];
+
+    const tipsToggle = document.createElement("button");
+    tipsToggle.type = "button";
+    tipsToggle.className = "test-tips-toggle";
+    tipsToggle.textContent = "טיפים לחלק זה (מילים שימושיות)";
+
+    const tipsBox = document.createElement("div");
+    tipsBox.className = "notice test-tips-box";
+    tipsBox.innerHTML = `
+      <div class="test-tips-list">
+        ${tips.map((tip) => `
+          <div class="test-tip-item">
+            <span class="test-tip-he">${tip}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+    tipsToggle.addEventListener("click", () => {
+      tipsBox.classList.toggle("open");
+      tipsToggle.textContent = tipsBox.classList.contains("open")
+        ? "הסתר טיפים"
+        : "טיפים לחלק זה (מילים שימושיות)";
+    });
+
+    runWrap.appendChild(tipsToggle);
+    runWrap.appendChild(tipsBox);
+  }
+
   const gameWrap = document.createElement("div");
   gameWrap.id = "game-wrap";
   runWrap.appendChild(gameWrap);
