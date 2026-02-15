@@ -574,6 +574,24 @@ function escapeHtmlWithStableHyphens(value){
   return escapeHtml(value);
 }
 
+function isHebrewCombiningMark(ch){
+  return /[\u0591-\u05C7]/.test(ch);
+}
+
+function previousBaseChar(text, fromIdx){
+  for(let idx = fromIdx; idx >= 0; idx -= 1){
+    const ch = text[idx];
+    if(!isHebrewCombiningMark(ch)){
+      return ch;
+    }
+  }
+  return "";
+}
+
+function isShaddaOnLamed(text, shaddaIdx){
+  return previousBaseChar(text, shaddaIdx - 1) === "ל";
+}
+
 function escapeHtmlWithRaisedShadda(value){
   const raisedShadda = '<span class="raised-shadda" aria-hidden="true">\u0651</span>';
   const raw = String(value ?? "");
@@ -585,10 +603,18 @@ function escapeHtmlWithRaisedShadda(value){
       continue;
     }
 
-    // Keep shadda inline when Hebrew combining marks follow it (e.g. הֻוֵּّ),
-    // otherwise those marks can detach and render as orphan dots.
     const next = raw[idx + 1] || "";
-    if(/[\u0591-\u05C7]/.test(next)){
+    const onLamed = isShaddaOnLamed(raw, idx);
+
+    // Keep non-lamed shadda inline when Hebrew combining marks follow it
+    // to avoid detached/orphan marks.
+    if(!onLamed && isHebrewCombiningMark(next)){
+      out += escapeHtml(ch);
+      continue;
+    }
+
+    // Raise on lamed regardless of surrounding punctuation.
+    if(!onLamed){
       out += escapeHtml(ch);
       continue;
     }
@@ -600,7 +626,15 @@ function escapeHtmlWithRaisedShadda(value){
 
 function shouldRaiseShadda(value){
   const text = String(value ?? "");
-  return /\u0651/.test(text) && /[\u0590-\u05FF]/.test(text);
+  if(!/\u0651/.test(text) || !/[\u0590-\u05FF]/.test(text)){
+    return false;
+  }
+  for(let idx = 0; idx < text.length; idx += 1){
+    if(text[idx] === "\u0651" && isShaddaOnLamed(text, idx)){
+      return true;
+    }
+  }
+  return false;
 }
 
 function escapeDisplayText(value){
