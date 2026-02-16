@@ -18,6 +18,7 @@ const TEST_MODES_USING_LESSONS = new Set();
 const SENTENCE_DIR_BOTH = "both";
 const SENTENCE_DIR_Q_TO_A = "question_to_answer";
 const SENTENCE_DIR_A_TO_Q = "answer_to_question";
+const CORRECT_SOUND_KEY = "a1:correct-sound";
 const LESSON_CODE_VOCAB = "vocab";
 const LESSON_CODE_GREETINGS = "greetings";
 const LESSON_CODE_ENRICHMENT = "enrichment";
@@ -51,6 +52,8 @@ let lessonMetaCache = null;
 let entryMapCache = null;
 let greetingsRowsCache = null;
 let arabicVisible = true;
+let correctSoundEnabled = true;
+let correctAnswerAudioCtx = null;
 const hebrewCollator = new Intl.Collator("he", {
   sensitivity: "base",
   ignorePunctuation: true,
@@ -87,6 +90,48 @@ const ARABIC_ALPHABET = [
   { letter: "ي", nameHe: "יאא", translit: "י" }
 ];
 
+function playCorrectAnswerSound(){
+  if(!correctSoundEnabled){
+    return;
+  }
+
+  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+  if(!AudioContextCtor){
+    return;
+  }
+
+  if(!correctAnswerAudioCtx){
+    correctAnswerAudioCtx = new AudioContextCtor();
+  }
+
+  const ctx = correctAnswerAudioCtx;
+  const trigger = () => {
+    const start = ctx.currentTime + 0.005;
+    const end = start + 0.16;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(740, start);
+    osc.frequency.exponentialRampToValueAtTime(1120, end);
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.08, start + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(start);
+    osc.stop(end + 0.02);
+  };
+
+  if(ctx.state === "suspended"){
+    ctx.resume().then(trigger).catch(() => {});
+    return;
+  }
+  trigger();
+}
+
 function readArabicVisibility(){
   try{
     return localStorage.getItem(ARABIC_VISIBILITY_KEY) !== "0";
@@ -112,6 +157,31 @@ function updateArabicToggleButtons(){
   });
 }
 
+function readCorrectSoundEnabled(){
+  try{
+    return localStorage.getItem(CORRECT_SOUND_KEY) !== "0";
+  }catch(err){
+    return true;
+  }
+}
+
+function writeCorrectSoundEnabled(enabled){
+  try{
+    localStorage.setItem(CORRECT_SOUND_KEY, enabled ? "1" : "0");
+  }catch(err){
+    // Ignore storage write failures.
+  }
+}
+
+function updateSoundToggleButtons(){
+  const text = correctSoundEnabled ? "בטל סאונד" : "הפעל סאונד";
+  document.querySelectorAll("[data-sound-toggle]").forEach((btn) => {
+    btn.textContent = text;
+    btn.classList.toggle("primary", !correctSoundEnabled);
+    btn.setAttribute("aria-pressed", (!correctSoundEnabled).toString());
+  });
+}
+
 function applyArabicVisibility(show){
   arabicVisible = !!show;
   document.body.classList.toggle("hide-arabic", !arabicVisible);
@@ -121,6 +191,16 @@ function applyArabicVisibility(show){
 function setArabicVisibility(show){
   writeArabicVisibility(show);
   applyArabicVisibility(show);
+}
+
+function applyCorrectSoundEnabled(enabled){
+  correctSoundEnabled = !!enabled;
+  updateSoundToggleButtons();
+}
+
+function setCorrectSoundEnabled(enabled){
+  writeCorrectSoundEnabled(enabled);
+  applyCorrectSoundEnabled(enabled);
 }
 
 function initSideToolbarDrawer(){
@@ -236,6 +316,33 @@ function attachArabicToggleToSideToolbar(anchorEl){
     toolbar.appendChild(toggle);
   }
   updateArabicToggleButtons();
+  return toggle;
+}
+
+function attachSoundToggleToSideToolbar(anchorEl){
+  const toolbar = anchorEl?.closest(".game-side-toolbar") || document.querySelector(".game-side-toolbar");
+  if(!toolbar) return;
+
+  let toggle = toolbar.querySelector("[data-sound-toggle]");
+  if(!toggle){
+    toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "btn game-side-toggle";
+    toggle.dataset.soundToggle = "1";
+    toggle.addEventListener("click", () => {
+      setCorrectSoundEnabled(!correctSoundEnabled);
+    });
+  }
+
+  if(anchorEl && anchorEl.parentElement === toolbar){
+    if(anchorEl.nextElementSibling !== toggle){
+      anchorEl.insertAdjacentElement("afterend", toggle);
+    }
+  }else if(toggle.parentElement !== toolbar){
+    toolbar.appendChild(toggle);
+  }
+  updateSoundToggleButtons();
+  return toggle;
 }
 
 function buildFallbackLessons(){
@@ -778,10 +885,16 @@ function setupSideToolbar(currentLesson, lessons, context = "game", mode = "quiz
 
   actions.innerHTML = "";
   actions.style.display = rows.length <= 1 ? "none" : "";
-  if(rows.length <= 1){
-    if(!isTestLikeContext){
-      attachArabicToggleToSideToolbar(actions);
+  const attachSideToggles = () => {
+    if(isTestLikeContext){
+      attachSoundToggleToSideToolbar(actions);
+      return;
     }
+    const arabicToggle = attachArabicToggleToSideToolbar(actions);
+    attachSoundToggleToSideToolbar(arabicToggle || actions);
+  };
+  if(rows.length <= 1){
+    attachSideToggles();
     return;
   }
 
@@ -828,9 +941,7 @@ function setupSideToolbar(currentLesson, lessons, context = "game", mode = "quiz
     actions.appendChild(btn);
   });
 
-  if(!isTestLikeContext){
-    attachArabicToggleToSideToolbar(actions);
-  }
+  attachSideToggles();
 }
 
 function renderLessonSupplement(lessonCode){
@@ -1451,6 +1562,7 @@ function runQuiz({ items, scope }){
       state.streak += 1;
       el.classList.add("correct");
       setFeedback("נכון!", "good");
+      playCorrectAnswerSound();
     }else{
       state.lastResult = "wrong";
       state.streak = 0;
@@ -1892,6 +2004,7 @@ function runChoiceQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
       state.streak += 1;
       el.classList.add("correct");
       setFeedback("נכון!", "good");
+      playCorrectAnswerSound();
     }else{
       state.lastResult = "wrong";
       state.streak = 0;
@@ -2083,6 +2196,7 @@ function runTypingQuiz({ questionPool, scope, promptClass = "quiz-prompt-main rt
     if(isCorrect){
       state.streak += 1;
       setFeedback(`נכון! התשובה המלאה: ${question.correct}`, "good");
+      playCorrectAnswerSound();
       updateScore();
       return;
     }
@@ -2203,6 +2317,7 @@ function runMatch({ items }){
       markPairAsMatched(leftId);
       clearSelection("left");
       clearSelection("right");
+      playCorrectAnswerSound();
       if(state.matched === state.pairs.length){
         setFeedback("מעולה! סיימתם את כל ההתאמות.", "good");
       }else{
@@ -2563,6 +2678,7 @@ async function initTestRunPage(){
 document.addEventListener("DOMContentLoaded", () => {
   initSideToolbarDrawer();
   applyArabicVisibility(readArabicVisibility());
+  applyCorrectSoundEnabled(readCorrectSoundEnabled());
   renderLessonCards().catch(console.error);
   initLessonPage().catch(console.error);
   initGamePage().catch(console.error);
