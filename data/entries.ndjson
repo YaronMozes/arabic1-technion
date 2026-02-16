@@ -9,7 +9,7 @@
 {"id":"a1-0109","pos":"article","ar":{"vocalized":"ال","plain":"ال"},"he":["ה־ (ה\"א הידיעה)"],"translit":{"he":"אִלְ"},"tags":["lesson:vocab","topic:grammar"]}
 {"id":"a1-0110","pos":"question","ar":{"vocalized":"مِن وِين","plain":"من وين"},"he":["מניין?","מאיפה?"],"translit":{"he":"מִן וֵין"},"tags":["lesson:vocab","topic:questions"]}
 {"id":"a1-0111","pos":"preposition","ar":{"vocalized":"فِي","plain":"في"},"he":["ב־","בתוך... (מקום)"],"translit":{"he":"פִי"},"tags":["lesson:vocab","topic:grammar"]}
-{"id":"a1-0112","pos":"particle","ar":{"vocalized":"نَعَمْ","plain":"نعم"},"he":["כן"],"translit":{"he":"נַעַם"},"tags":["lesson:vocab","topic:basics"]}
+{"id":"a1-0112","pos":"particle","ar":{"vocalized":"نَعَمْ / اَيْوَه / آه","plain":"نعم / ايوه / اه"},"he":["כן"],"translit":{"he":"נַעַם / אַיְוַה / אַאה"},"tags":["lesson:vocab","topic:basics"]}
 {"id":"a1-0113","pos":"determiner","ar":{"vocalized":"هَال","plain":"هال"},"he":["הזה / הזאת / האלה (לפני שם עצם)"],"translit":{"he":"הַל־"},"tags":["lesson:vocab","topic:grammar"]}
 {"id":"a1-0114","pos":"question","ar":{"vocalized":"مِين","plain":"مين"},"he":["מי?"],"translit":{"he":"מִין"},"tags":["lesson:vocab","topic:questions"]}
 {"id":"a1-0115","pos":"question","ar":{"vocalized":"شُو","plain":"شو"},"he":["מה?"],"translit":{"he":"שוּ"},"tags":["lesson:vocab","topic:questions"]}
@@ -18,7 +18,6 @@
 {"id":"a1-0118","pos":"adjective","ar":{"vocalized":"سَاكِنَة","plain":"ساكنة"},"he":["גרה"],"translit":{"he":"סַאכְּנֵה"},"tags":["lesson:vocab","topic:people"]}
 {"id":"a1-0119","pos":"particle","ar":{"vocalized":"كَمَان","plain":"كمان"},"he":["גם","גם כן"],"translit":{"he":"כַּמַאן"},"tags":["lesson:vocab","topic:basics"]}
 {"id":"a1-0120","pos":"particle","ar":{"vocalized":"يَا","plain":"يا"},"he":["מילת פנייה לפני שם"],"translit":{"he":"יַא"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0121","pos":"particle","ar":{"vocalized":"اَيْوَه","plain":"ايوه"},"he":["כן"],"translit":{"he":"אַיְוַה"},"tags":["lesson:vocab","topic:basics"]}
 {"id":"a1-0122","pos":"noun","ar":{"vocalized":"مُدِير","plain":"مدير"},"he":["מנהל"],"translit":{"he":"מֻדִיר"},"tags":["lesson:vocab","topic:people"]}
 {"id":"a1-0123","pos":"pronoun","ar":{"vocalized":"هُوِّ","plain":"هو"},"he":["הוא"],"translit":{"he":"הֻוֵּّ"},"tags":["lesson:vocab","topic:pronouns"]}
 {"id":"a1-0124","pos":"pronoun","ar":{"vocalized":"هِيِّ","plain":"هي"},"he":["היא"],"translit":{"he":"הִיֵּّ"},"tags":["lesson:vocab","topic:pronouns"]}
