@@ -965,6 +965,12 @@ body.drawer-open .side-drawer-toggle{
   line-height:1.05;
 }
 
+.quiz-prompt-main-ar.quiz-prompt-main-ar-tr{
+  font-family:var(--font-translit);
+  font-feature-settings:"mark" 1, "mkmk" 1;
+  text-rendering:optimizeLegibility;
+}
+
 .quiz-prompt-main-ar-diacritic{
   display:inline-block;
   line-height:1.2;
@@ -1178,6 +1184,13 @@ body.drawer-open .side-drawer-toggle{
   font-size:clamp(30px,4.1vw,40px);
   line-height:1.1;
   color:#1a7f62;
+}
+
+.choice-ar:not(.ar),
+.match-item-ar-main:not(.ar){
+  font-family:var(--font-translit);
+  font-feature-settings:"mark" 1, "mkmk" 1;
+  text-rendering:optimizeLegibility;
 }
 
 .quiz-choice.correct .choice-index{

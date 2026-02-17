@@ -2,13 +2,14 @@
 
 This project uses a dictionary-first model:
 
-- `data/entries.ndjson` is the canonical source of vocabulary entries.
-- `data/lessons/index.json` is the lesson manifest (order, labels, lesson codes).
-- `data/lessons/<code>.json` maps each study space to entry IDs.
+- `data/dictionary/entries.ndjson` is the canonical source of vocabulary entries.
+- `data/spaces/index.json` is the study-space manifest (order, labels, codes).
+- `data/spaces/<code>.json` maps each study space to entry IDs.
+- `data/exam-prep/*.json` stores focused exam-prep datasets (sentences/greetings).
 
-This keeps content deduplicated and supports lesson games, mixed tests, and future features.
+This keeps content deduplicated and supports space games, mixed exam prep flows, and future features.
 
-## Entry Schema (`data/entries.ndjson`)
+## Entry Schema (`data/dictionary/entries.ndjson`)
 
 Each line is a standalone JSON object.
 
@@ -36,46 +37,46 @@ Example:
 {"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["lesson:vocab","topic:school"],"difficulty":1}
 ```
 
-## Lesson Manifest Schema (`data/lessons/index.json`)
+## Study-Space Manifest Schema (`data/spaces/index.json`)
 
 Required fields:
 
-- `lessons` (array): ordered list used by UI navigation.
-- `lessons[].code` (string): file code, for example `vocab`, `greetings`, `enrichment`.
-- `lessons[].lesson` (integer): stable display order number.
-- `lessons[].title` (string): Hebrew lesson title shown in UI.
+- `spaces` (array): ordered list used by UI navigation.
+- `spaces[].code` (string): file code, for example `vocab`, `greetings`, `enrichment`.
+- `spaces[].order` (integer): stable display order number.
+- `spaces[].title` (string): Hebrew title shown in UI.
 
 Example:
 
 ```json
 {
-  "lessons": [
-    { "code": "vocab", "lesson": 1, "title": "אוצר מילים" },
-    { "code": "greetings", "lesson": 2, "title": "ברכות" },
-    { "code": "enrichment", "lesson": 3, "title": "העשרה" }
+  "spaces": [
+    { "code": "vocab", "order": 1, "title": "אוצר מילים" },
+    { "code": "greetings", "order": 2, "title": "ברכות" },
+    { "code": "enrichment", "order": 3, "title": "העשרה" }
   ]
 }
 ```
 
-## Lesson Schema (`data/lessons/<code>.json`)
+## Study-Space Schema (`data/spaces/<code>.json`)
 
 Required fields:
 
-- `lesson` (integer): lesson display order from the manifest.
-- `items` (array of strings): list of entry IDs from `entries.ndjson`.
+- `order` (integer): display order from the manifest.
+- `items` (array of strings): list of entry IDs from `data/dictionary/entries.ndjson`.
 
 Optional fields:
 
-- `title` or `title_he` (string): lesson title in Hebrew.
-- `tags` (array of strings): lesson-level tags.
-- `notes_he` (string): lesson-level notes.
+- `title` or `title_he` (string): space title in Hebrew.
+- `tags` (array of strings): space-level tags.
+- `notes_he` (string): space-level notes.
 - `allow_empty_items` (boolean): set `true` when an empty list is intentional.
 
 Example:
 
 ```json
 {
-  "lesson": 1,
+  "order": 1,
   "title": "אוצר מילים",
   "items": ["a1-0001", "a1-0002"]
 }
@@ -84,10 +85,10 @@ Example:
 ## Rules Enforced by Validator
 
 - Every entry ID is unique.
-- Lesson manifest rows are validated for code/number/title consistency.
-- Every lesson listed in `data/lessons/index.json` must have a matching `data/lessons/<code>.json` file.
-- Every lesson ID reference exists in `entries.ndjson`.
-- Lesson references are unique across lessons (no duplication).
+- Space manifest rows are validated for code/order/title consistency.
+- Every space listed in `data/spaces/index.json` must have a matching `data/spaces/<code>.json` file.
+- Every space ID reference exists in `data/dictionary/entries.ndjson`.
+- Space references are unique across spaces (no duplication).
 - `ar.plain` must not contain Arabic diacritics.
 - Field types are checked for required and supported optional fields.
 
@@ -95,5 +96,5 @@ Example:
 
 When these datasets are added, keep the same ID-linking approach:
 
-- `data/packs/*.json` for Test Center extras packs.
+- `data/packs/*.json` for exam-prep extras packs.
 - `data/sentences.ndjson` for cloze/sentence exercises referencing entry IDs.

@@ -2,13 +2,13 @@ import { getParam, loadEntriesNdjson, loadJson, shuffle, stripHebrewNiqqud } fro
 
 function byId(id){ return document.getElementById(id); }
 
-const LESSON_INDEX_PATH = "data/lessons/index.json";
+const LESSON_INDEX_PATH = "data/spaces/index.json";
 const MATCH_ROUND_SIZE = 5;
 const ARABIC_VISIBILITY_KEY = "a1:show-arabic";
-const SENTENCE_COMPLETION_PATH = "data/test/sentence-completion.json";
-const SENTENCE_TRANSLATION_PATH = "data/test/sentence-translation.json";
-const TRANSLIT_TO_HEBREW_PATH = "data/test/translit-to-hebrew.json";
-const GREETINGS_PACK_PATH = "data/test/greetings.json";
+const SENTENCE_COMPLETION_PATH = "data/exam-prep/sentence-completion.json";
+const SENTENCE_TRANSLATION_PATH = "data/exam-prep/sentence-he-to-tr.json";
+const TRANSLIT_TO_HEBREW_PATH = "data/exam-prep/sentence-tr-to-he.json";
+const GREETINGS_PACK_PATH = "data/exam-prep/greetings-he-to-tr.json";
 const TEST_MODE_HE_TO_TR_NIQQUD = "he_to_tr_niqqud";
 const TEST_MODE_HE_TO_TR_PLAIN_TYPING = "he_to_tr_plain_typing";
 const TEST_MODE_TR_TO_HE = "tr_to_he";
@@ -25,8 +25,8 @@ const LESSON_CODE_ENRICHMENT = "enrichment";
 const DEFAULT_STUDY_LESSON_CODE = LESSON_CODE_VOCAB;
 const DEFAULT_STUDY_TITLE = "אוצר מילים";
 const PRIMARY_LESSON_CODES = [LESSON_CODE_VOCAB, LESSON_CODE_GREETINGS, LESSON_CODE_ENRICHMENT];
-const TEST_TOOLBAR_VALUE = "__test_page__";
-const TEST_TOOLBAR_LABEL = "למידה למבחן";
+const TEST_TOOLBAR_VALUE = "__exam_prep_page__";
+const TEST_TOOLBAR_LABEL = "הכנה למבחן";
 const LESSON_FILTER_ALL = "all";
 const LESSON_FILTER_PRONOUNS = "pronouns";
 const LESSON_FILTER_LABELS = {
@@ -39,13 +39,6 @@ const TEST_MODE_LABELS = {
   [TEST_MODE_HE_TO_TR_PLAIN_TYPING]: "תרגום משפטים מעברית לתעתיק (הקלדה - בלי ניקוד ופיסוק)",
   [TEST_MODE_TR_TO_HE]: "תרגום משפטים מתעתיק לעברית",
   [TEST_MODE_GREETINGS_PLAIN]: "ברכות מעברית לתעתיק (בלי ניקוד)"
-};
-const LEGACY_LESSON_CODE_MAP = {
-  "1": LESSON_CODE_VOCAB,
-  "01": LESSON_CODE_VOCAB,
-  "14": LESSON_CODE_GREETINGS,
-  "15": LESSON_CODE_ENRICHMENT,
-  "16": LESSON_CODE_VOCAB
 };
 
 let lessonMetaCache = null;
@@ -358,12 +351,12 @@ async function loadLessonMeta(){
 
   try{
     const payload = await loadJson(LESSON_INDEX_PATH);
-    const rows = Array.isArray(payload?.lessons) ? payload.lessons : [];
+    const rows = Array.isArray(payload?.spaces) ? payload.spaces : [];
     const seenCodes = new Set();
     const lessons = [];
 
     for(const row of rows){
-      const lessonNumber = Number.parseInt(String(row?.lesson ?? ""), 10);
+      const lessonNumber = Number.parseInt(String(row?.order ?? ""), 10);
       if(!Number.isInteger(lessonNumber) || lessonNumber < 1){
         continue;
       }
@@ -396,27 +389,8 @@ function canonicalLessonCode(raw, lessons){
   }
 
   const value = String(raw ?? "").trim();
-  const legacyMappedCode = LEGACY_LESSON_CODE_MAP[value];
-  if(legacyMappedCode && lessons.some((row) => row.code === legacyMappedCode)){
-    return legacyMappedCode;
-  }
   if(lessons.some((row) => row.code === value)){
     return value;
-  }
-
-  const n = Number.parseInt(value, 10);
-  if(!Number.isNaN(n)){
-    if(n >= 1 && n <= 13 && lessons.some((row) => row.code === LESSON_CODE_VOCAB)){
-      return LESSON_CODE_VOCAB;
-    }
-    const padded = String(n).padStart(2, "0");
-    if(lessons.some((row) => row.code === padded)){
-      return padded;
-    }
-    const plain = String(n);
-    if(lessons.some((row) => row.code === plain)){
-      return plain;
-    }
   }
 
   return lessons[0].code;
@@ -491,7 +465,7 @@ async function renderLessonCards(){
 
 async function loadEntryMap(){
   if(entryMapCache) return entryMapCache;
-  const entries = await loadEntriesNdjson("data/entries.ndjson");
+  const entries = await loadEntriesNdjson("data/dictionary/entries.ndjson");
   entryMapCache = new Map(entries.map((entry) => [entry.id, entry]));
   return entryMapCache;
 }
@@ -552,7 +526,7 @@ async function loadAggregatedLessonItems(lessonCode, lesson, lessons, entries){
   const byId = new Map();
   for(const code of sourceCodes){
     try{
-      const sourceLesson = await loadJson(`data/lessons/${code}.json`);
+      const sourceLesson = await loadJson(`data/spaces/${code}.json`);
       for(const id of (sourceLesson.items || [])){
         const entry = entries.get(id);
         if(entry && !byId.has(entry.id)){
@@ -571,7 +545,7 @@ async function loadLessonSet(rawLessonCode){
   const lessons = await loadLessonMeta();
   const lessonCode = canonicalLessonCode(rawLessonCode, lessons);
   const lessonMeta = lessons.find((row) => row.code === lessonCode) || lessons[0];
-  const lesson = await loadJson(`data/lessons/${lessonCode}.json`);
+  const lesson = await loadJson(`data/spaces/${lessonCode}.json`);
   if(lessonCode === LESSON_CODE_GREETINGS){
     const greetingsRows = await loadGreetingsRows();
     const items = mapGreetingsRowsToEntries(greetingsRows);
@@ -590,7 +564,7 @@ async function loadItemsForLessonCodes(lessonCodes, entriesById = null){
 
   for(const lessonCode of lessonCodes){
     try{
-      const lesson = await loadJson(`data/lessons/${lessonCode}.json`);
+      const lesson = await loadJson(`data/spaces/${lessonCode}.json`);
       for(const id of (lesson.items || [])){
         const entry = map.get(id);
         if(!entry || seenEntryIds.has(entry.id)){
@@ -685,6 +659,10 @@ function isHebrewCombiningMark(ch){
   return /[\u0591-\u05C7]/.test(ch);
 }
 
+function hasArabicLetters(value){
+  return /[\u0621-\u063A\u0641-\u064A\u066E-\u066F\u0671-\u06D3\u06FA-\u06FC\u06FF]/.test(String(value ?? ""));
+}
+
 function previousBaseChar(text, fromIdx){
   for(let idx = fromIdx; idx >= 0; idx -= 1){
     const ch = text[idx];
@@ -726,7 +704,9 @@ function escapeHtmlWithRaisedShadda(value){
       continue;
     }
 
-    out += `&#8288;${raisedShadda}&#8288;`;
+    // Avoid injecting extra invisible code points around the shadda:
+    // some mobile/tablet engines render those as visible tofu boxes.
+    out += raisedShadda;
   }
   return out;
 }
@@ -783,7 +763,7 @@ function entryArabic(entry){
 function entryPrimaryForeign(entry){
   const ar = entryArabic(entry).trim();
   if(ar){
-    return { text: ar, hasArabic: true };
+    return { text: ar, hasArabic: hasArabicLetters(ar) };
   }
   const tr = fmtTr(entry).trim();
   if(tr && tr !== "—"){
@@ -925,7 +905,7 @@ function setupSideToolbar(currentLesson, lessons, context = "game", mode = "quiz
     btn.addEventListener("click", () => {
       const chosen = row.value;
       if(chosen === TEST_TOOLBAR_VALUE){
-        window.location.href = "test.html";
+        window.location.href = "exam-prep.html";
         return;
       }
       if(context === "game"){
@@ -1000,9 +980,9 @@ async function initLessonPage(){
       topNav.style.display = "none";
     }else{
       topNav.style.display = "";
-      const legacyTopHomeBtn = topNav.querySelector('a[href="index.html"]');
-      if(legacyTopHomeBtn){
-        legacyTopHomeBtn.remove();
+      const existingTopHomeBtn = topNav.querySelector('a[href="index.html"]');
+      if(existingTopHomeBtn){
+        existingTopHomeBtn.remove();
       }
       if(!byId("btn-lesson-vocab")){
         const a = document.createElement("a");
@@ -1032,6 +1012,7 @@ async function initLessonPage(){
     const searchParts = buildEntrySearchParts(e);
     const arText = entryArabic(e);
     const trText = fmtTr(e);
+    const arIsArabic = hasArabicLetters(arText);
     const heHtml = escapeDisplayText(fmtHe(e.he));
     const arHtml = escapeDisplayText(arText);
     const trHtml = escapeDisplayText(trText);
@@ -1048,7 +1029,7 @@ async function initLessonPage(){
     card.dataset.filterPronouns = entryIsPronoun(e) ? "1" : "0";
     card.innerHTML = `
       <div class="lesson-word-he rtl">${heHtml}</div>
-      ${arText ? `<div class="lesson-word-ar rtl ar">${arHtml}</div>` : ""}
+      ${arText ? `<div class="${arIsArabic ? "lesson-word-ar rtl ar" : "lesson-word-tr rtl muted"}">${arHtml}</div>` : ""}
       ${hasDistinctTr ? `<div class="lesson-word-tr rtl muted">${trHtml}</div>` : ""}
     `;
     words.appendChild(card);
@@ -1438,6 +1419,8 @@ function runQuiz({ items, scope }){
       const arClasses = ["quiz-prompt-main", "quiz-prompt-main-ar", "rtl"];
       if(primary.hasArabic){
         arClasses.push("ar");
+      }else{
+        arClasses.push("quiz-prompt-main-ar-tr");
       }
       if(primary.hasArabic && hasArabicDiacritics(arText)){
         arClasses.push("quiz-prompt-main-ar-diacritic");
@@ -2484,7 +2467,7 @@ async function initTestPage(){
 
       const packId = `pack-${Date.now()}`;
       sessionStorage.setItem(packId, JSON.stringify(packData));
-      window.location.href = `test-run.html?pack=${encodeURIComponent(packId)}`;
+      window.location.href = `exam-prep-run.html?pack=${encodeURIComponent(packId)}`;
     }catch(err){
       console.error(err);
       isStartingMode = false;
@@ -2529,7 +2512,7 @@ async function initTestRunPage(){
 
   const payload = sessionStorage.getItem(packId);
   if(!payload){
-    runWrapEl.innerHTML = `<div class="notice">החבילה לא נמצאה (אולי ריעננתם). חזרו ללמידה למבחן והתחילו מחדש.</div>`;
+    runWrapEl.innerHTML = `<div class="notice">החבילה לא נמצאה (אולי ריעננתם). חזרו להכנה למבחן והתחילו מחדש.</div>`;
     return;
   }
 
@@ -2604,7 +2587,7 @@ async function initTestRunPage(){
 
   const runOverline = byId("run-overline");
   if(runOverline){
-    runOverline.textContent = "למידה למבחן";
+    runOverline.textContent = "הכנה למבחן";
   }
   byId("run-title").textContent = modeLabel;
 
@@ -2614,7 +2597,7 @@ async function initTestRunPage(){
   if(isHeToTrVariantMode){
     const switchNav = document.createElement("div");
     switchNav.className = "test-run-mode-nav";
-    const baseHref = `test-run.html?pack=${encodeURIComponent(packId)}`;
+    const baseHref = `exam-prep-run.html?pack=${encodeURIComponent(packId)}`;
     const mcqHref = `${baseHref}&variant=mcq`;
     const typingHref = `${baseHref}&variant=typing`;
     switchNav.innerHTML = `

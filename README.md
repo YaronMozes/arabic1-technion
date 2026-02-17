@@ -17,11 +17,11 @@ https://yaronmozes.github.io/arabic1-technion/
   - אוצר מילים
   - ברכות
   - העשרה
-- Lesson vocabulary table
+- Space vocabulary table
 - Per-space practice:
   - Multiple-choice quiz (MCQ)
   - Matching game (Arabic ↔ Hebrew)
-- Test Center:
+- Exam Prep Center:
   - Mix selected spaces
   - Run Quiz on the combined set
 
@@ -34,8 +34,8 @@ https://yaronmozes.github.io/arabic1-technion/
   index.html
   lesson.html
   game.html
-  test.html
-  test-run.html
+  exam-prep.html
+  exam-prep-run.html
   /assets
     styles.css
     app.js
@@ -43,12 +43,18 @@ https://yaronmozes.github.io/arabic1-technion/
   /docs
     data-schema.md
   /data
-    entries.ndjson
-    /lessons
+    /dictionary
+      entries.ndjson
+    /spaces
       index.json
       vocab.json
       greetings.json
       enrichment.json
+    /exam-prep
+      sentence-completion.json
+      sentence-he-to-tr.json
+      sentence-tr-to-he.json
+      greetings-he-to-tr.json
   /scripts
     validate-data.mjs
 ```
@@ -56,16 +62,17 @@ https://yaronmozes.github.io/arabic1-technion/
 ### Why this data model?
 This repo is designed for long-term growth (many words + multiple game modes):
 
-- `data/entries.ndjson` is the **canonical dictionary** (one JSON object per line).
-- `data/lessons/index.json` is the **lesson manifest** (order, labels, navigation).
-- Each lesson file `data/lessons/<code>.json` contains only a list of **entry IDs**.
-  - This avoids duplication and makes “Test packs” easy.
+- `data/dictionary/entries.ndjson` is the **canonical dictionary** (one JSON object per line).
+- `data/spaces/index.json` is the **study-space manifest** (order, labels, navigation).
+- Each mapping file `data/spaces/<code>.json` contains only a list of **entry IDs**.
+  - This avoids duplication and makes practice packs easy.
+- `data/exam-prep/*.json` contains dedicated datasets for sentence practice and greetings.
 
 ---
 
 ## Data formats
 
-### `data/entries.ndjson` (dictionary)
+### `data/dictionary/entries.ndjson` (dictionary)
 One JSON object per line:
 
 ```json
@@ -85,39 +92,45 @@ Recommended fields:
 Schema reference:
 - `docs/data-schema.md`
 
-### `data/lessons/index.json` (lesson manifest)
-Defines lesson order and labels used in UI selectors/cards:
+### `data/spaces/index.json` (study-space manifest)
+Defines study-space order and labels used in UI selectors/cards:
 
 ```json
 {
-  "lessons": [
-    { "code": "vocab", "lesson": 1, "title": "אוצר מילים" },
-    { "code": "greetings", "lesson": 2, "title": "ברכות" },
-    { "code": "enrichment", "lesson": 3, "title": "העשרה" }
+  "spaces": [
+    { "code": "vocab", "order": 1, "title": "אוצר מילים" },
+    { "code": "greetings", "order": 2, "title": "ברכות" },
+    { "code": "enrichment", "order": 3, "title": "העשרה" }
   ]
 }
 ```
 
-### `data/lessons/vocab.json` (lesson mapping)
+### `data/spaces/vocab.json` (space mapping)
 Example:
 
 ```json
 {
-  "lesson": 1,
+  "order": 1,
   "title": "אוצר מילים",
   "items": ["a1-0001", "a1-0002"]
 }
 ```
 
+### `data/exam-prep/*.json` (exam-prep datasets)
+- `data/exam-prep/sentence-completion.json`: cloze/sentence-completion prompts.
+- `data/exam-prep/sentence-he-to-tr.json`: Hebrew sentence prompts with transliteration answers.
+- `data/exam-prep/sentence-tr-to-he.json`: transliteration prompts with Hebrew answers.
+- `data/exam-prep/greetings-he-to-tr.json`: greetings-focused Hebrew → transliteration practice rows.
+
 ---
 
-## How to add words / build lessons
+## How to add words / build spaces
 
-1) Add new entries to `data/entries.ndjson`
+1) Add new entries to `data/dictionary/entries.ndjson`
    - Give each entry a new unique `id`.
-2) Add the entry IDs to `data/lessons/vocab.json`.
-3) For greetings/enrichment-specific items, use `data/lessons/greetings.json` or `data/lessons/enrichment.json`.
-4) If lesson order/titles change, update `data/lessons/index.json`.
+2) Add the entry IDs to `data/spaces/vocab.json`.
+3) For greetings/enrichment-specific items, use `data/spaces/greetings.json` or `data/spaces/enrichment.json`.
+4) If space order/titles change, update `data/spaces/index.json`.
 5) Commit + push — GitHub Pages updates automatically.
 
 ---
@@ -134,9 +147,9 @@ The validator checks:
 - NDJSON syntax and required entry fields
 - Arabic plain/vocalized consistency rules
 - Unique entry IDs
-- Lesson manifest schema (`data/lessons/index.json`)
-- Lesson file coverage (`vocab.json`, `greetings.json`, `enrichment.json`)
-- Missing IDs and duplicated lesson assignments
+- Space manifest schema (`data/spaces/index.json`)
+- Space file coverage (`vocab.json`, `greetings.json`, `enrichment.json`)
+- Missing IDs and duplicated space assignments
 
 ---
 
@@ -166,7 +179,7 @@ http://localhost:8000/
 Install “Live Server”, then right-click `index.html` → “Open with Live Server”.
 
 ## Navigation drawer
-- In lesson/game/test screens, use the floating `ניווט` button to open the right-side navigation drawer.
+- In lesson/game/exam-prep screens, use the floating `ניווט` button to open the right-side navigation drawer.
 
 ---
 
