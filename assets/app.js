@@ -2424,6 +2424,11 @@ async function initTestPage(){
     return normalizeTestMode(raw);
   }
   let isStartingMode = false;
+  window.addEventListener("pageshow", () => {
+    // Browser back/forward can restore this page from BFCache with stale
+    // in-memory state; unlock mode start so options remain clickable.
+    isStartingMode = false;
+  });
 
   async function startSelectedMode(){
     if(isStartingMode) return;
