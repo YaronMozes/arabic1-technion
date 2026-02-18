@@ -1,6 +1,36 @@
 {
   "order": 2,
   "title": "ברכות",
-  "allow_empty_items": true,
-  "items": []
+  "items": [
+    "greet-001",
+    "greet-002",
+    "greet-003",
+    "greet-004",
+    "greet-005",
+    "greet-006",
+    "greet-007",
+    "greet-008",
+    "greet-009",
+    "greet-010",
+    "greet-011",
+    "greet-012",
+    "greet-013",
+    "greet-014",
+    "greet-015",
+    "greet-016",
+    "greet-017",
+    "greet-018",
+    "greet-019",
+    "greet-020",
+    "greet-021",
+    "greet-022",
+    "greet-023",
+    "greet-024",
+    "greet-025",
+    "greet-026",
+    "greet-027",
+    "greet-028",
+    "greet-029",
+    "greet-030"
+  ]
 }

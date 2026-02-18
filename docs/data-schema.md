@@ -5,7 +5,7 @@ This project uses a dictionary-first model:
 - `data/dictionary/entries.ndjson` is the canonical source of vocabulary entries.
 - `data/spaces/index.json` is the study-space manifest (order, labels, codes).
 - `data/spaces/<code>.json` maps each study space to entry IDs.
-- `data/exam-prep/*.json` stores focused exam-prep datasets (sentences/greetings).
+- `data/exam-prep/*.json` stores focused exam-prep sentence datasets.
 
 This keeps content deduplicated and supports space games, mixed exam prep flows, and future features.
 
@@ -25,7 +25,7 @@ Optional fields:
 - `pos` (string): part of speech, for example `noun`, `verb`, `prep`, `phrase`.
 - `translit.latin` (string): Latin transliteration.
 - `translit.he` (string): Hebrew transliteration.
-- `tags` (array of strings): free tags, for example `lesson:vocab`, `topic:school`.
+- `tags` (array of strings): free tags, for example `space:vocab`, `topic:school`.
 - `difficulty` (integer 1-5): estimated learner difficulty.
 - `notes_he` (string): concise Hebrew study note.
 - `examples` (array of strings): sentence/example IDs.
@@ -34,7 +34,7 @@ Optional fields:
 Example:
 
 ```json
-{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["lesson:vocab","topic:school"],"difficulty":1}
+{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitab","he":"כתאב"},"tags":["space:vocab","topic:school"],"difficulty":1}
 ```
 
 ## Study-Space Manifest Schema (`data/spaces/index.json`)
@@ -71,6 +71,8 @@ Optional fields:
 - `tags` (array of strings): space-level tags.
 - `notes_he` (string): space-level notes.
 - `allow_empty_items` (boolean): set `true` when an empty list is intentional.
+- `aggregate` (string): optional aggregate behavior. Use `all_spaces` to union other spaces.
+- `source_spaces` (array of strings): optional source-space codes used when `aggregate` is set.
 
 Example:
 
@@ -96,5 +98,4 @@ Example:
 
 When these datasets are added, keep the same ID-linking approach:
 
-- `data/packs/*.json` for exam-prep extras packs.
 - `data/sentences.ndjson` for cloze/sentence exercises referencing entry IDs.

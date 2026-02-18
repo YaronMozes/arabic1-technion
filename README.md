@@ -32,7 +32,7 @@ https://yaronmozes.github.io/arabic1-technion/
 ```
 /
   index.html
-  lesson.html
+  space.html
   game.html
   exam-prep.html
   exam-prep-run.html
@@ -54,7 +54,6 @@ https://yaronmozes.github.io/arabic1-technion/
       sentence-completion.json
       sentence-he-to-tr.json
       sentence-tr-to-he.json
-      greetings-he-to-tr.json
   /scripts
     validate-data.mjs
 ```
@@ -66,7 +65,7 @@ This repo is designed for long-term growth (many words + multiple game modes):
 - `data/spaces/index.json` is the **study-space manifest** (order, labels, navigation).
 - Each mapping file `data/spaces/<code>.json` contains only a list of **entry IDs**.
   - This avoids duplication and makes practice packs easy.
-- `data/exam-prep/*.json` contains dedicated datasets for sentence practice and greetings.
+- `data/exam-prep/*.json` contains dedicated sentence-practice datasets.
 
 ---
 
@@ -76,7 +75,7 @@ This repo is designed for long-term growth (many words + multiple game modes):
 One JSON object per line:
 
 ```json
-{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitābun","he":"כתאבון"},"tags":["lesson:vocab"]}
+{"id":"a1-0001","pos":"noun","ar":{"vocalized":"كِتابٌ","plain":"كتاب"},"he":["ספר"],"translit":{"latin":"kitābun","he":"כתאבון"},"tags":["space:vocab"]}
 ```
 
 Recommended fields:
@@ -87,7 +86,7 @@ Recommended fields:
 - `he`: Hebrew meanings (array of alternatives)
 - `translit.latin`: transliteration in Latin (recommended)
 - `translit.he`: transliteration written in Hebrew letters (optional)
-- `tags`: anything helpful (lesson, topic, difficulty, etc.)
+- `tags`: anything helpful (space, topic, difficulty, etc.)
 
 Schema reference:
 - `docs/data-schema.md`
@@ -120,7 +119,6 @@ Example:
 - `data/exam-prep/sentence-completion.json`: cloze/sentence-completion prompts.
 - `data/exam-prep/sentence-he-to-tr.json`: Hebrew sentence prompts with transliteration answers.
 - `data/exam-prep/sentence-tr-to-he.json`: transliteration prompts with Hebrew answers.
-- `data/exam-prep/greetings-he-to-tr.json`: greetings-focused Hebrew → transliteration practice rows.
 
 ---
 
@@ -179,7 +177,7 @@ http://localhost:8000/
 Install “Live Server”, then right-click `index.html` → “Open with Live Server”.
 
 ## Navigation drawer
-- In lesson/game/exam-prep screens, use the floating `ניווט` button to open the right-side navigation drawer.
+- In space/game/exam-prep screens, use the floating `ניווט` button to open the right-side navigation drawer.
 
 ---
 

@@ -1,80 +1,56 @@
-{"id":"a1-0101","pos":"particle","ar":{"vocalized":"لَا / لَأ","plain":"لا / لأ"},"he":["לא"],"translit":{"he":"לַא"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0102","pos":"demonstrative","ar":{"vocalized":"هٰذَا","plain":"هذا"},"he":["זה"],"translit":{"he":"הַאדַ׳א"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0103","pos":"demonstrative","ar":{"vocalized":"هَاي / هَاذِي","plain":"هاي / هاذي"},"he":["זאת"],"translit":{"he":"הַאי / הַאדִ׳י"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0104","pos":"question","ar":{"vocalized":"وِين","plain":"وين"},"he":["איפה?"],"translit":{"he":"וֵין"},"tags":["lesson:vocab","topic:questions"]}
-{"id":"a1-0105","pos":"adverb","ar":{"vocalized":"هُون","plain":"هون"},"he":["כאן"],"translit":{"he":"הוֹן"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0106","pos":"pronoun","ar":{"vocalized":"أَنَا","plain":"أنا"},"he":["אני"],"translit":{"he":"אַנַא"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0107","pos":"pronoun","ar":{"vocalized":"إِنْت","plain":"إنت"},"he":["אתה"],"translit":{"he":"אִנְתֵ"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0108","pos":"pronoun","ar":{"vocalized":"إِنْتِي","plain":"إنتي"},"he":["את"],"translit":{"he":"אִנְתִי"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0109","pos":"article","ar":{"vocalized":"ال","plain":"ال"},"he":["ה־ (ה\"א הידיעה)"],"translit":{"he":"אִלְ"},"tags":["lesson:vocab","topic:grammar"]}
-{"id":"a1-0110","pos":"question","ar":{"vocalized":"مِن وِين","plain":"من وين"},"he":["מניין?","מאיפה?"],"translit":{"he":"מִן וֵין"},"tags":["lesson:vocab","topic:questions"]}
-{"id":"a1-0111","pos":"preposition","ar":{"vocalized":"فِي","plain":"في"},"he":["ב־","בתוך... (מקום)"],"translit":{"he":"פִי"},"tags":["lesson:vocab","topic:grammar"]}
-{"id":"a1-0112","pos":"particle","ar":{"vocalized":"نَعَمْ / اَيْوَه / آه","plain":"نعم / ايوه / اه"},"he":["כן"],"translit":{"he":"נַעַם / אַיְוַה / אַאה"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0113","pos":"determiner","ar":{"vocalized":"هَال","plain":"هال"},"he":["הזה / הזאת / האלה (לפני שם עצם)"],"translit":{"he":"הַל־"},"tags":["lesson:vocab","topic:grammar"]}
-{"id":"a1-0114","pos":"question","ar":{"vocalized":"مِين","plain":"مين"},"he":["מי?"],"translit":{"he":"מִין"},"tags":["lesson:vocab","topic:questions"]}
-{"id":"a1-0115","pos":"question","ar":{"vocalized":"شُو","plain":"شو"},"he":["מה?"],"translit":{"he":"שוּ"},"tags":["lesson:vocab","topic:questions"]}
-{"id":"a1-0116","pos":"particle","ar":{"vocalized":"مِش","plain":"مش"},"he":["לא (לפני שם עצם / תואר)"],"translit":{"he":"מִש"},"tags":["lesson:vocab","topic:grammar"]}
-{"id":"a1-0117","pos":"adjective","ar":{"vocalized":"سَاكِن","plain":"ساكن"},"he":["גר"],"translit":{"he":"סַאכֵּן"},"tags":["lesson:vocab","topic:people"]}
-{"id":"a1-0118","pos":"adjective","ar":{"vocalized":"سَاكِنَة","plain":"ساكنة"},"he":["גרה"],"translit":{"he":"סַאכְּנֵה"},"tags":["lesson:vocab","topic:people"]}
-{"id":"a1-0119","pos":"particle","ar":{"vocalized":"كَمَان","plain":"كمان"},"he":["גם","גם כן"],"translit":{"he":"כַּמַאן"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0120","pos":"particle","ar":{"vocalized":"يَا","plain":"يا"},"he":["מילת פנייה לפני שם"],"translit":{"he":"יַא"},"tags":["lesson:vocab","topic:basics"]}
-{"id":"a1-0122","pos":"noun","ar":{"vocalized":"مُدِير","plain":"مدير"},"he":["מנהל"],"translit":{"he":"מֻדִיר"},"tags":["lesson:vocab","topic:people"]}
-{"id":"a1-0123","pos":"pronoun","ar":{"vocalized":"هُوِّ","plain":"هو"},"he":["הוא"],"translit":{"he":"הֻוֵּّ"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0124","pos":"pronoun","ar":{"vocalized":"هِيِّ","plain":"هي"},"he":["היא"],"translit":{"he":"הִיֵּّ"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0125","pos":"pronoun","ar":{"vocalized":"نِحْنَا","plain":"نحنا"},"he":["אנחנו"],"translit":{"he":"נִחְנַא"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0126","pos":"pronoun","ar":{"vocalized":"إِنْتُو","plain":"إنتو"},"he":["אתם"],"translit":{"he":"אִנְתוּ"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"a1-0127","pos":"pronoun","ar":{"vocalized":"هُمِّ","plain":"هم"},"he":["הם"],"translit":{"he":"הֻמֵּّ"},"tags":["lesson:vocab","topic:pronouns"]}
-{"id":"sx-0001","pos":"word","ar":{"vocalized":"סָאכְּנִין","plain":"סָאכְּנִין"},"he":["גרים"],"translit":{"he":"סָאכְּנִין"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0002","pos":"word","ar":{"vocalized":"וְּלָאדַכּ","plain":"וְּלָאדַכּ"},"he":["ילדיך"],"translit":{"he":"וְּלָאדַכּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0003","pos":"word","ar":{"vocalized":"פִי בֵּיתְהֹם","plain":"פִי בֵּיתְהֹם"},"he":["בביתם"],"translit":{"he":"פִי בֵּיתְהֹם"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0004","pos":"word","ar":{"vocalized":"וַּהַדוֹל","plain":"וַּהַדוֹל"},"he":["ואלה"],"translit":{"he":"וַּהַדוֹל"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0005","pos":"word","ar":{"vocalized":"כְּתִיר","plain":"כְּתִיר"},"he":["מאוד"],"translit":{"he":"כְּתִיר"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0006","pos":"word","ar":{"vocalized":"מַבְּסוּטִין","plain":"מַבְּסוּטִין"},"he":["מרוצים"],"translit":{"he":"מַבְּסוּטִין"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0007","pos":"word","ar":{"vocalized":"דַּרְס","plain":"דַּרְס"},"he":["שיעור"],"translit":{"he":"דַּרְס"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0008","pos":"word","ar":{"vocalized":"צַעְב","plain":"צַעְב"},"he":["קשה"],"translit":{"he":"צַעְב"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0009","pos":"word","ar":{"vocalized":"בִּיכַּפִّי","plain":"בִּיכַּפִי"},"he":["מספיק"],"translit":{"he":"בִּיכַּפִّי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0010","pos":"word","ar":{"vocalized":"מִתְאַסֵّף","plain":"מִתְאַסֵף"},"he":["מצטער"],"translit":{"he":"מִתְאַסֵّף"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0011","pos":"word","ar":{"vocalized":"פִישׁ","plain":"פִישׁ"},"he":["אין"],"translit":{"he":"פִישׁ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0012","pos":"word","ar":{"vocalized":"עִנְדִי","plain":"עִנְדִי"},"he":["לי"],"translit":{"he":"עִנְדִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0013","pos":"word","ar":{"vocalized":"וַּקְת","plain":"וַּקְת"},"he":["זמן"],"translit":{"he":"וַּקְת"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0014","pos":"word","ar":{"vocalized":"מִתְאַסְّפֵה","plain":"מִתְאַסְפֵה"},"he":["מצטערת"],"translit":{"he":"מִתְאַסְّפֵה"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0015","pos":"word","ar":{"vocalized":"מַשְׁע׳וּלֵה","plain":"מַשְׁע׳וּלֵה"},"he":["עסוקה"],"translit":{"he":"מַשְׁע׳וּלֵה"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0016","pos":"word","ar":{"vocalized":"מִן זַמָאן","plain":"מִן זַמָאן"},"he":["מזמן"],"translit":{"he":"מִן זַמָאן"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0017","pos":"word","ar":{"vocalized":"אֵימְתָא","plain":"אֵימְתָא"},"he":["מתי"],"translit":{"he":"אֵימְתָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0018","pos":"word","ar":{"vocalized":"גִ׳ית","plain":"גִ׳ית"},"he":["באת"],"translit":{"he":"גִ׳ית"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0019","pos":"word","ar":{"vocalized":"לֵישׁ","plain":"לֵישׁ"},"he":["למה"],"translit":{"he":"לֵישׁ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0020","pos":"word","ar":{"vocalized":"בַּרַّא","plain":"בַּרַא"},"he":["בחוץ"],"translit":{"he":"בַּרַّא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0021","pos":"word","ar":{"vocalized":"תַעָאל","plain":"תַעָאל"},"he":["בוא"],"translit":{"he":"תַעָאל"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0022","pos":"word","ar":{"vocalized":"לַהוֹן","plain":"לַהוֹן"},"he":["הנה"],"translit":{"he":"לַהוֹן"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0023","pos":"word","ar":{"vocalized":"וַּלַד","plain":"וַּלַד"},"he":["ילד"],"translit":{"he":"וַּלַד"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0024","pos":"word","ar":{"vocalized":"תַעָאלִי","plain":"תַעָאלִי"},"he":["בואי"],"translit":{"he":"תַעָאלִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0025","pos":"word","ar":{"vocalized":"בִּנְת","plain":"בִּנְת"},"he":["ילדה"],"translit":{"he":"בִּנְת"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0026","pos":"word","ar":{"vocalized":"אַגַ׳ת","plain":"אַגַ׳ת"},"he":["באה"],"translit":{"he":"אַגַ׳ת"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0027","pos":"word","ar":{"vocalized":"בְּסַיַّארַתְהָא","plain":"בְּסַיַארַתְהָא"},"he":["במכוניתה"],"translit":{"he":"בְּסַיַّארַתְהָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0028","pos":"word","ar":{"vocalized":"חַקّ","plain":"חַק"},"he":["צודק"],"translit":{"he":"חַקّ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0029","pos":"word","ar":{"vocalized":"אִלְ-חַקّ","plain":"אִלְ-חַק"},"he":["הצדק"],"translit":{"he":"אִלְ-חַקّ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0030","pos":"word","ar":{"vocalized":"מַעִי","plain":"מַעִי"},"he":["איתי"],"translit":{"he":"מַעִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0031","pos":"word","ar":{"vocalized":"בִּדְّהָא","plain":"בִּדְהָא"},"he":["רוצה"],"translit":{"he":"בִּדְّהָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0032","pos":"word","ar":{"vocalized":"בִּדְّנָא","plain":"בִּדְנָא"},"he":["רוצים"],"translit":{"he":"בִּדְّנָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0033","pos":"word","ar":{"vocalized":"שֻעְ׳ל","plain":"שֻעְ׳ל"},"he":["עבודה"],"translit":{"he":"שֻעְ׳ל"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0034","pos":"word","ar":{"vocalized":"מִנְשָׁאנִי","plain":"מִנְשָׁאנִי"},"he":["בשבילי"],"translit":{"he":"מִנְשָׁאנִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0035","pos":"word","ar":{"vocalized":"מִנְשָׁאנַכּ","plain":"מִנְשָׁאנַכּ"},"he":["בשבילך"],"translit":{"he":"מִנְשָׁאנַכּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0036","pos":"word","ar":{"vocalized":"תַעְבָּאן","plain":"תַעְבָּאן"},"he":["עייף"],"translit":{"he":"תַעְבָּאן"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0037","pos":"word","ar":{"vocalized":"מִן אֵישׁ","plain":"מִן אֵישׁ"},"he":["ממה"],"translit":{"he":"מִן אֵישׁ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0038","pos":"word","ar":{"vocalized":"יוּסֵף","plain":"יוּסֵף"},"he":["יוסף"],"translit":{"he":"יוּסֵף"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0039","pos":"word","ar":{"vocalized":"רוּח","plain":"רוּח"},"he":["לך"],"translit":{"he":"רוּח"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0040","pos":"word","ar":{"vocalized":"לַאִמַّכּ","plain":"לְאִמַכּ"},"he":["לאמך"],"translit":{"he":"לַאִמַّכּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0041","pos":"word","ar":{"vocalized":"מָאמָא","plain":"מָאמָא"},"he":["אמא"],"translit":{"he":"מָאמָא"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0042","pos":"word","ar":{"vocalized":"פוּתִי","plain":"פוּתִי"},"he":["היכנסי"],"translit":{"he":"פוּתִי"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0043","pos":"word","ar":{"vocalized":"עַ-(א)לְ-בֵּית","plain":"עַ-(א)לְ-בֵּית"},"he":["הביתה"],"translit":{"he":"עַ-(א)לְ-בֵּית"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0044","pos":"word","ar":{"vocalized":"מַרְיַם","plain":"מַרְיַם"},"he":["מרים"],"translit":{"he":"מַרְיַם"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0045","pos":"word","ar":{"vocalized":"מִנְשָׁאן","plain":"מִנְשָׁאן"},"he":["כי"],"translit":{"he":"מִנְשָׁאן"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0046","pos":"word","ar":{"vocalized":"מַרִיד׳","plain":"מַרִיד׳"},"he":["חולה"],"translit":{"he":"מַרִיד׳"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0047","pos":"word","ar":{"vocalized":"יְכּוּנוּ","plain":"יְכּוּנוּ"},"he":["יהיו"],"translit":{"he":"יְכּוּנוּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0048","pos":"word","ar":{"vocalized":"יְפוּת","plain":"יְפוּת"},"he":["ייכנס"],"translit":{"he":"יְפוּת"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0049","pos":"word","ar":{"vocalized":"בַּאפוּת","plain":"בַּאפוּת"},"he":["אכנס"],"translit":{"he":"בַּאפוּת"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0050","pos":"word","ar":{"vocalized":"מַעוֹ","plain":"מַעוֹ"},"he":["איתו"],"translit":{"he":"מַעוֹ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0051","pos":"word","ar":{"vocalized":"אִדַ׳א","plain":"אִדַ׳א"},"he":["אם"],"translit":{"he":"אִדַ׳א"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0052","pos":"word","ar":{"vocalized":"תְגִ׳יבּ","plain":"תְגִ׳יבּ"},"he":["תביא"],"translit":{"he":"תְגִ׳יבּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0053","pos":"word","ar":{"vocalized":"רַאדְיוֹ","plain":"רַאדְיוֹ"},"he":["רדיו"],"translit":{"he":"רַאדְיוֹ"},"tags":["lesson:vocab","topic:sentence-derived"]}
-{"id":"sx-0054","pos":"word","ar":{"vocalized":"טַיֵّבּ","plain":"טַיֵבּ"},"he":["בסדר"],"translit":{"he":"טַיֵّבּ"},"tags":["lesson:vocab","topic:sentence-derived"]}
+{"id":"a1-0101","pos":"particle","ar":{"vocalized":"لَا / لَأ","plain":"لا / لأ"},"he":["לא"],"translit":{"he":"לַא"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0102","pos":"demonstrative","ar":{"vocalized":"هٰذَا","plain":"هذا"},"he":["זה"],"translit":{"he":"הַאדָ׳א"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0103","pos":"demonstrative","ar":{"vocalized":"هَاي / هَاذِي","plain":"هاي / هاذي"},"he":["זאת"],"translit":{"he":"הַאי / הַאדִ׳י"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0104","pos":"question","ar":{"vocalized":"وِين","plain":"وين"},"he":["איפה?"],"translit":{"he":"וֵּין"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0105","pos":"adverb","ar":{"vocalized":"هُون","plain":"هون"},"he":["כאן"],"translit":{"he":"הוֹן"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0106","pos":"pronoun","ar":{"vocalized":"أَنَا","plain":"أنا"},"he":["אני"],"translit":{"he":"אַנַא"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0107","pos":"pronoun","ar":{"vocalized":"إِنْت","plain":"إنت"},"he":["אתה"],"translit":{"he":"אִנְתֵ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0108","pos":"pronoun","ar":{"vocalized":"إِنْتِي","plain":"إنتي"},"he":["את"],"translit":{"he":"אִנְתִי"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0109","pos":"article","ar":{"vocalized":"ال","plain":"ال"},"he":["ה־ (ה\"א הידיעה)"],"translit":{"he":"(א)לְ-"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0110","pos":"question","ar":{"vocalized":"مِن وِين","plain":"من وين"},"he":["מניין?","מאיפה?"],"translit":{"he":"מִן וֵּין"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0111","pos":"preposition","ar":{"vocalized":"فِي","plain":"في"},"he":["ב־","בתוך... (מקום)"],"translit":{"he":"פִי"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0112","pos":"particle","ar":{"vocalized":"نَعَمْ / اَيْوَه / آه","plain":"نعم / ايوه / اه"},"he":["כן"],"translit":{"he":"נַעַם / אַיְוַּה / אַאה"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0113","pos":"determiner","ar":{"vocalized":"هَال","plain":"هال"},"he":["הזה / הזאת / האלה (לפני שם עצם)"],"translit":{"he":"הַל־"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0114","pos":"question","ar":{"vocalized":"مِين","plain":"مين"},"he":["מי?"],"translit":{"he":"מִין"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0115","pos":"question","ar":{"vocalized":"شُو","plain":"شو"},"he":["מה?"],"translit":{"he":"שׁוּ"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0116","pos":"particle","ar":{"vocalized":"مِش","plain":"مش"},"he":["לא (לפני שם עצם / תואר)"],"translit":{"he":"מִשׁ"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0117","pos":"adjective","ar":{"vocalized":"سَاكِن","plain":"ساكن"},"he":["גר"],"translit":{"he":"סַאכֵּן"},"tags":["space:vocab","topic:people"]}
+{"id":"a1-0118","pos":"adjective","ar":{"vocalized":"سَاكِنَة","plain":"ساكنة"},"he":["גרה"],"translit":{"he":"סַאכְּנֵה"},"tags":["space:vocab","topic:people"]}
+{"id":"a1-0119","pos":"particle","ar":{"vocalized":"كَمَان","plain":"كمان"},"he":["גם","גם כן"],"translit":{"he":"כַּמַאן"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0120","pos":"particle","ar":{"vocalized":"يَا","plain":"يا"},"he":["מילת פנייה לפני שם"],"translit":{"he":"יַא"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0122","pos":"noun","ar":{"vocalized":"مُدِير","plain":"مدير"},"he":["מנהל"],"translit":{"he":"מֻדִיר"},"tags":["space:vocab","topic:people"]}
+{"id":"a1-0123","pos":"pronoun","ar":{"vocalized":"هُوِّ","plain":"هو"},"he":["הוא"],"translit":{"he":"הֻוֵּّ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0124","pos":"pronoun","ar":{"vocalized":"هِيِّ","plain":"هي"},"he":["היא"],"translit":{"he":"הִיֵّ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0125","pos":"pronoun","ar":{"vocalized":"نِحْنَا","plain":"نحنا"},"he":["אנחנו"],"translit":{"he":"נִחְנַא"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0126","pos":"pronoun","ar":{"vocalized":"إِنْتُو","plain":"إنتو"},"he":["אתם"],"translit":{"he":"אִנְתוּ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0127","pos":"pronoun","ar":{"vocalized":"هُمِّ","plain":"هم"},"he":["הם"],"translit":{"he":"הֻמֵّ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"greet-001","pos":"phrase","ar":{"vocalized":"מַרְחַבַּא ← מַרְחַבְּתֵין","plain":"מַרְחַבַּא ← מַרְחַבְּתֵין"},"he":["שלום ← שלום גם לך"],"translit":{"he":"מַרְחַבַּא ← מַרְחַבְּתֵין"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-002","pos":"phrase","ar":{"vocalized":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם","plain":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם"},"he":["שלום עליכם ← ועליכם השלום"],"translit":{"he":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-003","pos":"phrase","ar":{"vocalized":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ","plain":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ"},"he":["תודה ← אין על מה"],"translit":{"he":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-004","pos":"phrase","ar":{"vocalized":"אַהְלַן וַּסַהְלַן ← אַהְלַן בִּיכּ/י","plain":"אַהְלַן וַּסַהְלַן ← אַהְלַן בִּיכּ/י"},"he":["ברוך הבא ← ברוך הנמצא"],"translit":{"he":"אַהְלַן וַּסַהְלַן ← אַהְלַן בִּיכּ/י"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-005","pos":"phrase","ar":{"vocalized":"תְשַׁרַّפְנַא","plain":"תְשַׁרַّפְנַא"},"he":["נעים להכיר"],"translit":{"he":"תְשַׁרַّפְנַא"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-006","pos":"phrase","ar":{"vocalized":"תְפַדַّ׳ל/י","plain":"תְפַדַّ׳ל/י"},"he":["בבקשה (קח/היכנס/שב)"],"translit":{"he":"תְפַדַّ׳ל/י"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-007","pos":"phrase","ar":{"vocalized":"מִן פַדְ׳לַכּ / אַללָّה יִרְדַ׳א עַלֵיכּ","plain":"מִן פַדְ׳לַכּ / אַללָّה יִרְדַ׳א עַלֵיכּ"},"he":["בבקשה ממך"],"translit":{"he":"מִן פַדְ׳לַכּ / אַללָّה יִרְדַ׳א עַלֵיכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-008","pos":"phrase","ar":{"vocalized":"סַבַּאח (א)לְ-חֵ׳יר ← סַבַּאח (אל)-נّוּר","plain":"סַבַּאח (א)לְ-חֵ׳יר ← סַבַּאח (אל)-נّוּר"},"he":["בוקר טוב ← בוקר אור"],"translit":{"he":"סַבַּאח (א)לְ-חֵ׳יר ← סַבַּאח (אל)-נّוּר"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-009","pos":"phrase","ar":{"vocalized":"נְהַארַכּ סַעִיד","plain":"נְהַארַכּ סַעִיד"},"he":["יום טוב"],"translit":{"he":"נְהַארַכּ סַעִיד"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-010","pos":"phrase","ar":{"vocalized":"מַסַא (א)לְ-חֵ׳יר ← מַסַא (אל)-נّוּר","plain":"מַסַא (א)לְ-חֵ׳יר ← מַסַא (אל)-נّוּר"},"he":["ערב טוב ← ערב אור"],"translit":{"he":"מַסַא (א)לְ-חֵ׳יר ← מַסַא (אל)-נّוּר"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-011","pos":"phrase","ar":{"vocalized":"תִצְבַּח/י עַלַא חֵ׳יר ← וִּאִנְתֵ מִן אַהְלוֹ","plain":"תִצְבַּח/י עַלַא חֵ׳יר ← וִּאִנְתֵ מִן אַהְלוֹ"},"he":["לילה טוב ← ואתה מהאנשים הטובים"],"translit":{"he":"תִצְבַּח/י עַלַא חֵ׳יר ← וִּאִנְתֵ מִן אַהְלוֹ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-012","pos":"phrase","ar":{"vocalized":"(אַלְף) מַבְּרוּכּ ← אַללָّה יְבַּארִכּ פִיכּ","plain":"(אַלְף) מַבְּרוּכּ ← אַללָّה יְבַּארִכּ פִיכּ"},"he":["מזל טוב ← אלוהים יברך אותך"],"translit":{"he":"(אַלְף) מַבְּרוּכּ ← אַללָّה יְבַּארִכּ פִיכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-013","pos":"phrase","ar":{"vocalized":"עֻקְבַּאל עִנְדַכּ","plain":"עֻקְבַּאל עִנְדַכּ"},"he":["בקרוב אצלך"],"translit":{"he":"עֻקְבַּאל עִנְדַכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-014","pos":"phrase","ar":{"vocalized":"כֻּלّ סַנֵה וִּאִנְתוּ סָאלְמִין / כֻּלّ עָאם וִּאִנְתוּ בְּחֵ׳יר","plain":"כֻּלّ סַנֵה וִּאִנְתוּ סָאלְמִין / כֻּלّ עָאם וִּאִנְתוּ בְּחֵ׳יר"},"he":["חג שמח"],"translit":{"he":"כֻּלّ סַנֵה וִּאִנְתוּ סָאלְמִין / כֻּלّ עָאם וִּאִנְתוּ בְּחֵ׳יר"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-015","pos":"phrase","ar":{"vocalized":"עִיד סַעִיד","plain":"עִיד סַעִיד"},"he":["חג מאושר"],"translit":{"he":"עִיד סַעִיד"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-016","pos":"phrase","ar":{"vocalized":"אַל-חַמְד לִלָّה עַ-(אל)-סַّלַאמֵה","plain":"אַל-חַמְד לִלָّה עַ-(אל)-סַّלַאמֵה"},"he":["ברוך שובך"],"translit":{"he":"אַל-חַמְד לִלָّה עַ-(אל)-סַّלַאמֵה"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-017","pos":"phrase","ar":{"vocalized":"בִּ-(אל)-נַّגַ׳אח / אִנְשַׁאללָّה תִנְגַ׳ח","plain":"בִּ-(אל)-נַّגַ׳אח / אִנְשַׁאללָّה תִנְגַ׳ח"},"he":["בהצלחה / הלוואי ותצליח"],"translit":{"he":"בִּ-(אל)-נַّגַ׳אח / אִנְשַׁאללָّה תִנְגַ׳ח"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-018","pos":"phrase","ar":{"vocalized":"סַלַאמְתַכּ","plain":"סַלַאמְתַכּ"},"he":["תהיה בריא (לחולה)"],"translit":{"he":"סַלַאמְתַכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-019","pos":"phrase","ar":{"vocalized":"אַללָّה יַעְטִיכּ/י (א)לְ-עַאפְיֵה ← אַללָّה יְעַאפִיכּ/י","plain":"אַללָّה יַעְטִיכּ/י (א)לְ-עַאפְיֵה ← אַללָّה יְעַאפִיכּ/י"},"he":["אללה ייתן לך בריאות/כוח ← אללה ייתן לך בריאות"],"translit":{"he":"אַללָّה יַעְטִיכּ/י (א)לְ-עַאפְיֵה ← אַללָّה יְעַאפִיכּ/י"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-020","pos":"phrase","ar":{"vocalized":"יַעְטִיכּ (אל)-צַّחַّה","plain":"יַעְטִיכּ (אל)-צַّחַّה"},"he":["(אללה) ייתן לך את הבריאות"],"translit":{"he":"יַעְטִיכּ (אל)-צַّחַّה"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-021","pos":"phrase","ar":{"vocalized":"בִּיצִיר חֵ׳יר / אַללָّה כַּרִים / אַללָّה יְפַרִّגְ׳הַא","plain":"בִּיצִיר חֵ׳יר / אַללָّה כַּרִים / אַללָّה יְפַרִّגְ׳הַא"},"he":["יהיה טוב"],"translit":{"he":"בִּיצִיר חֵ׳יר / אַללָّה כַּרִים / אַללָّה יְפַרִّגְ׳הַא"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-022","pos":"phrase","ar":{"vocalized":"פִישׁ מִתְלַכּ","plain":"פִישׁ מִתְלַכּ"},"he":["אין כמוך"],"translit":{"he":"פִישׁ מִתְלַכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-023","pos":"phrase","ar":{"vocalized":"אַללָّה יְחַ׳לִّיכּ / אַללָّה יַחְפַזַכּ","plain":"אַללָّה יְחַ׳לִّיכּ / אַללָّה יַחְפַזַכּ"},"he":["השם ישמרך"],"translit":{"he":"אַללָّה יְחַ׳לִّיכּ / אַללָّה יַחְפַזַכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-024","pos":"phrase","ar":{"vocalized":"צַחְתֵין ← עַלַא קַלְבַּכּ","plain":"צַחְתֵין ← עַלַא קַלְבַּכּ"},"he":["בתיאבון ← על הלב שלך"],"translit":{"he":"צַחְתֵין ← עַלַא קַלְבַּכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-025","pos":"phrase","ar":{"vocalized":"יִסְלַמוּ אִידֵיכּ/י ← וְּאִידֵיכּ/י","plain":"יִסְלַמוּ אִידֵיכּ/י ← וְּאִידֵיכּ/י"},"he":["יבורכו ידיך ← וידיך"],"translit":{"he":"יִסְלַמוּ אִידֵיכּ/י ← וְּאִידֵיכּ/י"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-026","pos":"phrase","ar":{"vocalized":"בִּסְמִללָّה","plain":"בִּסְמִללָّה"},"he":["בשם האל (ברכה לפני האוכל)"],"translit":{"he":"בִּסְמִללָّה"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-027","pos":"phrase","ar":{"vocalized":"עַמָّאר","plain":"עַמָّאר"},"he":["לחיים"],"translit":{"he":"עַמָّאר"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-028","pos":"phrase","ar":{"vocalized":"בְּחַ׳אטְרַכּ ← מַעַ (אל)-סַّלָאמֵה","plain":"בְּחַ׳אטְרַכּ ← מַעַ (אל)-סַّלָאמֵה"},"he":["ברשותך (להתראות) ← לך לשלום"],"translit":{"he":"בְּחַ׳אטְרַכּ ← מַעַ (אל)-סַّלָאמֵה"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-029","pos":"phrase","ar":{"vocalized":"יַאלָّה בַּיי / נְשׁוּפַכּ","plain":"יַאלָّה בַּיי / נְשׁוּפַכּ"},"he":["יאללה ביי / נראה אותך"],"translit":{"he":"יַאלָّה בַּיי / נְשׁוּפַכּ"},"tags":["space:greetings","topic:greetings"]}
+{"id":"greet-030","pos":"phrase","ar":{"vocalized":"אַללָّה מַעַכּ","plain":"אַללָّה מַעַכּ"},"he":["שהשם יהיה עמך"],"translit":{"he":"אַללָّה מַעַכּ"},"tags":["space:greetings","topic:greetings"]}

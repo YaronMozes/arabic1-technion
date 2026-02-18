@@ -4,8 +4,8 @@ import process from "node:process";
 
 const ROOT = process.cwd();
 const ENTRIES_PATH = path.join(ROOT, "data", "dictionary", "entries.ndjson");
-const LESSONS_DIR = path.join(ROOT, "data", "spaces");
-const LESSON_INDEX_PATH = path.join(LESSONS_DIR, "index.json");
+const SPACES_DIR = path.join(ROOT, "data", "spaces");
+const SPACE_INDEX_PATH = path.join(SPACES_DIR, "index.json");
 
 const errors = [];
 const warnings = [];
@@ -38,6 +38,20 @@ function stripArabicDiacritics(value) {
 
 function hasArabicDiacritics(value) {
   return /[\u064B-\u065F\u0670\u06D6-\u06ED]/.test(value);
+}
+
+function hasArabicLetters(value) {
+  return /[\u0621-\u063A\u0641-\u064A\u066E-\u066F\u0671-\u06D3\u06FA-\u06FC\u06FF]/.test(
+    String(value)
+  );
+}
+
+function normalizeArabicLetters(value) {
+  return String(value)
+    .replace(/[أإآٱ]/g, "ا")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ى/g, "ي");
 }
 
 function validateArrayOfStrings(value, label, context) {
@@ -85,13 +99,19 @@ function validateEntry(entry, lineNumber, entryIdSet) {
       error(`${context}: "ar.plain" must be a non-empty string.`);
     }
 
-    if (isNonEmptyString(plain) && hasArabicDiacritics(plain)) {
+    const plainHasArabic = isNonEmptyString(plain) && hasArabicLetters(plain);
+    const vocalizedHasArabic = isNonEmptyString(vocalized) && hasArabicLetters(vocalized);
+
+    if (plainHasArabic && hasArabicDiacritics(plain)) {
       error(`${context}: "ar.plain" must not contain Arabic diacritics.`);
     }
 
-    if (isNonEmptyString(vocalized) && isNonEmptyString(plain)) {
-      const stripped = normalizeSpaces(stripArabicDiacritics(vocalized));
-      const normalizedPlain = normalizeSpaces(plain);
+    // Compare vocalized/plain consistency only for Arabic-script rows.
+    if (vocalizedHasArabic && plainHasArabic) {
+      const stripped = normalizeSpaces(
+        normalizeArabicLetters(stripArabicDiacritics(vocalized))
+      );
+      const normalizedPlain = normalizeSpaces(normalizeArabicLetters(plain));
       if (stripped !== normalizedPlain) {
         warn(
           `${context}: "ar.vocalized" stripped form differs from "ar.plain" for id "${id}".`
@@ -195,9 +215,9 @@ async function loadEntries() {
   return entryIdSet;
 }
 
-async function loadLessonIndex() {
+async function loadSpaceIndex() {
   const context = "data/spaces/index.json";
-  const payload = await readJsonFile(LESSON_INDEX_PATH, context);
+  const payload = await readJsonFile(SPACE_INDEX_PATH, context);
   if (!payload) {
     return [];
   }
@@ -228,8 +248,8 @@ async function loadLessonIndex() {
       return;
     }
 
-    const lessonNumber = Number.parseInt(String(row.order ?? ""), 10);
-    if (!Number.isInteger(lessonNumber) || lessonNumber < 1) {
+    const spaceOrder = Number.parseInt(String(row.order ?? ""), 10);
+    if (!Number.isInteger(spaceOrder) || spaceOrder < 1) {
       error(`${itemContext}: "order" must be a positive integer.`);
       return;
     }
@@ -242,7 +262,7 @@ async function loadLessonIndex() {
     if (!isNonEmptyString(row.title)) {
       error(`${itemContext}: "title" must be a non-empty string.`);
     }
-    const title = isNonEmptyString(row.title) ? row.title.trim() : `מרחב ${lessonNumber}`;
+    const title = isNonEmptyString(row.title) ? row.title.trim() : `מרחב ${spaceOrder}`;
 
     if (seenCodes.has(code)) {
       error(`${itemContext}: duplicate space code "${code}".`);
@@ -250,23 +270,23 @@ async function loadLessonIndex() {
       seenCodes.add(code);
     }
 
-    if (seenNumbers.has(lessonNumber)) {
-      error(`${itemContext}: duplicate space order "${lessonNumber}".`);
+    if (seenNumbers.has(spaceOrder)) {
+      error(`${itemContext}: duplicate space order "${spaceOrder}".`);
     } else {
-      seenNumbers.add(lessonNumber);
+      seenNumbers.add(spaceOrder);
     }
 
     spaces.push({
       code,
-      order: lessonNumber,
+      order: spaceOrder,
       title
     });
   });
 
-  const sortedLessonNumbers = spaces.map((row) => row.order).sort((a, b) => a - b);
-  for (let index = 0; index < sortedLessonNumbers.length; index += 1) {
+  const sortedSpaceOrders = spaces.map((row) => row.order).sort((a, b) => a - b);
+  for (let index = 0; index < sortedSpaceOrders.length; index += 1) {
     const expected = index + 1;
-    if (sortedLessonNumbers[index] !== expected) {
+    if (sortedSpaceOrders[index] !== expected) {
       warn(
         `${context}: space order values are not sequential from 1 (missing or out of order around ${expected}).`
       );
@@ -277,30 +297,30 @@ async function loadLessonIndex() {
   return spaces;
 }
 
-async function validateLessons(entryIdSet, lessonDefs) {
-  if (lessonDefs.length === 0) {
+async function validateSpaces(entryIdSet, spaceDefs) {
+  if (spaceDefs.length === 0) {
     error("No spaces were loaded from data/spaces/index.json.");
     return;
   }
 
-  let lessonFiles = [];
+  let spaceFiles = [];
   try {
-    lessonFiles = await fs.readdir(LESSONS_DIR);
+    spaceFiles = await fs.readdir(SPACES_DIR);
   } catch (readError) {
-    error(`Cannot read ${path.relative(ROOT, LESSONS_DIR)}: ${readError.message}`);
+    error(`Cannot read ${path.relative(ROOT, SPACES_DIR)}: ${readError.message}`);
     return;
   }
 
-  const expectedFileNames = new Set(lessonDefs.map((row) => `${row.code}.json`));
+  const expectedFileNames = new Set(spaceDefs.map((row) => `${row.code}.json`));
 
-  lessonDefs.forEach((row) => {
+  spaceDefs.forEach((row) => {
     const fileName = `${row.code}.json`;
-    if (!lessonFiles.includes(fileName)) {
+    if (!spaceFiles.includes(fileName)) {
       error(`Missing required space file: data/spaces/${fileName}`);
     }
   });
 
-  lessonFiles
+  spaceFiles
     .filter((name) => name.toLowerCase().endsWith(".json"))
     .forEach((fileName) => {
       if (fileName === "index.json") {
@@ -313,57 +333,57 @@ async function validateLessons(entryIdSet, lessonDefs) {
 
   const idToSpaces = new Map();
 
-  for (const lessonDef of lessonDefs) {
-    const lessonCode = lessonDef.code;
-    const lessonNumber = lessonDef.order;
-    const expectedTitle = lessonDef.title;
+  for (const spaceDef of spaceDefs) {
+    const spaceCode = spaceDef.code;
+    const spaceOrder = spaceDef.order;
+    const expectedTitle = spaceDef.title;
 
-    const filePath = path.join(LESSONS_DIR, `${lessonCode}.json`);
-    const context = `data/spaces/${lessonCode}.json`;
-    const lesson = await readJsonFile(filePath, context);
-    if (!lesson) {
+    const filePath = path.join(SPACES_DIR, `${spaceCode}.json`);
+    const context = `data/spaces/${spaceCode}.json`;
+    const space = await readJsonFile(filePath, context);
+    if (!space) {
       continue;
     }
 
-    if (!isPlainObject(lesson)) {
+    if (!isPlainObject(space)) {
       error(`${context}: root must be a JSON object.`);
       continue;
     }
 
-    const declaredOrder = Number.parseInt(String(lesson.order ?? ""), 10);
-    if (declaredOrder !== lessonNumber) {
-      error(`${context}: "order" must be ${lessonNumber}.`);
+    const declaredOrder = Number.parseInt(String(space.order ?? ""), 10);
+    if (declaredOrder !== spaceOrder) {
+      error(`${context}: "order" must be ${spaceOrder}.`);
     }
 
-    if ("title" in lesson && !isNonEmptyString(lesson.title)) {
+    if ("title" in space && !isNonEmptyString(space.title)) {
       error(`${context}: "title" must be a non-empty string when provided.`);
     }
-    if (isNonEmptyString(lesson.title) && lesson.title.trim() !== expectedTitle) {
+    if (isNonEmptyString(space.title) && space.title.trim() !== expectedTitle) {
       warn(
-        `${context}: title "${lesson.title.trim()}" differs from space index title "${expectedTitle}".`
+        `${context}: title "${space.title.trim()}" differs from space index title "${expectedTitle}".`
       );
     }
 
-    if ("title_he" in lesson && !isNonEmptyString(lesson.title_he)) {
+    if ("title_he" in space && !isNonEmptyString(space.title_he)) {
       error(`${context}: "title_he" must be a non-empty string when provided.`);
     }
 
-    if ("allow_empty_items" in lesson && typeof lesson.allow_empty_items !== "boolean") {
+    if ("allow_empty_items" in space && typeof space.allow_empty_items !== "boolean") {
       error(`${context}: "allow_empty_items" must be boolean when provided.`);
     }
 
-    if (!Array.isArray(lesson.items)) {
+    if (!Array.isArray(space.items)) {
       error(`${context}: "items" must be an array.`);
       continue;
     }
 
-    const allowEmptyItems = lesson.allow_empty_items === true;
-    if (lesson.items.length === 0 && !allowEmptyItems) {
+    const allowEmptyItems = space.allow_empty_items === true;
+    if (space.items.length === 0 && !allowEmptyItems) {
       warn(`${context}: "items" is empty.`);
     }
 
     const localSet = new Set();
-    lesson.items.forEach((itemId, itemIndex) => {
+    space.items.forEach((itemId, itemIndex) => {
       const itemContext = `${context} items[${itemIndex}]`;
       if (!isNonEmptyString(itemId)) {
         error(`${itemContext}: entry ID must be a non-empty string.`);
@@ -381,15 +401,15 @@ async function validateLessons(entryIdSet, lessonDefs) {
       }
 
       const spaces = idToSpaces.get(itemId) ?? [];
-      spaces.push(lessonCode);
+      spaces.push(spaceCode);
       idToSpaces.set(itemId, spaces);
     });
   }
 
-  for (const [entryId, lessonCodes] of idToSpaces.entries()) {
-    if (lessonCodes.length > 1) {
+  for (const [entryId, spaceCodes] of idToSpaces.entries()) {
+    if (spaceCodes.length > 1) {
       error(
-        `Entry "${entryId}" is assigned to multiple spaces: ${lessonCodes
+        `Entry "${entryId}" is assigned to multiple spaces: ${spaceCodes
           .map((code) => String(code))
           .join(", ")}.`
       );
@@ -397,7 +417,7 @@ async function validateLessons(entryIdSet, lessonDefs) {
   }
 }
 
-function printReport(entryCount, lessonCount) {
+function printReport(entryCount, spaceCount) {
   warnings.forEach((message) => {
     console.warn(`WARN  ${message}`);
   });
@@ -413,7 +433,7 @@ function printReport(entryCount, lessonCount) {
     return;
   }
 
-  console.log(`Validation passed for ${entryCount} entries and ${lessonCount} space files.`);
+  console.log(`Validation passed for ${entryCount} entries and ${spaceCount} space files.`);
   if (warnings.length > 0) {
     console.log(`Completed with ${warnings.length} warning(s).`);
   }
@@ -421,12 +441,13 @@ function printReport(entryCount, lessonCount) {
 
 async function main() {
   const entryIds = await loadEntries();
-  const lessonDefs = await loadLessonIndex();
-  await validateLessons(entryIds, lessonDefs);
-  printReport(entryIds.size, lessonDefs.length);
+  const spaceDefs = await loadSpaceIndex();
+  await validateSpaces(entryIds, spaceDefs);
+  printReport(entryIds.size, spaceDefs.length);
 }
 
 main().catch((runtimeError) => {
   console.error(`ERROR Unexpected validator failure: ${runtimeError.message}`);
   process.exitCode = 1;
 });
+
