@@ -24,6 +24,146 @@
 {"id":"a1-0125","pos":"pronoun","ar":{"vocalized":"نِحْنَا","plain":"نحنا"},"he":["אנחנו"],"translit":{"he":"נִחְנַא"},"tags":["space:vocab","topic:pronouns"]}
 {"id":"a1-0126","pos":"pronoun","ar":{"vocalized":"إِنْتُو","plain":"إنتو"},"he":["אתם"],"translit":{"he":"אִנְתוּ"},"tags":["space:vocab","topic:pronouns"]}
 {"id":"a1-0127","pos":"pronoun","ar":{"vocalized":"هُمِّ","plain":"هم"},"he":["הם"],"translit":{"he":"הֻמֵّ"},"tags":["space:vocab","topic:pronouns"]}
+{"id":"a1-0128","pos":"noun","ar":{"vocalized":"طَالِب","plain":"طالب"},"he":["סטודנט","תלמיד"],"translit":{"he":"טַאלֵבּ"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0129","pos":"noun","ar":{"vocalized":"طَالِبَة","plain":"طالبة"},"he":["סטודנטית","תלמידה"],"translit":{"he":"טַאלְבֵּה"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0130","pos":"verb","ar":{"vocalized":"بَتْعَلَّم","plain":"بتعلم"},"he":["אני לומד"],"translit":{"he":"בַּתְעַלַّם"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0131","pos":"noun","ar":{"vocalized":"هَنْدَسَة مَاكِينَات","plain":"هندسة ماكينات"},"he":["הנדסת מכונות"],"translit":{"he":"הַנְדַסַת מַאכִּינַאת"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0132","pos":"noun","ar":{"vocalized":"حَوَاسِيب","plain":"حواسيب"},"he":["מחשבים"],"translit":{"he":"חַוַּאסִיבּ"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0133","pos":"noun","ar":{"vocalized":"عُلُوم الْحَاسُوب","plain":"علوم الحاسوب"},"he":["מדעי המחשב"],"translit":{"he":"עֻלוּם (א)לְ-חַאסוּבּ"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0134","pos":"noun","ar":{"vocalized":"فِيزْيَا","plain":"فيزيا"},"he":["פיזיקה"],"translit":{"he":"פִיזְיַא"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0135","pos":"noun","ar":{"vocalized":"رِيَاضِيَّات","plain":"رياضيات"},"he":["מתמטיקה"],"translit":{"he":"רִיַאצִ׳יַّאת"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0136","pos":"noun","ar":{"vocalized":"دَرْس","plain":"درس"},"he":["שיעור"],"translit":{"he":"דַרְס"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0137","pos":"noun","ar":{"vocalized":"دِرَاسَة","plain":"دراسة"},"he":["לימודים"],"translit":{"he":"דִרַאסֵה"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0138","pos":"noun","ar":{"vocalized":"طَبِيب","plain":"طبيب"},"he":["רופא"],"translit":{"he":"טַבִּיבּ"},"tags":["space:vocab","topic:professions"]}
+{"id":"a1-0139","pos":"noun","ar":{"vocalized":"الْمَدْرَسَة الثَّانَوِيَّة","plain":"المدرسة الثانوية"},"he":["בית ספר תיכון"],"translit":{"he":"(א)לְ-מַדְרַסֵה (אל)-תַّ׳אנַוִּיֵّה"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0140","pos":"noun","ar":{"vocalized":"الْمَدْرَسَة الْإِعْدَادِيَّة","plain":"المدرسة الإعدادية"},"he":["חטיבת ביניים"],"translit":{"he":"(א)לְ-מַדְרַסֵה (אל)-אִעְדַאדִיֵّה"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0141","pos":"noun","ar":{"vocalized":"الْمَدْرَسَة الْاِبْتِدَائِيَّة","plain":"المدرسة الابتدائية"},"he":["בית ספר יסודי"],"translit":{"he":"(א)לְ-מַדְרַסֵה (אל)-אִבְּתִדַאאִיֵّה"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0142","pos":"adjective","ar":{"vocalized":"صَعْب","plain":"صعب"},"he":["קשה"],"translit":{"he":"צַעְבּ"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0143","pos":"adjective","ar":{"vocalized":"هَيِّن / هْوَيِّن","plain":"هين / هوين"},"he":["קל"],"translit":{"he":"הְוַּיֵّן"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0144","pos":"noun","ar":{"vocalized":"لَقَب أَوَّل","plain":"لقب أول"},"he":["תואר ראשון"],"translit":{"he":"לַקַבּ אַוַּّל"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0145","pos":"noun","ar":{"vocalized":"لَقَب ثَانِي","plain":"لقب ثاني"},"he":["תואר שני"],"translit":{"he":"לַקַבּ תַ׳אנִי"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0146","pos":"noun","ar":{"vocalized":"وَقْت","plain":"وقت"},"he":["זמן"],"translit":{"he":"וַּקְת"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0147","pos":"adjective","ar":{"vocalized":"الْجَاي","plain":"الجاي"},"he":["הבא"],"translit":{"he":"(א)לְ-גַ׳אי"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0148","pos":"adjective","ar":{"vocalized":"الْمَاضِي","plain":"الماضي"},"he":["העבר","שעבר"],"translit":{"he":"(א)לְ-מַאצִ׳י"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0149","pos":"preposition","ar":{"vocalized":"قَبْل","plain":"قبل"},"he":["לפני"],"translit":{"he":"קַבֵּל"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0150","pos":"preposition","ar":{"vocalized":"بَعْد","plain":"بعد"},"he":["אחרי"],"translit":{"he":"בַּעֵד"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0151","pos":"adverb","ar":{"vocalized":"مْبَارِح / إِمْبَارِح","plain":"مبارح / إمبارح"},"he":["אתמול"],"translit":{"he":"אִמְבַּארֵח"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0152","pos":"adverb","ar":{"vocalized":"بُكْرَا / بُكْرَة","plain":"بكرا / بكرة"},"he":["מחר"],"translit":{"he":"בֻּכְּרַא"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0153","pos":"noun","ar":{"vocalized":"أُسْبُوع","plain":"أسبوع"},"he":["שבוע"],"translit":{"he":"אֻסְבּוּע"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0154","pos":"noun","ar":{"vocalized":"نَهَار","plain":"نهار"},"he":["יום"],"translit":{"he":"נְהַאר"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0155","pos":"adverb","ar":{"vocalized":"بَعْدِين","plain":"بعدين"},"he":["אחר כך"],"translit":{"he":"בַּעְדֵין"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0156","pos":"noun","ar":{"vocalized":"سَاعَة","plain":"ساعة"},"he":["שעה"],"translit":{"he":"סַאעֵה"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0157","pos":"noun","ar":{"vocalized":"لَحْظَة","plain":"لحظة"},"he":["רגע"],"translit":{"he":"לַחְטֵ׳ה"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0158","pos":"adverb","ar":{"vocalized":"إِسَّا / هَلَّأ","plain":"إسا / هلأ"},"he":["עכשיו"],"translit":{"he":"אִסַّא"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0159","pos":"adverb","ar":{"vocalized":"أَوَّل إِمْبَارِح","plain":"أول إمبارح"},"he":["שלשום"],"translit":{"he":"אַוַּّל אִמְבַּארֵח"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0160","pos":"noun","ar":{"vocalized":"مَحَلّ","plain":"محل"},"he":["מקום","חנות"],"translit":{"he":"מַחַלّ"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0161","pos":"noun","ar":{"vocalized":"شَارِع","plain":"شارع"},"he":["רחוב"],"translit":{"he":"שַׁארֵע"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0162","pos":"noun","ar":{"vocalized":"عُنْوَان","plain":"عنوان"},"he":["כתובת"],"translit":{"he":"עֻנְוַּאן"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0163","pos":"noun","ar":{"vocalized":"عَمَل","plain":"عمل"},"he":["עבודה"],"translit":{"he":"עַמַל"},"tags":["space:vocab","topic:work"]}
+{"id":"a1-0164","pos":"noun","ar":{"vocalized":"مَعَاش","plain":"معاش"},"he":["משכורת"],"translit":{"he":"מַעַאשׁ"},"tags":["space:vocab","topic:work"]}
+{"id":"a1-0165","pos":"noun","ar":{"vocalized":"شَرِكَة","plain":"شركة"},"he":["חברה"],"translit":{"he":"שַׁרִכֵּה"},"tags":["space:vocab","topic:work"]}
+{"id":"a1-0166","pos":"noun","ar":{"vocalized":"سُوق","plain":"سوق"},"he":["שוק"],"translit":{"he":"סוּק"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0167","pos":"adjective","ar":{"vocalized":"مُسَكَّر","plain":"مسكر"},"he":["סגור"],"translit":{"he":"מְסַכַּّר"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0168","pos":"noun","ar":{"vocalized":"مُسَاعَدَة","plain":"مساعدة"},"he":["עזרה"],"translit":{"he":"מֻסַאעַדֵה"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0169","pos":"noun","ar":{"vocalized":"صَفّ","plain":"صف"},"he":["כיתה","שורה"],"translit":{"he":"צַףّ"},"tags":["space:vocab","topic:education"]}
+{"id":"a1-0170","pos":"noun","ar":{"vocalized":"دُكَّان","plain":"دكان"},"he":["חנות"],"translit":{"he":"דֻכַּّאן"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0171","pos":"noun","ar":{"vocalized":"الْخِدْمَة الْعَسْكَرِيَّة","plain":"الخدمة العسكرية"},"he":["השירות הצבאי"],"translit":{"he":"(א)לְ-חִ׳דְמֵה (אל)-עַסְכַּרִיֵّה"},"tags":["space:vocab","topic:society"]}
+{"id":"a1-0172","pos":"adverb","ar":{"vocalized":"بَرَّا","plain":"برا"},"he":["בחוץ"],"translit":{"he":"בַּרַّא"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0173","pos":"adjective","ar":{"vocalized":"مَوْجُود","plain":"موجود"},"he":["נמצא"],"translit":{"he":"מַוְּג׳וּד"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0174","pos":"noun","ar":{"vocalized":"مَصَارِي","plain":"مصاري"},"he":["כסף"],"translit":{"he":"מַצַארִי"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0175","pos":"noun","ar":{"vocalized":"مَطْعَم","plain":"مطعم"},"he":["מסעדה"],"translit":{"he":"מַטְעַם"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0176","pos":"noun","ar":{"vocalized":"قَلَم","plain":"قلم"},"he":["עט","עיפרון"],"translit":{"he":"קַלַם"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0177","pos":"noun","ar":{"vocalized":"وَرَقَة","plain":"ورقة"},"he":["דף"],"translit":{"he":"וַּרַקֵה"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0178","pos":"noun","ar":{"vocalized":"كِتَاب","plain":"كتاب"},"he":["ספר"],"translit":{"he":"כְּתַאבּ"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0179","pos":"noun","ar":{"vocalized":"كُتُب","plain":"كتب"},"he":["ספרים"],"translit":{"he":"כֻּתֻבּ"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0180","pos":"noun","ar":{"vocalized":"كُرَّاسَة","plain":"كراسة"},"he":["חוברת"],"translit":{"he":"כֻּרַّאסֵה"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0181","pos":"noun","ar":{"vocalized":"كُرَّاسَات","plain":"كراسات"},"he":["חוברות"],"translit":{"he":"כֻּרַّאסַאת"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0182","pos":"noun","ar":{"vocalized":"دَفْتَر","plain":"دفتر"},"he":["מחברת"],"translit":{"he":"דַפְתַר"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0183","pos":"noun","ar":{"vocalized":"دَفَاتِر","plain":"دفاتر"},"he":["מחברות"],"translit":{"he":"דַפַאתֵר"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0184","pos":"noun","ar":{"vocalized":"شَنْتَة / شَنْطَة","plain":"شنتة / شنطة"},"he":["תיק"],"translit":{"he":"שַׁנְטֵה"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0185","pos":"noun","ar":{"vocalized":"جُزْدَان","plain":"جزدان"},"he":["ארנק"],"translit":{"he":"גֻ׳זְדַאן"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0186","pos":"noun","ar":{"vocalized":"مِفْتَاح","plain":"مفتاح"},"he":["מפתח"],"translit":{"he":"מִפְתַאח"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0187","pos":"noun","ar":{"vocalized":"كُرْسِي","plain":"كرسي"},"he":["כיסא"],"translit":{"he":"כֻּרְסִי"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0188","pos":"noun","ar":{"vocalized":"كَرَاسِي","plain":"كراسي"},"he":["כיסאות"],"translit":{"he":"כַּרַאסִי"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0189","pos":"noun","ar":{"vocalized":"شُبَّاك","plain":"شباك"},"he":["חלון"],"translit":{"he":"שֻׁבַּّאכּ"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0190","pos":"noun","ar":{"vocalized":"جَرِيدَة","plain":"جريدة"},"he":["עיתון"],"translit":{"he":"גַ׳רִידֵה"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0191","pos":"noun","ar":{"vocalized":"طَاوْلَة","plain":"طاولة"},"he":["שולחן"],"translit":{"he":"טַאוְּלֵה"},"tags":["space:vocab","topic:objects"]}
+{"id":"a1-0192","pos":"noun","ar":{"vocalized":"عِمَارَة","plain":"عمارة"},"he":["בניין"],"translit":{"he":"עִמַארֵה"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0193","pos":"noun","ar":{"vocalized":"عُطْلَة","plain":"عطلة"},"he":["חופשה"],"translit":{"he":"עֻטְלֵה"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0194","pos":"noun","ar":{"vocalized":"كَلَام","plain":"كلام"},"he":["מילים"],"translit":{"he":"כַּלַאם"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0195","pos":"noun","ar":{"vocalized":"هَمّ","plain":"هم"},"he":["דאגה"],"translit":{"he":"הַםّ"},"tags":["space:vocab","topic:feelings"]}
+{"id":"a1-0196","pos":"noun","ar":{"vocalized":"هَوِيَّة","plain":"هوية"},"he":["תעודת זהות"],"translit":{"he":"הַוִּיֵّה"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0197","pos":"noun","ar":{"vocalized":"سُؤَال","plain":"سؤال"},"he":["שאלה"],"translit":{"he":"סֻאאל"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0198","pos":"noun","ar":{"vocalized":"جَوَاب","plain":"جواب"},"he":["תשובה"],"translit":{"he":"גַ׳וַּאבּ"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0199","pos":"noun","ar":{"vocalized":"أَسْئِلَة","plain":"أسئلة"},"he":["שאלות"],"translit":{"he":"אַסְאִלֵה"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0200","pos":"noun","ar":{"vocalized":"أَجْوِبَة","plain":"أجوبة"},"he":["תשובות"],"translit":{"he":"אַגְ׳וִּבֵּה"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0201","pos":"noun","ar":{"vocalized":"خُضْرَة","plain":"خضرة"},"he":["ירקות"],"translit":{"he":"חֻצְ׳רֵה"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0202","pos":"noun","ar":{"vocalized":"حُمُّص","plain":"حمص"},"he":["חומוס"],"translit":{"he":"חֻמֻّצ"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0203","pos":"noun","ar":{"vocalized":"إِشِي","plain":"إشي"},"he":["משהו"],"translit":{"he":"אִישִׁי"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0204","pos":"adjective","ar":{"vocalized":"ثَانِي","plain":"ثاني"},"he":["אחר","נוסף"],"translit":{"he":"תַ׳אנִי"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0205","pos":"phrase","ar":{"vocalized":"مَعْلِيش","plain":"معليش"},"he":["לא נורא","לא משנה"],"translit":{"he":"מַעַלֵישׁ"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0206","pos":"adverb","ar":{"vocalized":"بَلَاش","plain":"بلاش"},"he":["כלום"],"translit":{"he":"בַּלַאשׁ"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0207","pos":"verb","ar":{"vocalized":"بِكَفِّي","plain":"بكفي"},"he":["מספיק"],"translit":{"he":"בִּיכַּפִّי"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0208","pos":"adjective","ar":{"vocalized":"مُتَأَسِّف","plain":"متأسف"},"he":["מצטער"],"translit":{"he":"מִתְאַסֵّף"},"tags":["space:vocab","topic:feelings"]}
+{"id":"a1-0209","pos":"phrase","ar":{"vocalized":"عَنْ جَدّ","plain":"عن جد"},"he":["באמת","ברצינות"],"translit":{"he":"עַן גַ׳דّ"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0210","pos":"phrase","ar":{"vocalized":"بِالْمَرَّة","plain":"بالمرة"},"he":["בכלל","לגמרי"],"translit":{"he":"בִּ(א)לְ-מַרַّה"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0211","pos":"preposition","ar":{"vocalized":"مِنْشَان / عَشَان","plain":"منشان / عشان"},"he":["בשביל","בגלל"],"translit":{"he":"מִנְשַׁאן / עַשַׁאן"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0212","pos":"particle","ar":{"vocalized":"بَسّ","plain":"بس"},"he":["רק","אבל"],"translit":{"he":"בַּסّ"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0213","pos":"adverb","ar":{"vocalized":"طَبْعاً","plain":"طبعا"},"he":["כמובן"],"translit":{"he":"טַבְּעַן"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0214","pos":"phrase","ar":{"vocalized":"هِيك يَعْنِي","plain":"هيك يعني"},"he":["ככה יעני"],"translit":{"he":"הֵיכּ יַעְנִי"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0215","pos":"noun","ar":{"vocalized":"نِمْرَة / رَقَم","plain":"نمرة / رقم"},"he":["מספר"],"translit":{"he":"נֻמְרֵה / רַקַם"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0216","pos":"particle","ar":{"vocalized":"تَبَع","plain":"تبع"},"he":["של (שייכות)"],"translit":{"he":"תַבַּע"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0217","pos":"particle","ar":{"vocalized":"فِيه","plain":"فيه"},"he":["יש","יש בו"],"translit":{"he":"פִיה"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0218","pos":"adverb","ar":{"vocalized":"مَثَلاً","plain":"مثلا"},"he":["למשל"],"translit":{"he":"מַתַ׳לַן"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0219","pos":"adjective","ar":{"vocalized":"أَحْسَن","plain":"أحسن"},"he":["יותר טוב"],"translit":{"he":"אַחְסַן"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0220","pos":"adjective","ar":{"vocalized":"مُهِمّ","plain":"مهم"},"he":["חשוב"],"translit":{"he":"מֻהִםّ"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0221","pos":"phrase","ar":{"vocalized":"أَهَمّ شِي","plain":"أهم شي"},"he":["הדבר הכי חשוב"],"translit":{"he":"אַהַםّ שִׁי"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0222","pos":"phrase","ar":{"vocalized":"مِش مُمْكِن","plain":"مش ممكن"},"he":["בלתי אפשרי"],"translit":{"he":"מִשׁ מֻמְכֵּן"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0223","pos":"particle","ar":{"vocalized":"إِذَا","plain":"إذا"},"he":["אם"],"translit":{"he":"אִדַ׳א"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0224","pos":"particle","ar":{"vocalized":"حَتَّى","plain":"حتى"},"he":["אפילו","כדי"],"translit":{"he":"חַתַّא"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0225","pos":"question","ar":{"vocalized":"قَدِّيش","plain":"قديش"},"he":["כמה (בלתי ספיר)"],"translit":{"he":"קַדֵّישׁ"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0226","pos":"noun","ar":{"vocalized":"حَقّ","plain":"حق"},"he":["צדק","מחיר","זכות"],"translit":{"he":"חַקّ"},"tags":["space:vocab","topic:basics"]}
+{"id":"a1-0227","pos":"adverb","ar":{"vocalized":"بِالضَّبْط","plain":"بالضبط"},"he":["בדיוק"],"translit":{"he":"בִּ(אל)-צַّבְּט / בִּ(אל)-זַّבְּט"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0228","pos":"particle","ar":{"vocalized":"إِنُّو","plain":"إنو"},"he":["ש (אמרתי ש...)"],"translit":{"he":"אִנّוֹ"},"tags":["space:vocab","topic:grammar"]}
+{"id":"a1-0229","pos":"phrase","ar":{"vocalized":"إِلِّي فَات","plain":"إلي فات"},"he":["אשר חלף","שעבר"],"translit":{"he":"אִלִّי פַאת"},"tags":["space:vocab","topic:time"]}
+{"id":"a1-0230","pos":"preposition","ar":{"vocalized":"مِثْل","plain":"مثل"},"he":["כמו"],"translit":{"he":"מִתֵ׳ל"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0231","pos":"verb","ar":{"vocalized":"خَلِّي","plain":"خلي"},"he":["עזוב","let"],"translit":{"he":"חַ׳לִّי"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0232","pos":"phrase","ar":{"vocalized":"خَلِّينَا نْبَلِّش","plain":"خلينا نبلش"},"he":["בואו נתחיל"],"translit":{"he":"חַ׳לִّינַא נְבַּלֵّשׁ"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0233","pos":"preposition","ar":{"vocalized":"جَمْب / جَنْب","plain":"جمب / جنب"},"he":["ליד"],"translit":{"he":"גַ׳מְבּ"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0234","pos":"phrase","ar":{"vocalized":"يَا رَيْت","plain":"يا ريت"},"he":["הלוואי"],"translit":{"he":"יַא רֵית"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0235","pos":"noun","ar":{"vocalized":"أَزْمَة طُرُق","plain":"أزمة طرق"},"he":["פקקי תנועה"],"translit":{"he":"אַזְמֵת טֻרֻק"},"tags":["space:vocab","topic:places"]}
+{"id":"a1-0236","pos":"phrase","ar":{"vocalized":"كِيف حَالِك","plain":"كيف حالك"},"he":["מה המצב?"],"translit":{"he":"כִּיף חַאלֵכּ"},"tags":["space:vocab","topic:phrases"]}
+{"id":"a1-0237","pos":"noun","ar":{"vocalized":"قَهْوَة","plain":"قهوة"},"he":["קפה"],"translit":{"he":"קַהְוֵּה"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0238","pos":"noun","ar":{"vocalized":"دَجَاج / جَاج","plain":"دجاج / جاج"},"he":["עוף"],"translit":{"he":"גַ׳אג׳"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0239","pos":"noun","ar":{"vocalized":"شُورَبَة","plain":"شوربة"},"he":["מרק"],"translit":{"he":"שׁוֹרַבֵּה"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0240","pos":"noun","ar":{"vocalized":"رُزّ","plain":"رز"},"he":["אורז"],"translit":{"he":"רֻזّ"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0241","pos":"noun","ar":{"vocalized":"سَمَك","plain":"سمك"},"he":["דג"],"translit":{"he":"סַמַכּ"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0242","pos":"noun","ar":{"vocalized":"صَحْن","plain":"صحن"},"he":["צלחת"],"translit":{"he":"צַחֵן"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0243","pos":"noun","ar":{"vocalized":"خُبْز","plain":"خبز"},"he":["לחם"],"translit":{"he":"חֻ׳בְּז"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0244","pos":"noun","ar":{"vocalized":"مَكْبُوس","plain":"مكبوس"},"he":["חמוצים"],"translit":{"he":"מַכְּבּוּס"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0245","pos":"noun","ar":{"vocalized":"بَقْدُونِس","plain":"بقدونس"},"he":["פטרוזיליה"],"translit":{"he":"בַּקְדוּנֵס"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0246","pos":"noun","ar":{"vocalized":"مَلْفُوف","plain":"ملفوف"},"he":["כרוב"],"translit":{"he":"מַלְפוּף"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0247","pos":"noun","ar":{"vocalized":"حْبُوب","plain":"حبوب"},"he":["גרגרים","קטניות"],"translit":{"he":"חְבּוּבּ"},"tags":["space:vocab","topic:food"]}
+{"id":"a1-0248","pos":"adjective","ar":{"vocalized":"مَبْسُوط","plain":"مبسوط"},"he":["מרוצה"],"translit":{"he":"מַבְּסוּט"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0249","pos":"adjective","ar":{"vocalized":"مَرِيض","plain":"مريض"},"he":["חולה"],"translit":{"he":"מְרִיצ׳"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0250","pos":"adjective","ar":{"vocalized":"غَالِي","plain":"غالي"},"he":["יקר"],"translit":{"he":"עַ׳אלִי"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0251","pos":"adjective","ar":{"vocalized":"رَخِيص","plain":"رخيص"},"he":["זול"],"translit":{"he":"רְחִ׳יצ"},"tags":["space:vocab","topic:adjectives"]}
+{"id":"a1-0252","pos":"question","ar":{"vocalized":"لِيش","plain":"ليش"},"he":["למה?"],"translit":{"he":"לֵישׁ"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0253","pos":"question","ar":{"vocalized":"كِيف","plain":"كيف"},"he":["איך?"],"translit":{"he":"כִּיף"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0254","pos":"question","ar":{"vocalized":"وِينْتَا","plain":"وينتا"},"he":["מתי?"],"translit":{"he":"וֵּינְתַא"},"tags":["space:vocab","topic:questions"]}
+{"id":"a1-0255","pos":"noun","ar":{"vocalized":"تِيتَا","plain":"تيتا"},"he":["סבתא (כינוי חיבה)"],"translit":{"he":"תֵיתַא"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0256","pos":"noun","ar":{"vocalized":"عَمِّي","plain":"عمي"},"he":["דודי (מצד אבא)"],"translit":{"he":"עַמִّי"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0257","pos":"noun","ar":{"vocalized":"خَالِي","plain":"خالي"},"he":["דודי (מצד אמא)"],"translit":{"he":"חַ׳אלִי"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0258","pos":"noun","ar":{"vocalized":"سِتّ","plain":"ست"},"he":["סבתא"],"translit":{"he":"סִתّ"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0259","pos":"noun","ar":{"vocalized":"سِيد","plain":"سيد"},"he":["סבא"],"translit":{"he":"סִיד"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0260","pos":"adjective","ar":{"vocalized":"مِتْجَوِّز","plain":"متجوز"},"he":["נשוי"],"translit":{"he":"מִתְגַ׳וֵּّז"},"tags":["space:vocab","topic:family"]}
+{"id":"a1-0261","pos":"noun","ar":{"vocalized":"سَيَّارَة","plain":"سيارة"},"he":["מכונית"],"translit":{"he":"סַיַّארֵה"},"tags":["space:vocab","topic:transport"]}
+{"id":"a1-0262","pos":"noun","ar":{"vocalized":"بَاص","plain":"باص"},"he":["אוטובוס"],"translit":{"he":"בַּאצ"},"tags":["space:vocab","topic:transport"]}
+{"id":"a1-0263","pos":"preposition","ar":{"vocalized":"فُوق","plain":"فوق"},"he":["למעלה"],"translit":{"he":"פוֹק"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0264","pos":"preposition","ar":{"vocalized":"تَحْت","plain":"تحت"},"he":["מתחת"],"translit":{"he":"תַחֵת"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0265","pos":"preposition","ar":{"vocalized":"مَعَ","plain":"مع"},"he":["עם"],"translit":{"he":"מַעַ"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0266","pos":"preposition","ar":{"vocalized":"بِدُون","plain":"بدون"},"he":["בלי"],"translit":{"he":"בִּדוּן"},"tags":["space:vocab","topic:prepositions"]}
+{"id":"a1-0267","pos":"demonstrative","ar":{"vocalized":"هَدُول","plain":"هدول"},"he":["אלה"],"translit":{"he":"הַדוֹל"},"tags":["space:vocab","topic:basics"]}
 {"id":"greet-001","pos":"phrase","ar":{"vocalized":"מַרְחַבַּא ← מַרְחַבְּתֵין","plain":"מַרְחַבַּא ← מַרְחַבְּתֵין"},"he":["שלום ← שלום גם לך"],"translit":{"he":"מַרְחַבַּא ← מַרְחַבְּתֵין"},"tags":["space:greetings","topic:greetings"]}
 {"id":"greet-002","pos":"phrase","ar":{"vocalized":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם","plain":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם"},"he":["שלום עליכם ← ועליכם השלום"],"translit":{"he":"אֶ(ל)-סַّלַאם עַלֵיכֹּם ← וַּעַלֵיכֹּם (אל)-סַّלַאם"},"tags":["space:greetings","topic:greetings"]}
 {"id":"greet-003","pos":"phrase","ar":{"vocalized":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ","plain":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ"},"he":["תודה ← אין על מה"],"translit":{"he":"שֻׁכְּרַן ← עַפְוַּן / לַא שֻׁכְּר עַלַא וַּאגִ׳בּ"},"tags":["space:greetings","topic:greetings"]}
